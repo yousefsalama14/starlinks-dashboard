@@ -46,9 +46,10 @@ ng test
 
 ## UI integrations
 
-- **Iconsax:** `iconsax` is registered once at bootstrap. In a component that renders an
-  `<iconsax-icon>` custom element, add `CUSTOM_ELEMENTS_SCHEMA` to that component's `schemas`.
-  Free icons need no account or API key.
+- **Iconsax:** Free Iconsax assets are generated from the installed package into
+  `public/iconsax/` after installation and before starting, building, or testing. Do not edit those
+  generated assets directly. In a component that renders an `<iconsax-icon>` custom element, add
+  `CUSTOM_ELEMENTS_SCHEMA` to that component's `schemas`. Free icons need no account or API key.
 - **Formly + PrimeNG:** The app config registers the Formly core and PrimeNG field types. Import
   `FormlyModule` and `ReactiveFormsModule` in each standalone feature component that defines a
   dynamic form.

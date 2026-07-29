@@ -2,6 +2,7 @@
 
 # Compiled output
 /dist
+/public/iconsax
 /tmp
 /out-tsc
 /bazel-out

@@ -32,7 +32,7 @@
           [routerLinkActiveOptions]="{ exact: item.route === '/app/dashboard' }"
           class="flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-semibold text-starlinks-textMuted transition hover:bg-starlinks-surfaceMuted hover:text-starlinks-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-starlinks-accent"
         >
-          <i [class]="item.icon + ' text-sm'" aria-hidden="true"></i
+          <iconsax-icon [attr.name]="item.icon" type="linear" size="18" aria-hidden="true"></iconsax-icon
           ><span>{{ item.labelKey | translate }}</span>
         </a>
       }
@@ -111,7 +111,12 @@
                 [routerLinkActiveOptions]="{ exact: item.route === '/app/dashboard' }"
                 class="flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-semibold text-starlinks-textMuted transition hover:bg-starlinks-surfaceMuted hover:text-starlinks-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-starlinks-accent"
                 (click)="closeMobileMenu()"
-                ><i [class]="item.icon + ' text-sm'" aria-hidden="true"></i
+                ><iconsax-icon
+                  [attr.name]="item.icon"
+                  type="linear"
+                  size="18"
+                  aria-hidden="true"
+                ></iconsax-icon
                 ><span>{{ item.labelKey | translate }}</span></a
               >
             }

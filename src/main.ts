@@ -1,6 +1,18 @@
 import { bootstrapApplication } from '@angular/platform-browser';
-import 'iconsax';
 import { appConfig } from './app/app.config';
 import { App } from './app/app';
 
-bootstrapApplication(App, appConfig).catch((err) => console.error(err));
+function loadIconsax(): Promise<void> {
+  return new Promise((resolve, reject) => {
+    const script = document.createElement('script');
+    script.type = 'module';
+    script.src = '/iconsax/index.js';
+    script.onload = () => resolve();
+    script.onerror = () => reject(new Error('Unable to load the Iconsax runtime.'));
+    document.head.append(script);
+  });
+}
+
+loadIconsax()
+  .then(() => bootstrapApplication(App, appConfig))
+  .catch((err) => console.error(err));

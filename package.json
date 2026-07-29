@@ -3,9 +3,14 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
+    "iconsax:sync": "node scripts/sync-iconsax-assets.mjs",
+    "postinstall": "npm run iconsax:sync",
+    "prestart": "npm run iconsax:sync",
     "start": "ng serve",
+    "prebuild": "npm run iconsax:sync",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
+    "pretest": "npm run iconsax:sync",
     "test": "ng test",
     "format": "prettier --write .",
     "format:check": "prettier --check ."
