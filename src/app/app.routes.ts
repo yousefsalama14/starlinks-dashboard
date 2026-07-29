@@ -8,7 +8,7 @@ export const routes: Routes = [
     component: AppShellComponent,
     children: [
       {
-        path: 'dashboard',
+        path: 'home',
         loadComponent: () =>
           import('./features/dashboard/pages/dashboard-layout/dashboard-layout.component').then(
             (component) => component.DashboardLayoutComponent,
@@ -30,9 +30,62 @@ export const routes: Routes = [
           },
         ],
       },
-      { path: '', pathMatch: 'full', redirectTo: 'dashboard' },
+      {
+        path: 'dashboard/activity',
+        pathMatch: 'full',
+        redirectTo: 'home/activity',
+      },
+      {
+        path: 'dashboard',
+        loadComponent: () =>
+          import('./features/portal/pages/placeholder/placeholder.component').then(
+            (component) => component.PlaceholderComponent,
+          ),
+        data: { titleKey: 'STARLINKS.NAV.DASHBOARD' },
+      },
+      {
+        path: 'shipments',
+        loadComponent: () =>
+          import('./features/portal/pages/placeholder/placeholder.component').then(
+            (component) => component.PlaceholderComponent,
+          ),
+        data: { titleKey: 'STARLINKS.NAV.SHIPMENTS' },
+      },
+      {
+        path: 'fulfillment',
+        loadComponent: () =>
+          import('./features/portal/pages/placeholder/placeholder.component').then(
+            (component) => component.PlaceholderComponent,
+          ),
+        data: { titleKey: 'STARLINKS.NAV.FULFILLMENT' },
+      },
+      {
+        path: 'surveys',
+        loadComponent: () =>
+          import('./features/portal/pages/placeholder/placeholder.component').then(
+            (component) => component.PlaceholderComponent,
+          ),
+        data: { titleKey: 'STARLINKS.NAV.SURVEYS' },
+      },
+      {
+        path: 'invoices',
+        loadComponent: () =>
+          import('./features/portal/pages/placeholder/placeholder.component').then(
+            (component) => component.PlaceholderComponent,
+          ),
+        data: { titleKey: 'STARLINKS.NAV.INVOICES' },
+      },
+      {
+        path: 'support',
+        loadComponent: () =>
+          import('./features/portal/pages/placeholder/placeholder.component').then(
+            (component) => component.PlaceholderComponent,
+          ),
+        data: { titleKey: 'STARLINKS.NAV.SUPPORT' },
+      },
+      { path: '', pathMatch: 'full', redirectTo: 'home' },
     ],
   },
-  { path: '', pathMatch: 'full', redirectTo: 'app/dashboard' },
-  { path: '**', redirectTo: 'app/dashboard' },
+  { path: '', pathMatch: 'full', redirectTo: 'app/home' },
+  { path: '**', redirectTo: 'app/home' },
 ];

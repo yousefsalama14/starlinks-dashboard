@@ -12,7 +12,14 @@
     },
     "NAV": {
       "DASHBOARD": "لوحة التحكم",
-      "ACTIVITY": "النشاط"
+      "ACTIVITY": "النشاط",
+      "HOME": "الرئيسية",
+      "SHIPMENTS": "الشحنات",
+      "FULFILLMENT": "التنفيذ",
+      "SURVEYS": "الاستبيانات",
+      "INVOICES": "الفواتير",
+      "SUPPORT": "الدعم",
+      "LOGOUT": "تسجيل الخروج"
     },
     "APP_SHELL": {
       "MAIN_NAVIGATION": "التنقل الرئيسي",
@@ -33,6 +40,9 @@
       "BREADCRUMB_LABEL": "مسار النشاط",
       "TITLE": "لا يوجد نشاط بعد",
       "DESCRIPTION": "ستظهر تحديثات مساحة عملك في ستارلينكس هنا عند توفرها."
+    },
+    "PLACEHOLDER": {
+      "DESCRIPTION": "هذه المساحة جاهزة لميزة ستارلينكس القادمة."
     }
   }
 }

@@ -1,0 +1,59 @@
+<ng-template #menuItems let-items let-nested="nested">
+  <ul class="side-menu__list" [class.side-menu__list--nested]="nested">
+    @for (item of items; track item.id) {
+      <li>
+        @if (item.route) {
+          <a
+            #routeActive="routerLinkActive"
+            [routerLink]="item.route"
+            routerLinkActive="side-menu__item--active"
+            [routerLinkActiveOptions]="{ exact: item.exact ?? false }"
+            class="side-menu__item"
+            [class.side-menu__item--danger-icon]="item.iconTone === 'danger'"
+            (click)="itemSelected.emit(item)"
+          >
+            <iconsax-icon
+              class="side-menu__icon"
+              [attr.name]="item.icon"
+              [attr.type]="routeActive.isActive ? 'bold' : 'linear'"
+              size="25"
+              aria-hidden="true"
+            ></iconsax-icon>
+            <span>{{ item.labelKey | translate }}</span>
+          </a>
+        } @else {
+          <button
+            type="button"
+            class="side-menu__item"
+            [class.side-menu__item--danger-icon]="item.iconTone === 'danger'"
+            (click)="itemSelected.emit(item)"
+          >
+            <iconsax-icon
+              class="side-menu__icon"
+              [attr.name]="item.icon"
+              type="linear"
+              size="25"
+              aria-hidden="true"
+            ></iconsax-icon>
+            <span>{{ item.labelKey | translate }}</span>
+          </button>
+        }
+
+        @if (item.hasNotification) {
+          <span class="side-menu__notification" aria-hidden="true"></span>
+        }
+
+        @if (item.children?.length) {
+          <ng-container
+            [ngTemplateOutlet]="menuItems"
+            [ngTemplateOutletContext]="{ $implicit: item.children, nested: true }"
+          />
+        }
+      </li>
+    }
+  </ul>
+</ng-template>
+
+<nav class="side-menu" [class.side-menu--expanded]="expanded()">
+  <ng-container [ngTemplateOutlet]="menuItems" [ngTemplateOutletContext]="{ $implicit: items() }" />
+</nav>

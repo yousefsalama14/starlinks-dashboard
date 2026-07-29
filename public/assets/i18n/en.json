@@ -11,8 +11,15 @@
       "ARABIC": "Arabic"
     },
     "NAV": {
+      "HOME": "Home",
       "DASHBOARD": "Dashboard",
-      "ACTIVITY": "Activity"
+      "ACTIVITY": "Activity",
+      "SHIPMENTS": "Shipments",
+      "FULFILLMENT": "Fulfillment",
+      "SURVEYS": "Surveys",
+      "INVOICES": "Invoices",
+      "SUPPORT": "Support",
+      "LOGOUT": "Logout"
     },
     "APP_SHELL": {
       "MAIN_NAVIGATION": "Main navigation",
@@ -33,6 +40,9 @@
       "BREADCRUMB_LABEL": "Activity breadcrumb",
       "TITLE": "No activity yet",
       "DESCRIPTION": "Updates from your Starlinks workspace will appear here when they are available."
+    },
+    "PLACEHOLDER": {
+      "DESCRIPTION": "This area is ready for the next Starlinks feature."
     }
   }
 }
