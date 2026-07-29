@@ -1,0 +1,38 @@
+{
+  "PACKMATCH": {
+    "BRAND": {
+      "NAME": "PackMatch",
+      "SHORT": "PM",
+      "TAGLINE": "Shared packaging, made practical"
+    },
+    "LANGUAGES": {
+      "LABEL": "Language",
+      "ENGLISH": "English",
+      "ARABIC": "Arabic"
+    },
+    "NAV": {
+      "DASHBOARD": "Dashboard",
+      "ACTIVITY": "Activity"
+    },
+    "APP_SHELL": {
+      "MAIN_NAVIGATION": "Main navigation",
+      "OPEN_MENU": "Open navigation menu",
+      "CLOSE_MENU": "Close navigation menu",
+      "DEMO_USER": "Demo Brand",
+      "DEMO_USER_INITIALS": "DB"
+    },
+    "DASHBOARD": {
+      "BREADCRUMB_LABEL": "Dashboard context",
+      "EYEBROW": "Your workspace",
+      "TITLE": "Welcome to PackMatch",
+      "DESCRIPTION": "Your refreshed packaging workspace is ready. New tools will appear here as they are introduced.",
+      "GUIDE_TITLE": "A focused start",
+      "GUIDE_DESCRIPTION": "Use this dashboard as your home base. We are keeping the workspace intentionally simple while the new PackMatch experience takes shape."
+    },
+    "ACTIVITY": {
+      "BREADCRUMB_LABEL": "Activity breadcrumb",
+      "TITLE": "No activity yet",
+      "DESCRIPTION": "Updates from your PackMatch workspace will appear here when they are available."
+    }
+  }
+}

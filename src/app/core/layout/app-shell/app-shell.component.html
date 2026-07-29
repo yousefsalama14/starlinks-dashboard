@@ -1,0 +1,43 @@
+<div class="min-h-screen bg-packmatch-bg text-packmatch-text lg:grid lg:grid-cols-[17rem_minmax(0,1fr)]">
+  <aside class="sticky top-0 hidden h-screen flex-col border-e border-packmatch-border bg-packmatch-surface p-4 lg:flex">
+    <a routerLink="/app/dashboard" class="flex items-center gap-3 rounded-2xl px-2 py-3 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-packmatch-accent">
+      <span class="flex size-10 shrink-0 items-center justify-center rounded-2xl bg-packmatch-ink text-sm font-bold text-white shadow-sm">{{ 'PACKMATCH.BRAND.SHORT' | translate }}</span>
+      <span><span class="block text-base font-bold text-packmatch-text">{{ 'PACKMATCH.BRAND.NAME' | translate }}</span><span class="block text-xs text-packmatch-textMuted">{{ 'PACKMATCH.BRAND.TAGLINE' | translate }}</span></span>
+    </a>
+    <nav class="mt-8 space-y-1" [attr.aria-label]="'PACKMATCH.APP_SHELL.MAIN_NAVIGATION' | translate">
+      @for (item of navItems; track item.route) {
+        <a [routerLink]="item.route" routerLinkActive="bg-packmatch-ink text-white shadow-sm" [routerLinkActiveOptions]="{ exact: item.route === '/app/dashboard' }" class="flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-semibold text-packmatch-textMuted transition hover:bg-packmatch-surfaceMuted hover:text-packmatch-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-packmatch-accent">
+          <i [class]="item.icon + ' text-sm'" aria-hidden="true"></i><span>{{ item.labelKey | translate }}</span>
+        </a>
+      }
+    </nav>
+    <div class="mt-auto space-y-4 border-t border-packmatch-border pt-4">
+      <app-language-switcher />
+      <div class="flex items-center gap-3 px-2"><span class="flex size-9 items-center justify-center rounded-full bg-packmatch-navySoft text-xs font-bold text-packmatch-ink" aria-hidden="true">{{ 'PACKMATCH.APP_SHELL.DEMO_USER_INITIALS' | translate }}</span><span class="text-sm font-semibold text-packmatch-text">{{ 'PACKMATCH.APP_SHELL.DEMO_USER' | translate }}</span></div>
+    </div>
+  </aside>
+
+  <div class="min-w-0">
+    <header class="sticky top-0 z-30 flex items-center justify-between border-b border-packmatch-border bg-packmatch-surface/95 px-4 py-3 backdrop-blur lg:hidden">
+      <button type="button" class="flex size-10 items-center justify-center rounded-xl text-packmatch-text transition hover:bg-packmatch-surfaceMuted focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-packmatch-accent" [attr.aria-label]="'PACKMATCH.APP_SHELL.OPEN_MENU' | translate" [attr.aria-expanded]="isMobileMenuOpen()" (click)="openMobileMenu()"><i class="pi pi-bars" aria-hidden="true"></i></button>
+      <a routerLink="/app/dashboard" class="flex items-center gap-2 font-bold text-packmatch-text"><span class="flex size-8 items-center justify-center rounded-xl bg-packmatch-ink text-xs text-white">{{ 'PACKMATCH.BRAND.SHORT' | translate }}</span>{{ 'PACKMATCH.BRAND.NAME' | translate }}</a>
+      <app-language-switcher />
+    </header>
+
+    @if (isMobileMenuOpen()) {
+      <div class="fixed inset-0 z-50 lg:hidden" (keydown.escape)="closeMobileMenu()">
+        <button type="button" class="absolute inset-0 cursor-default bg-packmatch-ink/45" [attr.aria-label]="'PACKMATCH.APP_SHELL.CLOSE_MENU' | translate" (click)="closeMobileMenu()"></button>
+        <aside class="relative flex h-full w-72 flex-col bg-packmatch-surface p-4 shadow-2xl" role="dialog" aria-modal="true" [attr.aria-label]="'PACKMATCH.APP_SHELL.MAIN_NAVIGATION' | translate">
+          <div class="flex items-center justify-between"><span class="font-display text-lg font-bold text-packmatch-text">{{ 'PACKMATCH.BRAND.NAME' | translate }}</span><button type="button" class="flex size-10 items-center justify-center rounded-xl text-packmatch-text hover:bg-packmatch-surfaceMuted focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-packmatch-accent" [attr.aria-label]="'PACKMATCH.APP_SHELL.CLOSE_MENU' | translate" (click)="closeMobileMenu()"><i class="pi pi-times" aria-hidden="true"></i></button></div>
+          <nav class="mt-8 space-y-1" [attr.aria-label]="'PACKMATCH.APP_SHELL.MAIN_NAVIGATION' | translate">
+            @for (item of navItems; track item.route) {
+              <a [routerLink]="item.route" routerLinkActive="bg-packmatch-ink text-white shadow-sm" [routerLinkActiveOptions]="{ exact: item.route === '/app/dashboard' }" class="flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-semibold text-packmatch-textMuted transition hover:bg-packmatch-surfaceMuted hover:text-packmatch-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-packmatch-accent" (click)="closeMobileMenu()"><i [class]="item.icon + ' text-sm'" aria-hidden="true"></i><span>{{ item.labelKey | translate }}</span></a>
+            }
+          </nav>
+          <div class="mt-auto border-t border-packmatch-border pt-4"><div class="flex items-center gap-3 px-2"><span class="flex size-9 items-center justify-center rounded-full bg-packmatch-navySoft text-xs font-bold text-packmatch-ink" aria-hidden="true">{{ 'PACKMATCH.APP_SHELL.DEMO_USER_INITIALS' | translate }}</span><span class="text-sm font-semibold text-packmatch-text">{{ 'PACKMATCH.APP_SHELL.DEMO_USER' | translate }}</span></div></div>
+        </aside>
+      </div>
+    }
+    <main class="mx-auto w-full max-w-6xl px-4 py-6 md:px-8 lg:px-10 lg:py-10"><router-outlet /></main>
+  </div>
+</div>

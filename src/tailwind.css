@@ -1,0 +1,33 @@
+@layer theme, base, primeng, components, utilities;
+
+@import 'primeicons/primeicons.css';
+@import 'tailwindcss';
+
+@plugin 'tailwindcss-primeui';
+
+@theme {
+  --color-packmatch-ink: #102033;
+  --color-packmatch-inkStrong: #07111f;
+  --color-packmatch-inkSoft: #eef3f8;
+  --color-packmatch-navy: #13263f;
+  --color-packmatch-navySoft: #e8eef6;
+  --color-packmatch-navyMuted: #64748b;
+  --color-packmatch-accent: #b5812a;
+  --color-packmatch-accentSoft: #fff7e6;
+  --color-packmatch-bg: #f8fafc;
+  --color-packmatch-surface: #ffffff;
+  --color-packmatch-surfaceMuted: #f1f5f9;
+  --color-packmatch-text: #111827;
+  --color-packmatch-textMuted: #64748b;
+  --color-packmatch-border: #e2e8f0;
+  --font-display: Montserrat, Roboto, ui-sans-serif, system-ui, sans-serif;
+}
+
+@layer base {
+  html { background: #f8fafc; color: #111827; color-scheme: light; font-family: Roboto, ui-sans-serif, system-ui, sans-serif; }
+  body { min-height: 100vh; margin: 0; background: #f8fafc; }
+  button, input, select, textarea { font: inherit; }
+  :focus-visible { outline: 2px solid #d6a756; outline-offset: 2px; }
+  [dir='rtl'] { font-family: Cairo, ui-sans-serif, system-ui, sans-serif; }
+  [dir='rtl'] .font-display { font-family: Tajawal, Cairo, ui-sans-serif, system-ui, sans-serif; }
+}
