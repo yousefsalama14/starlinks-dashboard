@@ -2,6 +2,8 @@ import { ApplicationConfig, provideBrowserGlobalErrorListeners } from '@angular/
 import { provideHttpClient } from '@angular/common/http';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideRouter } from '@angular/router';
+import { provideFormlyCore } from '@ngx-formly/core';
+import { withFormlyPrimeNG } from '@ngx-formly/primeng';
 import Aura from '@primeuix/themes/aura';
 import { provideTranslateService } from '@ngx-translate/core';
 import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -13,6 +15,7 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideAnimationsAsync(),
+    provideFormlyCore(withFormlyPrimeNG()),
     providePrimeNG({
       theme: {
         preset: Aura,
@@ -34,5 +37,5 @@ export const appConfig: ApplicationConfig = {
       lang: 'en',
     }),
     provideRouter(routes),
-  ]
+  ],
 };
