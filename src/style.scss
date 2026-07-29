@@ -1,1 +1,13 @@
-// Global SCSS manifest. Shared partials are added here only when needed.
+@use './assets/scss/variables';
+@use './assets/scss/formly';
+@use './assets/scss/buttons';
+@use './assets/scss/common';
+@use './assets/scss/tags';
+@use './assets/scss/toast';
+@use './assets/scss/dialog';
+@use './assets/scss/skeleton';
+@use './assets/scss/tables';
+@use './assets/scss/menu';
+@use './assets/scss/rtl';
+
+// Do not write any code here

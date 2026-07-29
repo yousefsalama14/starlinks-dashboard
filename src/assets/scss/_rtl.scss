@@ -1,0 +1,9 @@
+@layer base {
+  [dir='rtl'] {
+    font-family: var(--starlinks-font-body-rtl);
+  }
+
+  [dir='rtl'] .font-display {
+    font-family: var(--starlinks-font-display-rtl);
+  }
+}

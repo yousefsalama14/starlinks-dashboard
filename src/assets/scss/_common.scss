@@ -1,0 +1,26 @@
+@layer base {
+  html {
+    background: var(--starlinks-bg);
+    color: var(--starlinks-text);
+    color-scheme: light;
+    font-family: var(--starlinks-font-body);
+  }
+
+  body {
+    min-height: 100vh;
+    margin: 0;
+    background: var(--starlinks-bg);
+  }
+
+  button,
+  input,
+  select,
+  textarea {
+    font: inherit;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--starlinks-focus);
+    outline-offset: 2px;
+  }
+}

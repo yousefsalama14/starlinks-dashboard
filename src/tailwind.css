@@ -6,49 +6,19 @@
 @plugin 'tailwindcss-primeui';
 
 @theme {
-  --color-starlinks-ink: #102033;
-  --color-starlinks-inkStrong: #07111f;
-  --color-starlinks-inkSoft: #eef3f8;
-  --color-starlinks-navy: #13263f;
-  --color-starlinks-navySoft: #e8eef6;
-  --color-starlinks-navyMuted: #64748b;
-  --color-starlinks-accent: #b5812a;
-  --color-starlinks-accentSoft: #fff7e6;
-  --color-starlinks-bg: #f8fafc;
-  --color-starlinks-surface: #ffffff;
-  --color-starlinks-surfaceMuted: #f1f5f9;
-  --color-starlinks-text: #111827;
-  --color-starlinks-textMuted: #64748b;
-  --color-starlinks-border: #e2e8f0;
-  --font-display: Montserrat, Roboto, ui-sans-serif, system-ui, sans-serif;
-}
-
-@layer base {
-  html {
-    background: #f8fafc;
-    color: #111827;
-    color-scheme: light;
-    font-family: Roboto, ui-sans-serif, system-ui, sans-serif;
-  }
-  body {
-    min-height: 100vh;
-    margin: 0;
-    background: #f8fafc;
-  }
-  button,
-  input,
-  select,
-  textarea {
-    font: inherit;
-  }
-  :focus-visible {
-    outline: 2px solid #d6a756;
-    outline-offset: 2px;
-  }
-  [dir='rtl'] {
-    font-family: Cairo, ui-sans-serif, system-ui, sans-serif;
-  }
-  [dir='rtl'] .font-display {
-    font-family: Tajawal, Cairo, ui-sans-serif, system-ui, sans-serif;
-  }
+  --color-starlinks-ink: var(--starlinks-ink);
+  --color-starlinks-inkStrong: var(--starlinks-ink-strong);
+  --color-starlinks-inkSoft: var(--starlinks-ink-soft);
+  --color-starlinks-navy: var(--starlinks-navy);
+  --color-starlinks-navySoft: var(--starlinks-navy-soft);
+  --color-starlinks-navyMuted: var(--starlinks-navy-muted);
+  --color-starlinks-accent: var(--starlinks-accent);
+  --color-starlinks-accentSoft: var(--starlinks-accent-soft);
+  --color-starlinks-bg: var(--starlinks-bg);
+  --color-starlinks-surface: var(--starlinks-surface);
+  --color-starlinks-surfaceMuted: var(--starlinks-surface-muted);
+  --color-starlinks-text: var(--starlinks-text);
+  --color-starlinks-textMuted: var(--starlinks-text-muted);
+  --color-starlinks-border: var(--starlinks-border);
+  --font-display: var(--starlinks-font-display);
 }
