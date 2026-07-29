@@ -9,7 +9,9 @@ describe('application routes', () => {
 
   it('exposes Dashboard as the only app child destination', () => {
     const appRoute = routes.find((route) => route.path === 'app');
-    const destinations = appRoute?.children?.filter((route) => route.path !== '').map((route) => route.path);
+    const destinations = appRoute?.children
+      ?.filter((route) => route.path !== '')
+      .map((route) => route.path);
 
     expect(destinations).toEqual(['dashboard']);
   });

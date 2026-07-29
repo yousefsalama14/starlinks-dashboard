@@ -19,8 +19,18 @@ export class PackI18nService {
   private readonly translate = inject(TranslateService);
 
   readonly languages: PackLanguage[] = [
-    { code: 'en', labelKey: 'PACKMATCH.LANGUAGES.ENGLISH', nativeLabel: 'English', direction: 'ltr' },
-    { code: 'ar', labelKey: 'PACKMATCH.LANGUAGES.ARABIC', nativeLabel: 'العربية', direction: 'rtl' },
+    {
+      code: 'en',
+      labelKey: 'PACKMATCH.LANGUAGES.ENGLISH',
+      nativeLabel: 'English',
+      direction: 'ltr',
+    },
+    {
+      code: 'ar',
+      labelKey: 'PACKMATCH.LANGUAGES.ARABIC',
+      nativeLabel: 'العربية',
+      direction: 'rtl',
+    },
   ];
 
   readonly currentLanguage = signal<PackLanguageCode>('en');
