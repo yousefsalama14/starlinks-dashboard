@@ -1,10 +1,10 @@
 <label
-  class="flex items-center gap-2 rounded-xl border border-packmatch-border bg-packmatch-surface px-2.5 py-2 text-sm font-semibold text-packmatch-text shadow-sm"
+  class="flex items-center gap-2 rounded-xl border border-starlinks-border bg-starlinks-surface px-2.5 py-2 text-sm font-semibold text-starlinks-text shadow-sm"
 >
-  <span class="sr-only">{{ 'PACKMATCH.LANGUAGES.LABEL' | translate }}</span>
-  <i class="pi pi-globe text-xs text-packmatch-textMuted"></i>
+  <span class="sr-only">{{ 'STARLINKS.LANGUAGES.LABEL' | translate }}</span>
+  <i class="pi pi-globe text-xs text-starlinks-textMuted"></i>
   <select
-    class="max-w-28 border-0 bg-transparent p-0 text-sm font-semibold text-packmatch-text outline-none"
+    class="max-w-28 border-0 bg-transparent p-0 text-sm font-semibold text-starlinks-text outline-none"
     [ngModel]="currentLanguage()"
     (ngModelChange)="setLanguage($event)"
   >

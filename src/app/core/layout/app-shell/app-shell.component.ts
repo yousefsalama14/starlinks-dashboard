@@ -13,8 +13,8 @@ import { LanguageSwitcherComponent } from '../../../shared/components/language-s
 export class AppShellComponent {
   protected readonly isMobileMenuOpen = signal(false);
   protected readonly navItems = [
-    { labelKey: 'PACKMATCH.NAV.DASHBOARD', route: '/app/dashboard', icon: 'pi pi-home' },
-    { labelKey: 'PACKMATCH.NAV.ACTIVITY', route: '/app/dashboard/activity', icon: 'pi pi-clock' },
+    { labelKey: 'STARLINKS.NAV.DASHBOARD', route: '/app/dashboard', icon: 'pi pi-home' },
+    { labelKey: 'STARLINKS.NAV.ACTIVITY', route: '/app/dashboard/activity', icon: 'pi pi-clock' },
   ];
 
   protected openMobileMenu(): void {

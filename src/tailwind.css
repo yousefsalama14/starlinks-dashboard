@@ -6,20 +6,20 @@
 @plugin 'tailwindcss-primeui';
 
 @theme {
-  --color-packmatch-ink: #102033;
-  --color-packmatch-inkStrong: #07111f;
-  --color-packmatch-inkSoft: #eef3f8;
-  --color-packmatch-navy: #13263f;
-  --color-packmatch-navySoft: #e8eef6;
-  --color-packmatch-navyMuted: #64748b;
-  --color-packmatch-accent: #b5812a;
-  --color-packmatch-accentSoft: #fff7e6;
-  --color-packmatch-bg: #f8fafc;
-  --color-packmatch-surface: #ffffff;
-  --color-packmatch-surfaceMuted: #f1f5f9;
-  --color-packmatch-text: #111827;
-  --color-packmatch-textMuted: #64748b;
-  --color-packmatch-border: #e2e8f0;
+  --color-starlinks-ink: #102033;
+  --color-starlinks-inkStrong: #07111f;
+  --color-starlinks-inkSoft: #eef3f8;
+  --color-starlinks-navy: #13263f;
+  --color-starlinks-navySoft: #e8eef6;
+  --color-starlinks-navyMuted: #64748b;
+  --color-starlinks-accent: #b5812a;
+  --color-starlinks-accentSoft: #fff7e6;
+  --color-starlinks-bg: #f8fafc;
+  --color-starlinks-surface: #ffffff;
+  --color-starlinks-surfaceMuted: #f1f5f9;
+  --color-starlinks-text: #111827;
+  --color-starlinks-textMuted: #64748b;
+  --color-starlinks-border: #e2e8f0;
   --font-display: Montserrat, Roboto, ui-sans-serif, system-ui, sans-serif;
 }
 

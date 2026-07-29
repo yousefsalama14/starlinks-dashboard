@@ -6,7 +6,7 @@
   },
   "newProjectRoot": "projects",
   "projects": {
-    "PackMatch": {
+    "Starlinks": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -54,10 +54,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "PackMatch:build:production"
+              "buildTarget": "Starlinks:build:production"
             },
             "development": {
-              "buildTarget": "PackMatch:build:development"
+              "buildTarget": "Starlinks:build:development"
             }
           },
           "defaultConfiguration": "development"

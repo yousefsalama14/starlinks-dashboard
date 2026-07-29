@@ -1,7 +1,7 @@
 {
-  "PACKMATCH": {
+  "STARLINKS": {
     "BRAND": {
-      "NAME": "PackMatch",
+      "NAME": "Starlinks",
       "SHORT": "PM",
       "TAGLINE": "Shared packaging, made practical"
     },
@@ -24,15 +24,15 @@
     "DASHBOARD": {
       "BREADCRUMB_LABEL": "Dashboard context",
       "EYEBROW": "Your workspace",
-      "TITLE": "Welcome to PackMatch",
+      "TITLE": "Welcome to Starlinks",
       "DESCRIPTION": "Your refreshed packaging workspace is ready. New tools will appear here as they are introduced.",
       "GUIDE_TITLE": "A focused start",
-      "GUIDE_DESCRIPTION": "Use this dashboard as your home base. We are keeping the workspace intentionally simple while the new PackMatch experience takes shape."
+      "GUIDE_DESCRIPTION": "Use this dashboard as your home base. We are keeping the workspace intentionally simple while the new Starlinks experience takes shape."
     },
     "ACTIVITY": {
       "BREADCRUMB_LABEL": "Activity breadcrumb",
       "TITLE": "No activity yet",
-      "DESCRIPTION": "Updates from your PackMatch workspace will appear here when they are available."
+      "DESCRIPTION": "Updates from your Starlinks workspace will appear here when they are available."
     }
   }
 }

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { PackI18nService } from './core/i18n/pack-i18n.service';
+import { I18nService } from './core/i18n/i18n.service';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +10,7 @@ import { PackI18nService } from './core/i18n/pack-i18n.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class App {
-  private readonly i18n = inject(PackI18nService);
+  private readonly i18n = inject(I18nService);
 
   constructor() {
     this.i18n.initialize();

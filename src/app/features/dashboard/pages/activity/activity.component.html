@@ -1,34 +1,34 @@
 <section class="space-y-6">
   <nav
-    class="flex items-center gap-2 text-sm text-packmatch-textMuted"
-    [attr.aria-label]="'PACKMATCH.ACTIVITY.BREADCRUMB_LABEL' | translate"
+    class="flex items-center gap-2 text-sm text-starlinks-textMuted"
+    [attr.aria-label]="'STARLINKS.ACTIVITY.BREADCRUMB_LABEL' | translate"
   >
     <a
       routerLink="/app/dashboard"
-      class="inline-flex items-center gap-2 rounded-lg transition hover:text-packmatch-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-packmatch-accent"
+      class="inline-flex items-center gap-2 rounded-lg transition hover:text-starlinks-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-starlinks-accent"
     >
       <i class="pi pi-home text-xs" aria-hidden="true"></i>
-      <span>{{ 'PACKMATCH.NAV.DASHBOARD' | translate }}</span>
+      <span>{{ 'STARLINKS.NAV.DASHBOARD' | translate }}</span>
     </a>
     <i class="pi pi-angle-right text-xs" aria-hidden="true"></i>
-    <span class="font-semibold text-packmatch-text" aria-current="page">{{
-      'PACKMATCH.NAV.ACTIVITY' | translate
+    <span class="font-semibold text-starlinks-text" aria-current="page">{{
+      'STARLINKS.NAV.ACTIVITY' | translate
     }}</span>
   </nav>
 
   <article
-    class="rounded-[2rem] border border-dashed border-packmatch-border bg-packmatch-surface p-8 text-center shadow-sm md:p-12"
+    class="rounded-[2rem] border border-dashed border-starlinks-border bg-starlinks-surface p-8 text-center shadow-sm md:p-12"
   >
     <span
-      class="mx-auto flex size-14 items-center justify-center rounded-2xl bg-packmatch-navySoft text-packmatch-ink"
+      class="mx-auto flex size-14 items-center justify-center rounded-2xl bg-starlinks-navySoft text-starlinks-ink"
     >
       <i class="pi pi-clock text-xl" aria-hidden="true"></i>
     </span>
-    <h1 class="mt-5 font-display text-2xl font-bold text-packmatch-text">
-      {{ 'PACKMATCH.ACTIVITY.TITLE' | translate }}
+    <h1 class="mt-5 font-display text-2xl font-bold text-starlinks-text">
+      {{ 'STARLINKS.ACTIVITY.TITLE' | translate }}
     </h1>
-    <p class="mx-auto mt-3 max-w-lg leading-7 text-packmatch-textMuted">
-      {{ 'PACKMATCH.ACTIVITY.DESCRIPTION' | translate }}
+    <p class="mx-auto mt-3 max-w-lg leading-7 text-starlinks-textMuted">
+      {{ 'STARLINKS.ACTIVITY.DESCRIPTION' | translate }}
     </p>
   </article>
 </section>

@@ -1,9 +1,9 @@
 import { TestBed } from '@angular/core/testing';
 import { provideTranslateService } from '@ngx-translate/core';
-import { PackI18nService } from './pack-i18n.service';
+import { I18nService } from './i18n.service';
 
-describe('PackI18nService', () => {
-  let service: PackI18nService;
+describe('I18nService', () => {
+  let service: I18nService;
 
   beforeEach(() => {
     localStorage.clear();
@@ -17,7 +17,7 @@ describe('PackI18nService', () => {
       ],
     });
 
-    service = TestBed.inject(PackI18nService);
+    service = TestBed.inject(I18nService);
   });
 
   afterEach(() => {

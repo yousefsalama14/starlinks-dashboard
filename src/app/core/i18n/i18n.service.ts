@@ -2,45 +2,45 @@ import { DOCUMENT } from '@angular/common';
 import { Injectable, inject, signal } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
-export type PackLanguageCode = 'en' | 'ar';
+export type LanguageCode = 'en' | 'ar';
 
-export interface PackLanguage {
-  code: PackLanguageCode;
+export interface Language {
+  code: LanguageCode;
   labelKey: string;
   nativeLabel: string;
   direction: 'ltr' | 'rtl';
 }
 
-const STORAGE_KEY = 'packmatch.language';
+const STORAGE_KEY = 'starlinks.language';
 
 @Injectable({ providedIn: 'root' })
-export class PackI18nService {
+export class I18nService {
   private readonly document = inject(DOCUMENT);
   private readonly translate = inject(TranslateService);
 
-  readonly languages: PackLanguage[] = [
+  readonly languages: Language[] = [
     {
       code: 'en',
-      labelKey: 'PACKMATCH.LANGUAGES.ENGLISH',
+      labelKey: 'STARLINKS.LANGUAGES.ENGLISH',
       nativeLabel: 'English',
       direction: 'ltr',
     },
     {
       code: 'ar',
-      labelKey: 'PACKMATCH.LANGUAGES.ARABIC',
+      labelKey: 'STARLINKS.LANGUAGES.ARABIC',
       nativeLabel: 'العربية',
       direction: 'rtl',
     },
   ];
 
-  readonly currentLanguage = signal<PackLanguageCode>('en');
+  readonly currentLanguage = signal<LanguageCode>('en');
 
   initialize(): void {
     this.translate.addLangs(this.languages.map((item) => item.code));
     this.setLanguage(this.resolveInitialLanguage());
   }
 
-  setLanguage(languageCode: PackLanguageCode): void {
+  setLanguage(languageCode: LanguageCode): void {
     const language = this.languages.find((item) => item.code === languageCode) ?? this.languages[0];
 
     this.currentLanguage.set(language.code);
@@ -50,7 +50,7 @@ export class PackI18nService {
     localStorage.setItem(STORAGE_KEY, language.code);
   }
 
-  private resolveInitialLanguage(): PackLanguageCode {
+  private resolveInitialLanguage(): LanguageCode {
     const storedLanguage = localStorage.getItem(STORAGE_KEY);
     if (this.isSupportedLanguage(storedLanguage)) {
       return storedLanguage;
@@ -60,7 +60,7 @@ export class PackI18nService {
     return this.isSupportedLanguage(browserLanguage) ? browserLanguage : 'en';
   }
 
-  private isSupportedLanguage(language: string | null | undefined): language is PackLanguageCode {
+  private isSupportedLanguage(language: string | null | undefined): language is LanguageCode {
     return this.languages.some((item) => item.code === language);
   }
 }
