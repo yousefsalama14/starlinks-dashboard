@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 
 import { AppShellComponent } from './core/layout/app-shell/app-shell.component';
+import { pageRouteData } from './core/layout/page-route-data';
 
 export const routes: Routes = [
   {
@@ -9,83 +10,24 @@ export const routes: Routes = [
     children: [
       {
         path: 'home',
+        data: pageRouteData({ headerTitleKey: 'STARLINKS.NAV.HOME' }),
         loadComponent: () =>
-          import('./features/dashboard/pages/dashboard-layout/dashboard-layout.component').then(
-            (component) => component.DashboardLayoutComponent,
+          import('./features/home/pages/home/home.component').then(
+            (component) => component.HomeComponent,
           ),
-        children: [
-          {
-            path: '',
-            loadComponent: () =>
-              import('./features/dashboard/pages/dashboard/dashboard.component').then(
-                (component) => component.DashboardComponent,
-              ),
-          },
-          {
-            path: 'activity',
-            loadComponent: () =>
-              import('./features/dashboard/pages/activity/activity.component').then(
-                (component) => component.ActivityComponent,
-              ),
-          },
-        ],
       },
       {
-        path: 'dashboard/activity',
-        pathMatch: 'full',
-        redirectTo: 'home/activity',
-      },
-      {
-        path: 'dashboard',
+        path: 'not-found',
+        data: pageRouteData({ headerTitleKey: 'STARLINKS.NOT_FOUND.HEADER_TITLE' }),
         loadComponent: () =>
-          import('./features/portal/pages/placeholder/placeholder.component').then(
-            (component) => component.PlaceholderComponent,
+          import('./features/not-found/pages/not-found/not-found.component').then(
+            (component) => component.NotFoundComponent,
           ),
-        data: { titleKey: 'STARLINKS.NAV.DASHBOARD' },
-      },
-      {
-        path: 'shipments',
-        loadComponent: () =>
-          import('./features/portal/pages/placeholder/placeholder.component').then(
-            (component) => component.PlaceholderComponent,
-          ),
-        data: { titleKey: 'STARLINKS.NAV.SHIPMENTS' },
-      },
-      {
-        path: 'fulfillment',
-        loadComponent: () =>
-          import('./features/portal/pages/placeholder/placeholder.component').then(
-            (component) => component.PlaceholderComponent,
-          ),
-        data: { titleKey: 'STARLINKS.NAV.FULFILLMENT' },
-      },
-      {
-        path: 'surveys',
-        loadComponent: () =>
-          import('./features/portal/pages/placeholder/placeholder.component').then(
-            (component) => component.PlaceholderComponent,
-          ),
-        data: { titleKey: 'STARLINKS.NAV.SURVEYS' },
-      },
-      {
-        path: 'invoices',
-        loadComponent: () =>
-          import('./features/portal/pages/placeholder/placeholder.component').then(
-            (component) => component.PlaceholderComponent,
-          ),
-        data: { titleKey: 'STARLINKS.NAV.INVOICES' },
-      },
-      {
-        path: 'support',
-        loadComponent: () =>
-          import('./features/portal/pages/placeholder/placeholder.component').then(
-            (component) => component.PlaceholderComponent,
-          ),
-        data: { titleKey: 'STARLINKS.NAV.SUPPORT' },
       },
       { path: '', pathMatch: 'full', redirectTo: 'home' },
+      { path: '**', redirectTo: 'not-found' },
     ],
   },
   { path: '', pathMatch: 'full', redirectTo: 'app/home' },
-  { path: '**', redirectTo: 'app/home' },
+  { path: '**', redirectTo: 'app/not-found' },
 ];

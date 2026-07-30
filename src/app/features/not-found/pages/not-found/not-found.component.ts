@@ -3,10 +3,10 @@ import { RouterLink } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
-  selector: 'app-activity',
+  selector: 'app-not-found',
   imports: [RouterLink, TranslatePipe],
-  templateUrl: './activity.component.html',
-  styleUrl: './activity.component.scss',
+  templateUrl: './not-found.component.html',
+  styleUrl: './not-found.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ActivityComponent {}
+export class NotFoundComponent {}
