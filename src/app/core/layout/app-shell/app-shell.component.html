@@ -1,6 +1,4 @@
-<div
-  class="min-h-screen bg-starlinks-bg text-starlinks-text lg:pl-[var(--starlinks-menu-rail-width)]"
->
+<div class="app-shell min-h-screen bg-starlinks-bg text-starlinks-text">
   <aside class="side-menu-rail hidden flex-col lg:flex">
     <a
       routerLink="/app/home"
@@ -8,10 +6,12 @@
       [attr.aria-label]="'STARLINKS.BRAND.NAME' | translate"
     ></a>
     <div class="side-menu__divider"></div>
-    <app-navigation-menu
-      [items]="navItems"
-      [attr.aria-label]="'STARLINKS.APP_SHELL.MAIN_NAVIGATION' | translate"
-    />
+    <div class="side-menu__scroll-region">
+      <app-navigation-menu
+        [items]="navItems"
+        [attr.aria-label]="'STARLINKS.APP_SHELL.MAIN_NAVIGATION' | translate"
+      />
+    </div>
     <div class="mt-auto">
       <div class="side-menu__divider"></div>
       <app-navigation-menu [items]="logoutItems" (itemSelected)="handleMenuItemSelection($event)" />
@@ -69,7 +69,7 @@
           (click)="closeMobileMenu()"
         ></button>
         <aside
-          class="relative flex h-full w-72 flex-col bg-starlinks-surface p-6 shadow-2xl"
+          class="side-menu-drawer relative flex h-full w-72 flex-col bg-starlinks-surface p-6 shadow-2xl"
           role="dialog"
           aria-modal="true"
           [attr.aria-label]="'STARLINKS.APP_SHELL.MAIN_NAVIGATION' | translate"
@@ -86,11 +86,13 @@
             </button>
           </div>
           <div class="side-menu__divider"></div>
-          <app-navigation-menu
-            [items]="navItems"
-            [expanded]="true"
-            (itemSelected)="handleMenuItemSelection($event)"
-          />
+          <div class="side-menu__scroll-region">
+            <app-navigation-menu
+              [items]="navItems"
+              [expanded]="true"
+              (itemSelected)="handleMenuItemSelection($event)"
+            />
+          </div>
           <div class="mt-auto">
             <div class="side-menu__divider"></div>
             <app-navigation-menu

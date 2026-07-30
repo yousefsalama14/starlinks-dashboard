@@ -110,6 +110,47 @@ describe('AppShellComponent', () => {
     expect(routedItems[0].getAttribute('href')).toBe('/app/home');
   });
 
+  it('keeps desktop and mobile primary menus scrollable without moving logo or Logout', () => {
+    const fixture = TestBed.createComponent(AppShellComponent);
+    fixture.detectChanges();
+
+    const desktopRail = fixture.nativeElement.querySelector('.side-menu-rail') as HTMLElement;
+    const desktopScrollRegion = desktopRail.querySelector(
+      ':scope > .side-menu__scroll-region',
+    ) as HTMLElement;
+    expect(desktopScrollRegion.querySelector('app-navigation-menu')).toBeTruthy();
+    expect(desktopScrollRegion.querySelector('.side-menu__logo')).toBeNull();
+    expect(desktopScrollRegion.textContent).not.toContain('STARLINKS.NAV.LOGOUT');
+    expect(desktopRail.querySelector(':scope > .side-menu__logo')).toBeTruthy();
+
+    (fixture.nativeElement.querySelector('.app-header__menu-button') as HTMLButtonElement).click();
+    fixture.detectChanges();
+
+    const drawer = fixture.nativeElement.querySelector('[role="dialog"]') as HTMLElement;
+    const mobileScrollRegion = drawer.querySelector(
+      ':scope > .side-menu__scroll-region',
+    ) as HTMLElement;
+    expect(mobileScrollRegion.querySelector('app-navigation-menu')).toBeTruthy();
+    expect(mobileScrollRegion.querySelector('.side-menu__logo')).toBeNull();
+    expect(mobileScrollRegion.textContent).not.toContain('STARLINKS.NAV.LOGOUT');
+    expect(drawer.textContent).toContain('STARLINKS.NAV.LOGOUT');
+  });
+
+  it('uses direction-aware shell, rail, and drawer layout hooks', () => {
+    document.documentElement.dir = 'rtl';
+    const fixture = TestBed.createComponent(AppShellComponent);
+    fixture.detectChanges();
+
+    expect(fixture.nativeElement.querySelector('.app-shell')).toBeTruthy();
+    expect(fixture.nativeElement.querySelector('.side-menu-rail')).toBeTruthy();
+
+    (fixture.nativeElement.querySelector('.app-header__menu-button') as HTMLButtonElement).click();
+    fixture.detectChanges();
+
+    expect(fixture.nativeElement.querySelector('.side-menu-drawer')).toBeTruthy();
+    document.documentElement.dir = 'ltr';
+  });
+
   it('updates the desktop header title from the deepest active route', async () => {
     const fixture = TestBed.createComponent(AppShellComponent);
     const router = TestBed.inject(Router);

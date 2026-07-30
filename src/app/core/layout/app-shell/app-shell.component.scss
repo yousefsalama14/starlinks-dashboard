@@ -74,7 +74,7 @@
 .app-header__notification-dot {
   position: absolute;
   top: 0.1rem;
-  right: 0.1rem;
+  inset-inline-end: 0.1rem;
   width: 0.45rem;
   height: 0.45rem;
   background: var(--starlinks-menu-notification);
@@ -121,6 +121,10 @@
 }
 
 @media (min-width: 64rem) {
+  .app-shell {
+    padding-inline-start: var(--starlinks-menu-rail-width);
+  }
+
   .app-header__menu-button {
     display: none;
   }

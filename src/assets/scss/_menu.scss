@@ -2,12 +2,17 @@
   position: fixed;
   top: 0;
   bottom: 0;
-  left: 0;
+  inset-inline-start: 0;
   z-index: 40;
   width: var(--starlinks-menu-rail-width);
   padding: 24px 14px;
   background: var(--starlinks-surface);
-  border-radius: 0 24px 24px 0;
+  border-start-end-radius: 24px;
+  border-end-end-radius: 24px;
+}
+
+.side-menu-drawer {
+  margin-inline-end: auto;
 }
 
 .side-menu__logo {
@@ -35,6 +40,47 @@
   height: 1px;
   margin: 24px 0;
   background: var(--starlinks-menu-divider);
+}
+
+.side-menu__scroll-region {
+  flex: 1 1 auto;
+  min-height: 0;
+  padding-inline: 2px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-color: transparent transparent;
+  scrollbar-width: thin;
+}
+
+.side-menu__scroll-region:hover,
+.side-menu__scroll-region:focus-within {
+  scrollbar-color: color-mix(in srgb, var(--starlinks-menu-muted) 55%, transparent) transparent;
+}
+
+.side-menu__scroll-region::-webkit-scrollbar {
+  width: 4px;
+}
+
+.side-menu__scroll-region::-webkit-scrollbar-button {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+.side-menu__scroll-region::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.side-menu__scroll-region::-webkit-scrollbar-thumb {
+  background: transparent;
+  border-radius: 999px;
+  transition: background-color 160ms ease;
+}
+
+.side-menu__scroll-region:hover::-webkit-scrollbar-thumb,
+.side-menu__scroll-region:focus-within::-webkit-scrollbar-thumb {
+  background: color-mix(in srgb, var(--starlinks-menu-muted) 55%, transparent);
 }
 
 .side-menu__list {
@@ -96,7 +142,7 @@
 .side-menu__notification {
   position: absolute;
   top: 7px;
-  right: 14px;
+  inset-inline-end: 14px;
   width: 7px;
   height: 7px;
   background: var(--starlinks-menu-notification);
@@ -118,5 +164,5 @@
 
 .side-menu--expanded .side-menu__notification {
   top: 12px;
-  right: 12px;
+  inset-inline-end: 12px;
 }
