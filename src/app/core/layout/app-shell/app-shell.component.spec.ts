@@ -1,15 +1,38 @@
+import { Component } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { provideRouter } from '@angular/router';
+import { provideRouter, Router } from '@angular/router';
 import { provideTranslateService } from '@ngx-translate/core';
 import { AppShellComponent } from './app-shell.component';
 import { NavigationMenuComponent } from '../../../shared/components/navigation-menu/navigation-menu.component';
 
+@Component({ template: '', standalone: true })
+class TestPageComponent {}
+
 describe('AppShellComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AppShellComponent],
-      providers: [provideRouter([]), provideTranslateService({ fallbackLang: 'en', lang: 'en' })],
+      imports: [AppShellComponent, TestPageComponent],
+      providers: [
+        provideRouter([
+          {
+            path: 'app',
+            children: [
+              {
+                path: 'home',
+                component: TestPageComponent,
+                data: { headerTitleKey: 'STARLINKS.NAV.HOME' },
+              },
+              {
+                path: 'not-found',
+                component: TestPageComponent,
+                data: { headerTitleKey: 'STARLINKS.NOT_FOUND.HEADER_TITLE' },
+              },
+            ],
+          },
+        ]),
+        provideTranslateService({ fallbackLang: 'en', lang: 'en' }),
+      ],
     }).compileComponents();
   });
 
@@ -18,11 +41,14 @@ describe('AppShellComponent', () => {
     const component = fixture.componentInstance as unknown as { closeMobileMenu(): void };
     fixture.detectChanges();
 
-    const menuButton = fixture.nativeElement.querySelector('header button') as HTMLButtonElement;
+    const menuButton = fixture.nativeElement.querySelector(
+      '.app-header__menu-button',
+    ) as HTMLButtonElement;
     menuButton.click();
     fixture.detectChanges();
 
     expect(fixture.nativeElement.querySelector('[role="dialog"]')).toBeTruthy();
+    expect(fixture.nativeElement.querySelector('[role="dialog"] app-language-switcher')).toBeNull();
 
     component.closeMobileMenu();
     fixture.detectChanges();
@@ -34,7 +60,7 @@ describe('AppShellComponent', () => {
     const fixture = TestBed.createComponent(AppShellComponent);
     fixture.detectChanges();
 
-    (fixture.nativeElement.querySelector('header button') as HTMLButtonElement).click();
+    (fixture.nativeElement.querySelector('.app-header__menu-button') as HTMLButtonElement).click();
     fixture.detectChanges();
 
     const mobileMenu = fixture.debugElement
@@ -51,5 +77,71 @@ describe('AppShellComponent', () => {
     fixture.detectChanges();
 
     expect(fixture.nativeElement.querySelector('[role="dialog"]')).toBeFalsy();
+  });
+
+  it('keeps the mobile drawer open after selecting a non-routing item', () => {
+    const fixture = TestBed.createComponent(AppShellComponent);
+    fixture.detectChanges();
+
+    (fixture.nativeElement.querySelector('.app-header__menu-button') as HTMLButtonElement).click();
+    fixture.detectChanges();
+
+    const mobileMenu = fixture.debugElement
+      .queryAll(By.directive(NavigationMenuComponent))
+      .map((debugElement) => debugElement.componentInstance as NavigationMenuComponent)
+      .find((menu) => menu.expanded());
+
+    mobileMenu!.itemSelected.emit({
+      id: 'shipments',
+      labelKey: 'STARLINKS.NAV.SHIPMENTS',
+      icon: 'box',
+    });
+    fixture.detectChanges();
+
+    expect(fixture.nativeElement.querySelector('[role="dialog"]')).toBeTruthy();
+  });
+
+  it('configures Home as the only routed menu item', () => {
+    const fixture = TestBed.createComponent(AppShellComponent);
+    fixture.detectChanges();
+
+    const routedItems = fixture.nativeElement.querySelectorAll('app-navigation-menu a');
+    expect(routedItems).toHaveLength(1);
+    expect(routedItems[0].getAttribute('href')).toBe('/app/home');
+  });
+
+  it('updates the desktop header title from the deepest active route', async () => {
+    const fixture = TestBed.createComponent(AppShellComponent);
+    const router = TestBed.inject(Router);
+    fixture.detectChanges();
+
+    await router.navigateByUrl('/app/home');
+    fixture.detectChanges();
+    expect(fixture.nativeElement.querySelector('.app-header h1').textContent).toContain(
+      'STARLINKS.NAV.HOME',
+    );
+
+    await router.navigateByUrl('/app/not-found');
+    fixture.detectChanges();
+    expect(fixture.nativeElement.querySelector('.app-header h1').textContent).toContain(
+      'STARLINKS.NOT_FOUND.HEADER_TITLE',
+    );
+  });
+
+  it('renders one unified header with navigation, notification, and identity details', () => {
+    const fixture = TestBed.createComponent(AppShellComponent);
+    fixture.detectChanges();
+
+    expect(fixture.nativeElement.querySelectorAll('header')).toHaveLength(1);
+    expect(fixture.nativeElement.querySelector('.app-header__menu-button')).toBeTruthy();
+    expect(
+      fixture.nativeElement.querySelector('.app-header__account app-language-switcher'),
+    ).toBeTruthy();
+    expect(fixture.nativeElement.querySelector('.app-header__notification-dot')).toBeTruthy();
+    expect(fixture.nativeElement.querySelector('iconsax-icon[name="notification"]')).toBeTruthy();
+    expect(fixture.nativeElement.querySelector('.app-header__brand-mark')).toBeTruthy();
+    expect(
+      fixture.nativeElement.querySelector('.app-header__identity small').textContent,
+    ).toContain('STARLINKS.APP_SHELL.ADMIN_ROLE');
   });
 });

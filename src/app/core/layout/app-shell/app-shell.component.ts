@@ -1,6 +1,16 @@
-import { ChangeDetectionStrategy, Component, CUSTOM_ELEMENTS_SCHEMA, signal } from '@angular/core';
-import { RouterLink, RouterOutlet } from '@angular/router';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  CUSTOM_ELEMENTS_SCHEMA,
+  inject,
+  signal,
+} from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { NavigationEnd, Router, RouterLink, RouterOutlet } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
+import { filter } from 'rxjs';
+import { PageRouteData } from '../page-route-data';
 import { LanguageSwitcherComponent } from '../../../shared/components/language-switcher/language-switcher.component';
 import {
   NavigationMenuComponent,
@@ -22,52 +32,58 @@ import {
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AppShellComponent {
+  private readonly router = inject(Router);
+  private readonly navigationEnd = toSignal(
+    this.router.events.pipe(
+      filter((event): event is NavigationEnd => event instanceof NavigationEnd),
+    ),
+    { initialValue: null },
+  );
+
   protected readonly isMobileMenuOpen = signal(false);
+  protected readonly headerTitleKey = computed(() => {
+    this.navigationEnd();
+
+    let route = this.router.routerState.snapshot.root;
+    while (route.firstChild) {
+      route = route.firstChild;
+    }
+
+    return (route.data as Partial<PageRouteData>).headerTitleKey ?? 'STARLINKS.NAV.HOME';
+  });
   protected readonly navItems: readonly NavigationMenuItem[] = [
     { id: 'home', labelKey: 'STARLINKS.NAV.HOME', route: '/app/home', icon: 'home', exact: true },
     {
       id: 'dashboard',
       labelKey: 'STARLINKS.NAV.DASHBOARD',
-      route: '/app/dashboard',
       icon: 'category',
-      exact: true,
     },
     {
       id: 'shipments',
       labelKey: 'STARLINKS.NAV.SHIPMENTS',
-      route: '/app/shipments',
       icon: 'box',
-      exact: true,
     },
     {
       id: 'fulfillment',
       labelKey: 'STARLINKS.NAV.FULFILLMENT',
-      route: '/app/fulfillment',
       icon: 'box-tick',
-      exact: true,
     },
     {
       id: 'surveys',
       labelKey: 'STARLINKS.NAV.SURVEYS',
-      route: '/app/surveys',
       icon: 'clipboard-text',
-      exact: true,
       hasNotification: true,
     },
     {
       id: 'invoices',
       labelKey: 'STARLINKS.NAV.INVOICES',
-      route: '/app/invoices',
       icon: 'receipt-text',
-      exact: true,
       hasNotification: true,
     },
     {
       id: 'support',
       labelKey: 'STARLINKS.NAV.SUPPORT',
-      route: '/app/support',
       icon: 'headphone',
-      exact: true,
     },
   ];
   protected readonly logoutItems: readonly NavigationMenuItem[] = [
@@ -87,7 +103,9 @@ export class AppShellComponent {
     this.isMobileMenuOpen.set(false);
   }
 
-  protected handleMenuItemSelection(): void {
-    this.closeMobileMenu();
+  protected handleMenuItemSelection(item: NavigationMenuItem): void {
+    if (item.route) {
+      this.closeMobileMenu();
+    }
   }
 }
