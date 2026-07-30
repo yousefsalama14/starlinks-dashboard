@@ -1,0 +1,61 @@
+:host {
+  display: inline-flex;
+}
+
+:host ::ng-deep .language-switcher__select {
+  // min-width: 9rem;
+  color: var(--starlinks-text);
+  background: var(--starlinks-surface);
+  border: 1px solid var(--starlinks-border);
+  border-radius: 0.75rem;
+  box-shadow: 0 1px 2px rgb(15 23 42 / 6%);
+}
+
+:host ::ng-deep .language-switcher__select .p-select-label {
+  padding: 0.5rem 0 0.5rem 0.625rem;
+}
+
+:host ::ng-deep .language-switcher__select .p-select-dropdown {
+  width: 2rem;
+  color: var(--starlinks-text-muted);
+}
+
+:host ::ng-deep .language-switcher--account.language-switcher__select {
+  // width: 5.25rem;
+  // min-width: 5.25rem;
+  // flex: 0 0 5.25rem;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+:host ::ng-deep .language-switcher--account .p-select-label {
+  padding: 0.25rem 0 0.25rem 0.2rem;
+}
+
+:host ::ng-deep .language-switcher--account .p-select-dropdown {
+  width: 1.5rem;
+}
+
+.language-switcher__value,
+.language-switcher__option {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.language-switcher__value iconsax-icon,
+.language-switcher__arrow {
+  color: var(--starlinks-text-muted);
+}
+
+.language-switcher__label {
+  white-space: nowrap;
+  font-weight: 600;
+}
+
+.language-switcher__label--code {
+  font-size: 0.7rem;
+  color: var(--starlinks-text-muted);
+}

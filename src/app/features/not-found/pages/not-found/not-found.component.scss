@@ -1,0 +1,44 @@
+:host {
+  display: block;
+}
+
+.not-found {
+  display: grid;
+  min-height: 24rem;
+  padding: 2rem;
+  text-align: center;
+  place-content: center;
+  justify-items: center;
+}
+
+.not-found__code {
+  margin: 0;
+  color: var(--starlinks-menu-active);
+  font-family: var(--starlinks-font-display);
+  font-size: clamp(3rem, 10vw, 6rem);
+  font-weight: 700;
+  line-height: 1;
+}
+
+.not-found h1 {
+  margin: 1rem 0 0;
+  color: var(--starlinks-text);
+  font-family: var(--starlinks-font-display);
+  font-size: 1.75rem;
+}
+
+.not-found > p:not(.not-found__code) {
+  max-width: 30rem;
+  margin: 0.75rem 0 0;
+  color: var(--starlinks-text-muted);
+  line-height: 1.6;
+}
+
+.not-found a {
+  margin-top: 1.5rem;
+  padding: 0.7rem 1.1rem;
+  color: white;
+  background: var(--starlinks-menu-active);
+  border-radius: 0.75rem;
+  font-weight: 600;
+}

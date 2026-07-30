@@ -1,76 +1,63 @@
-<div
-  class="min-h-screen bg-starlinks-bg text-starlinks-text lg:grid lg:grid-cols-[17rem_minmax(0,1fr)]"
->
-  <aside
-    class="sticky top-0 hidden h-screen flex-col border-e border-starlinks-border bg-starlinks-surface p-4 lg:flex"
-  >
+<div class="app-shell min-h-screen bg-starlinks-bg text-starlinks-text">
+  <aside class="side-menu-rail hidden flex-col lg:flex">
     <a
-      routerLink="/app/dashboard"
-      class="flex items-center gap-3 rounded-2xl px-2 py-3 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-starlinks-accent"
-    >
-      <span
-        class="flex size-10 shrink-0 items-center justify-center rounded-2xl bg-starlinks-ink text-sm font-bold text-white shadow-sm"
-        >{{ 'STARLINKS.BRAND.SHORT' | translate }}</span
-      >
-      <span
-        ><span class="block text-base font-bold text-starlinks-text">{{
-          'STARLINKS.BRAND.NAME' | translate
-        }}</span
-        ><span class="block text-xs text-starlinks-textMuted">{{
-          'STARLINKS.BRAND.TAGLINE' | translate
-        }}</span></span
-      >
-    </a>
-    <nav
-      class="mt-8 space-y-1"
-      [attr.aria-label]="'STARLINKS.APP_SHELL.MAIN_NAVIGATION' | translate"
-    >
-      @for (item of navItems; track item.route) {
-        <a
-          [routerLink]="item.route"
-          routerLinkActive="bg-starlinks-ink text-white shadow-sm"
-          [routerLinkActiveOptions]="{ exact: item.route === '/app/dashboard' }"
-          class="flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-semibold text-starlinks-textMuted transition hover:bg-starlinks-surfaceMuted hover:text-starlinks-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-starlinks-accent"
-        >
-          <iconsax-icon [attr.name]="item.icon" type="linear" size="18" aria-hidden="true"></iconsax-icon
-          ><span>{{ item.labelKey | translate }}</span>
-        </a>
-      }
-    </nav>
-    <div class="mt-auto space-y-4 border-t border-starlinks-border pt-4">
-      <app-language-switcher />
-      <div class="flex items-center gap-3 px-2">
-        <span
-          class="flex size-9 items-center justify-center rounded-full bg-starlinks-navySoft text-xs font-bold text-starlinks-ink"
-          aria-hidden="true"
-          >{{ 'STARLINKS.APP_SHELL.DEMO_USER_INITIALS' | translate }}</span
-        ><span class="text-sm font-semibold text-starlinks-text">{{
-          'STARLINKS.APP_SHELL.DEMO_USER' | translate
-        }}</span>
-      </div>
+      routerLink="/app/home"
+      class="side-menu__logo"
+      [attr.aria-label]="'STARLINKS.BRAND.NAME' | translate"
+    ></a>
+    <div class="side-menu__divider"></div>
+    <div class="side-menu__scroll-region">
+      <app-navigation-menu
+        [items]="navItems"
+        [attr.aria-label]="'STARLINKS.APP_SHELL.MAIN_NAVIGATION' | translate"
+      />
+    </div>
+    <div class="mt-auto">
+      <div class="side-menu__divider"></div>
+      <app-navigation-menu [items]="logoutItems" (itemSelected)="handleMenuItemSelection($event)" />
     </div>
   </aside>
 
   <div class="min-w-0">
-    <header
-      class="sticky top-0 z-30 flex items-center justify-between border-b border-starlinks-border bg-starlinks-surface/95 px-4 py-3 backdrop-blur lg:hidden"
-    >
-      <button
-        type="button"
-        class="flex size-10 items-center justify-center rounded-xl text-starlinks-text transition hover:bg-starlinks-surfaceMuted focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-starlinks-accent"
-        [attr.aria-label]="'STARLINKS.APP_SHELL.OPEN_MENU' | translate"
-        [attr.aria-expanded]="isMobileMenuOpen()"
-        (click)="openMobileMenu()"
+    <header class="app-header">
+      <div class="app-header__leading">
+        <button
+          type="button"
+          class="app-header__menu-button"
+          [attr.aria-label]="'STARLINKS.APP_SHELL.OPEN_MENU' | translate"
+          [attr.aria-expanded]="isMobileMenuOpen()"
+          (click)="openMobileMenu()"
+        >
+          <i class="pi pi-bars" aria-hidden="true"></i>
+        </button>
+        <h1>{{ headerTitleKey() | translate }}</h1>
+      </div>
+
+      <div
+        class="app-header__account"
+        [attr.aria-label]="'STARLINKS.APP_SHELL.ACCOUNT_SUMMARY' | translate"
       >
-        <i class="pi pi-bars" aria-hidden="true"></i>
-      </button>
-      <a routerLink="/app/dashboard" class="flex items-center gap-2 font-bold text-starlinks-text"
-        ><span
-          class="flex size-8 items-center justify-center rounded-xl bg-starlinks-ink text-xs text-white"
-          >{{ 'STARLINKS.BRAND.SHORT' | translate }}</span
-        >{{ 'STARLINKS.BRAND.NAME' | translate }}</a
-      >
-      <app-language-switcher />
+        <span
+          class="app-header__notification"
+          role="img"
+          [attr.aria-label]="'STARLINKS.APP_SHELL.NOTIFICATIONS' | translate"
+        >
+          <iconsax-icon
+            name="notification"
+            type="linear"
+            size="20"
+            aria-hidden="true"
+          ></iconsax-icon>
+          <span class="app-header__notification-dot" aria-hidden="true"></span>
+        </span>
+        <app-language-switcher variant="account" />
+        <span class="app-header__account-divider" aria-hidden="true"></span>
+        <span class="side-menu__logo app-header__brand-mark" aria-hidden="true"></span>
+        <span class="app-header__identity">
+          <strong>{{ 'STARLINKS.BRAND.NAME' | translate }}</strong>
+          <small>{{ 'STARLINKS.APP_SHELL.ADMIN_ROLE' | translate }}</small>
+        </span>
+      </div>
     </header>
 
     @if (isMobileMenuOpen()) {
@@ -82,16 +69,14 @@
           (click)="closeMobileMenu()"
         ></button>
         <aside
-          class="relative flex h-full w-72 flex-col bg-starlinks-surface p-4 shadow-2xl"
+          class="side-menu-drawer relative flex h-full w-72 flex-col bg-starlinks-surface p-6 shadow-2xl"
           role="dialog"
           aria-modal="true"
           [attr.aria-label]="'STARLINKS.APP_SHELL.MAIN_NAVIGATION' | translate"
         >
           <div class="flex items-center justify-between">
-            <span class="font-display text-lg font-bold text-starlinks-text">{{
-              'STARLINKS.BRAND.NAME' | translate
-            }}</span
-            ><button
+            <span class="side-menu__logo m-0"></span>
+            <button
               type="button"
               class="flex size-10 items-center justify-center rounded-xl text-starlinks-text hover:bg-starlinks-surfaceMuted focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-starlinks-accent"
               [attr.aria-label]="'STARLINKS.APP_SHELL.CLOSE_MENU' | translate"
@@ -100,42 +85,27 @@
               <i class="pi pi-times" aria-hidden="true"></i>
             </button>
           </div>
-          <nav
-            class="mt-8 space-y-1"
-            [attr.aria-label]="'STARLINKS.APP_SHELL.MAIN_NAVIGATION' | translate"
-          >
-            @for (item of navItems; track item.route) {
-              <a
-                [routerLink]="item.route"
-                routerLinkActive="bg-starlinks-ink text-white shadow-sm"
-                [routerLinkActiveOptions]="{ exact: item.route === '/app/dashboard' }"
-                class="flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-semibold text-starlinks-textMuted transition hover:bg-starlinks-surfaceMuted hover:text-starlinks-text focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-starlinks-accent"
-                (click)="closeMobileMenu()"
-                ><iconsax-icon
-                  [attr.name]="item.icon"
-                  type="linear"
-                  size="18"
-                  aria-hidden="true"
-                ></iconsax-icon
-                ><span>{{ item.labelKey | translate }}</span></a
-              >
-            }
-          </nav>
-          <div class="mt-auto border-t border-starlinks-border pt-4">
-            <div class="flex items-center gap-3 px-2">
-              <span
-                class="flex size-9 items-center justify-center rounded-full bg-starlinks-navySoft text-xs font-bold text-starlinks-ink"
-                aria-hidden="true"
-                >{{ 'STARLINKS.APP_SHELL.DEMO_USER_INITIALS' | translate }}</span
-              ><span class="text-sm font-semibold text-starlinks-text">{{
-                'STARLINKS.APP_SHELL.DEMO_USER' | translate
-              }}</span>
-            </div>
+          <div class="side-menu__divider"></div>
+          <div class="side-menu__scroll-region">
+            <app-navigation-menu
+              [items]="navItems"
+              [expanded]="true"
+              (itemSelected)="handleMenuItemSelection($event)"
+            />
+          </div>
+          <div class="mt-auto">
+            <div class="side-menu__divider"></div>
+            <app-navigation-menu
+              [items]="logoutItems"
+              [expanded]="true"
+              (itemSelected)="handleMenuItemSelection($event)"
+            />
           </div>
         </aside>
       </div>
     }
-    <main class="mx-auto w-full max-w-6xl px-4 py-6 md:px-8 lg:px-10 lg:py-10">
+
+    <main class="w-full px-6 py-3">
       <router-outlet />
     </main>
   </div>

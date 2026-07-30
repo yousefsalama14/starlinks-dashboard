@@ -1,1 +1,168 @@
-// Shared menu styles belong here.
+.side-menu-rail {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  inset-inline-start: 0;
+  z-index: 40;
+  width: var(--starlinks-menu-rail-width);
+  padding: 24px 14px;
+  background: var(--starlinks-surface);
+  border-start-end-radius: 24px;
+  border-end-end-radius: 24px;
+}
+
+.side-menu-drawer {
+  margin-inline-end: auto;
+}
+
+.side-menu__logo {
+  display: grid;
+  width: 48px;
+  height: 48px;
+  margin-inline: auto;
+  color: #54e815;
+  background: #006956;
+  border: 4px solid #2a8976;
+  border-radius: 14px;
+  place-items: center;
+}
+
+.side-menu__logo::before {
+  width: 22px;
+  height: 22px;
+  content: '';
+  background: currentcolor;
+  clip-path: polygon(50% 0, 58% 38%, 100% 50%, 58% 62%, 50% 100%, 42% 62%, 0 50%, 42% 38%);
+}
+
+.side-menu__divider {
+  width: 100%;
+  height: 1px;
+  margin: 24px 0;
+  background: var(--starlinks-menu-divider);
+}
+
+.side-menu__scroll-region {
+  flex: 1 1 auto;
+  min-height: 0;
+  padding-inline: 2px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-color: transparent transparent;
+  scrollbar-width: thin;
+}
+
+.side-menu__scroll-region:hover,
+.side-menu__scroll-region:focus-within {
+  scrollbar-color: color-mix(in srgb, var(--starlinks-menu-muted) 55%, transparent) transparent;
+}
+
+.side-menu__scroll-region::-webkit-scrollbar {
+  width: 4px;
+}
+
+.side-menu__scroll-region::-webkit-scrollbar-button {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+.side-menu__scroll-region::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.side-menu__scroll-region::-webkit-scrollbar-thumb {
+  background: transparent;
+  border-radius: 999px;
+  transition: background-color 160ms ease;
+}
+
+.side-menu__scroll-region:hover::-webkit-scrollbar-thumb,
+.side-menu__scroll-region:focus-within::-webkit-scrollbar-thumb {
+  background: color-mix(in srgb, var(--starlinks-menu-muted) 55%, transparent);
+}
+
+.side-menu__list {
+  display: grid;
+  gap: 12px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.side-menu__list > li {
+  position: relative;
+}
+
+.side-menu__item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 56px;
+  color: var(--starlinks-menu-muted);
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  border-radius: 12px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  line-height: 1.2;
+  text-align: center;
+  transition:
+    color 160ms ease,
+    background-color 160ms ease;
+  min-width: 56px;
+}
+
+.side-menu__item:hover {
+  color: var(--starlinks-menu-active);
+  background: color-mix(in srgb, var(--starlinks-menu-active) 8%, transparent);
+}
+
+.side-menu__item--active {
+  color: var(--starlinks-menu-active);
+}
+
+.side-menu__icon {
+  display: block;
+  flex: 0 0 auto;
+}
+
+.side-menu__item--danger-icon .side-menu__icon {
+  color: var(--starlinks-menu-notification);
+}
+
+.side-menu__item--danger-icon:hover {
+  color: var(--starlinks-menu-muted);
+  background: color-mix(in srgb, var(--starlinks-menu-notification) 6%, transparent);
+}
+
+.side-menu__notification {
+  position: absolute;
+  top: 7px;
+  inset-inline-end: 14px;
+  width: 7px;
+  height: 7px;
+  background: var(--starlinks-menu-notification);
+  border: 1px solid var(--starlinks-surface);
+  border-radius: 999px;
+}
+
+.side-menu__list--nested {
+  padding-inline-start: 8px;
+}
+
+.side-menu--expanded .side-menu__item {
+  flex-direction: row;
+  justify-content: flex-start;
+  padding: 0 12px;
+  font-size: 14px;
+  text-align: start;
+}
+
+.side-menu--expanded .side-menu__notification {
+  top: 12px;
+  inset-inline-end: 12px;
+}

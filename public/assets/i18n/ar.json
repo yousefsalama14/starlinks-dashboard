@@ -12,9 +12,19 @@
     },
     "NAV": {
       "DASHBOARD": "لوحة التحكم",
-      "ACTIVITY": "النشاط"
+      "ACTIVITY": "النشاط",
+      "HOME": "الرئيسية",
+      "SHIPMENTS": "الشحنات",
+      "FULFILLMENT": "التنفيذ",
+      "SURVEYS": "الاستبيانات",
+      "INVOICES": "الفواتير",
+      "SUPPORT": "الدعم",
+      "LOGOUT": "تسجيل الخروج"
     },
     "APP_SHELL": {
+      "NOTIFICATIONS": "الإشعارات: توجد عناصر غير مقروءة",
+      "ACCOUNT_SUMMARY": "حساب مسؤول ستارلينكس",
+      "ADMIN_ROLE": "مسؤول",
       "MAIN_NAVIGATION": "التنقل الرئيسي",
       "OPEN_MENU": "فتح قائمة التنقل",
       "CLOSE_MENU": "إغلاق قائمة التنقل",
@@ -33,6 +43,15 @@
       "BREADCRUMB_LABEL": "مسار النشاط",
       "TITLE": "لا يوجد نشاط بعد",
       "DESCRIPTION": "ستظهر تحديثات مساحة عملك في ستارلينكس هنا عند توفرها."
+    },
+    "NOT_FOUND": {
+      "HEADER_TITLE": "غير موجود",
+      "TITLE": "الصفحة غير موجودة",
+      "DESCRIPTION": "الصفحة التي طلبتها غير متاحة.",
+      "BACK_HOME": "العودة إلى الرئيسية"
+    },
+    "PLACEHOLDER": {
+      "DESCRIPTION": "هذه المساحة جاهزة لميزة ستارلينكس القادمة."
     }
   }
 }

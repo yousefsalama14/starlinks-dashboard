@@ -11,13 +11,23 @@
       "ARABIC": "Arabic"
     },
     "NAV": {
+      "HOME": "Home",
       "DASHBOARD": "Dashboard",
-      "ACTIVITY": "Activity"
+      "ACTIVITY": "Activity",
+      "SHIPMENTS": "Shipments",
+      "FULFILLMENT": "Fulfillment",
+      "SURVEYS": "Surveys",
+      "INVOICES": "Invoices",
+      "SUPPORT": "Support",
+      "LOGOUT": "Logout"
     },
     "APP_SHELL": {
       "MAIN_NAVIGATION": "Main navigation",
       "OPEN_MENU": "Open navigation menu",
       "CLOSE_MENU": "Close navigation menu",
+      "NOTIFICATIONS": "Notifications: unread items",
+      "ACCOUNT_SUMMARY": "Starlinks administrator account",
+      "ADMIN_ROLE": "Admin",
       "DEMO_USER": "Demo Brand",
       "DEMO_USER_INITIALS": "DB"
     },
@@ -33,6 +43,15 @@
       "BREADCRUMB_LABEL": "Activity breadcrumb",
       "TITLE": "No activity yet",
       "DESCRIPTION": "Updates from your Starlinks workspace will appear here when they are available."
+    },
+    "NOT_FOUND": {
+      "HEADER_TITLE": "Not Found",
+      "TITLE": "Page not found",
+      "DESCRIPTION": "The page you requested is not available.",
+      "BACK_HOME": "Back to Home"
+    },
+    "PLACEHOLDER": {
+      "DESCRIPTION": "This area is ready for the next Starlinks feature."
     }
   }
 }

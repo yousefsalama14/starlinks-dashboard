@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 
 import { AppShellComponent } from './core/layout/app-shell/app-shell.component';
+import { pageRouteData } from './core/layout/page-route-data';
 
 export const routes: Routes = [
   {
@@ -8,31 +9,25 @@ export const routes: Routes = [
     component: AppShellComponent,
     children: [
       {
-        path: 'dashboard',
+        path: 'home',
+        data: pageRouteData({ headerTitleKey: 'STARLINKS.NAV.HOME' }),
         loadComponent: () =>
-          import('./features/dashboard/pages/dashboard-layout/dashboard-layout.component').then(
-            (component) => component.DashboardLayoutComponent,
+          import('./features/home/pages/home/home.component').then(
+            (component) => component.HomeComponent,
           ),
-        children: [
-          {
-            path: '',
-            loadComponent: () =>
-              import('./features/dashboard/pages/dashboard/dashboard.component').then(
-                (component) => component.DashboardComponent,
-              ),
-          },
-          {
-            path: 'activity',
-            loadComponent: () =>
-              import('./features/dashboard/pages/activity/activity.component').then(
-                (component) => component.ActivityComponent,
-              ),
-          },
-        ],
       },
-      { path: '', pathMatch: 'full', redirectTo: 'dashboard' },
+      {
+        path: 'not-found',
+        data: pageRouteData({ headerTitleKey: 'STARLINKS.NOT_FOUND.HEADER_TITLE' }),
+        loadComponent: () =>
+          import('./features/not-found/pages/not-found/not-found.component').then(
+            (component) => component.NotFoundComponent,
+          ),
+      },
+      { path: '', pathMatch: 'full', redirectTo: 'home' },
+      { path: '**', redirectTo: 'not-found' },
     ],
   },
-  { path: '', pathMatch: 'full', redirectTo: 'app/dashboard' },
-  { path: '**', redirectTo: 'app/dashboard' },
+  { path: '', pathMatch: 'full', redirectTo: 'app/home' },
+  { path: '**', redirectTo: 'app/not-found' },
 ];
