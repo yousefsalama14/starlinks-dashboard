@@ -1,15 +1,45 @@
-<label
-  class="flex items-center gap-2 rounded-xl border border-starlinks-border bg-starlinks-surface px-2.5 py-2 text-sm font-semibold text-starlinks-text shadow-sm"
->
-  <span class="sr-only">{{ 'STARLINKS.LANGUAGES.LABEL' | translate }}</span>
-  <i class="pi pi-globe text-xs text-starlinks-textMuted"></i>
-  <select
-    class="max-w-28 border-0 bg-transparent p-0 text-sm font-semibold text-starlinks-text outline-none"
-    [ngModel]="currentLanguage()"
-    (ngModelChange)="setLanguage($event)"
-  >
-    @for (language of languages; track language.code) {
-      <option [value]="language.code">{{ language.labelKey | translate }}</option>
-    }
-  </select>
-</label>
+@if (variant() === 'account') {
+  <span class="language-switcher language-switcher--account">
+    <label class="language-switcher__control language-switcher__control--compact">
+      <span class="sr-only">{{ 'STARLINKS.LANGUAGES.LABEL' | translate }}</span>
+      <i class="pi pi-globe" aria-hidden="true"></i>
+      <select
+        [attr.aria-label]="'STARLINKS.LANGUAGES.LABEL' | translate"
+        [ngModel]="currentLanguage()"
+        (ngModelChange)="setLanguage($event)"
+      >
+        @for (language of languages; track language.code) {
+          <option [value]="language.code">{{ language.code.toUpperCase() }}</option>
+        }
+      </select>
+    </label>
+
+    <label class="language-switcher__control language-switcher__control--full">
+      <span class="sr-only">{{ 'STARLINKS.LANGUAGES.LABEL' | translate }}</span>
+      <i class="pi pi-globe" aria-hidden="true"></i>
+      <select
+        [attr.aria-label]="'STARLINKS.LANGUAGES.LABEL' | translate"
+        [ngModel]="currentLanguage()"
+        (ngModelChange)="setLanguage($event)"
+      >
+        @for (language of languages; track language.code) {
+          <option [value]="language.code">{{ language.labelKey | translate }}</option>
+        }
+      </select>
+    </label>
+  </span>
+} @else {
+  <label class="language-switcher__control language-switcher__control--default">
+    <span class="sr-only">{{ 'STARLINKS.LANGUAGES.LABEL' | translate }}</span>
+    <i class="pi pi-globe" aria-hidden="true"></i>
+    <select
+      [attr.aria-label]="'STARLINKS.LANGUAGES.LABEL' | translate"
+      [ngModel]="currentLanguage()"
+      (ngModelChange)="setLanguage($event)"
+    >
+      @for (language of languages; track language.code) {
+        <option [value]="language.code">{{ language.labelKey | translate }}</option>
+      }
+    </select>
+  </label>
+}
