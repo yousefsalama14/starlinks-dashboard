@@ -2,66 +2,60 @@
   display: inline-flex;
 }
 
-.language-switcher {
-  display: inline-flex;
-}
-
-.language-switcher__control {
-  display: flex;
+:host ::ng-deep .language-switcher__select {
+  // min-width: 9rem;
   color: var(--starlinks-text);
-  align-items: center;
-  gap: 0.35rem;
-}
-
-.language-switcher__control i {
-  color: var(--starlinks-text-muted);
-  font-size: 0.75rem;
-}
-
-.language-switcher__control select {
-  min-width: 0;
-  padding: 0;
-  color: inherit;
-  background: transparent;
-  border: 0;
-  font: inherit;
-  font-weight: 600;
-  outline: none;
-}
-
-.language-switcher__control--default {
-  padding: 0.5rem 0.625rem;
   background: var(--starlinks-surface);
   border: 1px solid var(--starlinks-border);
   border-radius: 0.75rem;
   box-shadow: 0 1px 2px rgb(15 23 42 / 6%);
-  font-size: 0.875rem;
 }
 
-.language-switcher__control--default select,
-.language-switcher__control--full select {
-  max-width: 7rem;
+:host ::ng-deep .language-switcher__select .p-select-label {
+  padding: 0.5rem 0 0.5rem 0.625rem;
 }
 
-.language-switcher__control--compact {
+:host ::ng-deep .language-switcher__select .p-select-dropdown {
+  width: 2rem;
+  color: var(--starlinks-text-muted);
+}
+
+:host ::ng-deep .language-switcher--account.language-switcher__select {
+  // width: 5.25rem;
+  // min-width: 5.25rem;
+  // flex: 0 0 5.25rem;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+:host ::ng-deep .language-switcher--account .p-select-label {
+  padding: 0.25rem 0 0.25rem 0.2rem;
+}
+
+:host ::ng-deep .language-switcher--account .p-select-dropdown {
+  width: 1.5rem;
+}
+
+.language-switcher__value,
+.language-switcher__option {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.language-switcher__value iconsax-icon,
+.language-switcher__arrow {
+  color: var(--starlinks-text-muted);
+}
+
+.language-switcher__label {
+  white-space: nowrap;
+  font-weight: 600;
+}
+
+.language-switcher__label--code {
   font-size: 0.7rem;
-}
-
-.language-switcher__control--compact select {
-  width: 2.25rem;
-}
-
-.language-switcher__control--full {
-  display: none;
-  font-size: 0.7rem;
-}
-
-@media (min-width: 64rem) {
-  .language-switcher__control--compact {
-    display: none;
-  }
-
-  .language-switcher__control--full {
-    display: flex;
-  }
+  color: var(--starlinks-text-muted);
 }
