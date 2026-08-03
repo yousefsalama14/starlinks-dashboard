@@ -1,0 +1,18 @@
+<div class="auth-layout">
+  <div class="auth-layout__panel">
+    <main class="auth-layout__form-column">
+      <div class="auth-layout__content">
+        <ng-content select="[authLayoutBack]"></ng-content>
+        <ng-content></ng-content>
+      </div>
+
+      <div class="auth-layout__footer">
+        <ng-content select="[authLayoutFooter]"></ng-content>
+      </div>
+    </main>
+
+    <div class="auth-layout__brand-column">
+      <app-auth-brand-panel />
+    </div>
+  </div>
+</div>

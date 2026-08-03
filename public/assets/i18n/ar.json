@@ -10,6 +10,21 @@
       "ENGLISH": "الإنجليزية",
       "ARABIC": "العربية"
     },
+    "COMMON": {
+      "EMAIL": "البريد الإلكتروني",
+      "PASSWORD": "كلمة المرور",
+      "CONFIRM": "تأكيد",
+      "CONTINUE": "متابعة",
+      "BACK": "رجوع",
+      "SUPPORT": "الدعم",
+      "PRIVACY_POLICY": "سياسة الخصوصية",
+      "COPYRIGHT": "© {{year}} ستارلينكس. ",
+      "SHOW_PASSWORD": "إظهار كلمة المرور",
+      "HIDE_PASSWORD": "إخفاء كلمة المرور",
+      "GENERIC_ERROR_TITLE": "حدث خطأ ما",
+      "GENERIC_ERROR_MESSAGE": "لم نتمكن من إتمام هذا الطلب. يرجى المحاولة مرة أخرى.",
+      "CLOSE": "إغلاق"
+    },
     "NAV": {
       "DASHBOARD": "لوحة التحكم",
       "ACTIVITY": "النشاط",
@@ -30,6 +45,77 @@
       "CLOSE_MENU": "إغلاق قائمة التنقل",
       "DEMO_USER": "علامة تجريبية",
       "DEMO_USER_INITIALS": "ع ت"
+    },
+    "AUTH": {
+      "BRAND": {
+        "HEADING": "أبعد من توقعاتك"
+      },
+      "LOGIN": {
+        "TITLE": "تسجيل الدخول إلى حسابك",
+        "SUBTITLE": "أدخل بريدك الإلكتروني وكلمة المرور لتسجيل الدخول",
+        "EMAIL_PLACEHOLDER": "you@example.com",
+        "PASSWORD_PLACEHOLDER": "أدخل كلمة المرور",
+        "REMEMBER_ME": "تذكرني",
+        "FORGOT_PASSWORD": "هل نسيت كلمة المرور؟",
+        "SUBMIT": "تسجيل الدخول",
+        "SUBMITTING": "جارٍ تسجيل الدخول…",
+        "INVALID_CREDENTIALS_TITLE": "إدخال غير صحيح",
+        "INVALID_CREDENTIALS_MESSAGE": "بيانات الدخول غير صحيحة، يرجى التحقق منها والمحاولة مرة أخرى."
+      },
+      "FORGOT_PASSWORD": {
+        "TITLE": "نسيت كلمة المرور",
+        "SUBTITLE": "أدخل بريدك الإلكتروني للحصول على رابط إعادة تعيين كلمة المرور.",
+        "EMAIL_PLACEHOLDER": "you@example.com",
+        "SUBMIT": "إرسال",
+        "SUBMITTING": "جارٍ الإرسال…",
+        "REMEMBERED_PASSWORD": "هل تتذكر كلمة المرور؟",
+        "SIGN_IN": "تسجيل الدخول",
+        "SUCCESS_TITLE": "طلب إعادة تعيين كلمة المرور",
+        "SUCCESS_MESSAGE": "تم إرسال طلب إعادة تعيين كلمة المرور بنجاح."
+      },
+      "RESET_PASSWORD": {
+        "TITLE": "تعيين كلمة مرور جديدة",
+        "SUBTITLE": "أدخل كلمة المرور الجديدة.",
+        "NEW_PASSWORD_LABEL": "كلمة المرور الجديدة",
+        "NEW_PASSWORD_PLACEHOLDER": "أدخل كلمة المرور الجديدة",
+        "CONFIRM_PASSWORD_LABEL": "تأكيد كلمة المرور الجديدة",
+        "CONFIRM_PASSWORD_PLACEHOLDER": "أعد إدخال كلمة المرور الجديدة",
+        "SUBMIT": "تعيين كلمة المرور",
+        "SUBMITTING": "جارٍ الحفظ…",
+        "BACK_TO_LOGIN": "العودة إلى تسجيل الدخول",
+        "SUCCESS_TITLE": "تمت إعادة تعيين كلمة المرور",
+        "SUCCESS_MESSAGE": "تمت إعادة تعيين كلمة المرور بنجاح.",
+        "INVALID_TOKEN_TITLE": "رابط إعادة التعيين غير صالح",
+        "INVALID_TOKEN_MESSAGE": "رابط إعادة تعيين كلمة المرور هذا غير صالح. يرجى طلب رابط جديد.",
+        "EXPIRED_TOKEN_TITLE": "انتهت صلاحية رابط إعادة التعيين",
+        "EXPIRED_TOKEN_MESSAGE": "انتهت صلاحية رابط إعادة تعيين كلمة المرور هذا. يرجى طلب رابط جديد.",
+        "REQUEST_NEW_LINK": "طلب رابط جديد"
+      },
+      "PASSWORD": {
+        "MIN_LENGTH": "8 أحرف كحد أدنى",
+        "NUMBER": "أرقام (0-9)",
+        "UPPERCASE": "أحرف كبيرة (A-Z)",
+        "SPECIAL_CHARACTER": "رموز خاصة (!@#$%^&*)",
+        "REQUIREMENTS_LABEL": "متطلبات كلمة المرور",
+        "REQUIREMENT_MET": "تم استيفاء الشرط",
+        "REQUIREMENT_NOT_MET": "لم يتم استيفاء الشرط بعد",
+        "STRENGTH_LABEL": "قوة كلمة المرور",
+        "MISMATCH": "كلمتا المرور غير متطابقتين",
+        "STRENGTH": {
+          "EMPTY": "—",
+          "WEAK": "ضعيفة",
+          "FAIR": "متوسطة",
+          "GOOD": "جيدة",
+          "STRONG": "قوية"
+        }
+      },
+      "VALIDATION": {
+        "EMAIL_REQUIRED": "البريد الإلكتروني مطلوب",
+        "EMAIL_INVALID": "أدخل بريدًا إلكترونيًا صالحًا",
+        "PASSWORD_REQUIRED": "كلمة المرور مطلوبة",
+        "CONFIRM_PASSWORD_REQUIRED": "يرجى تأكيد كلمة المرور",
+        "PASSWORD_POLICY": "كلمة المرور لا تستوفي المتطلبات الموضحة أدناه"
+      }
     },
     "DASHBOARD": {
       "BREADCRUMB_LABEL": "سياق لوحة التحكم",

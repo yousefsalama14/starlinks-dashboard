@@ -1,0 +1,79 @@
+:host ::ng-deep .auth-feedback-dialog {
+  overflow: hidden;
+  border-radius: 1.25rem;
+}
+
+:host ::ng-deep .auth-feedback-dialog .p-dialog-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 2rem 2rem 0;
+  border-bottom: none;
+}
+
+:host ::ng-deep .auth-feedback-dialog .p-dialog-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1rem 2rem 2rem;
+  text-align: center;
+  border-top: none;
+}
+
+.auth-feedback-dialog__icon-ring {
+  display: grid;
+  width: 5.5rem;
+  height: 5.5rem;
+  border-radius: 999px;
+  place-items: center;
+}
+
+.auth-feedback-dialog__icon-ring--success {
+  background: var(--starlinks-success-soft);
+  color: var(--starlinks-success);
+}
+
+.auth-feedback-dialog__icon-ring--error {
+  background: var(--starlinks-danger-soft);
+  color: var(--starlinks-danger);
+}
+
+.auth-feedback-dialog__title {
+  margin: 0;
+  color: var(--starlinks-text);
+  font-size: 1.125rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+.auth-feedback-dialog__message {
+  margin: 0;
+  color: var(--starlinks-text-muted);
+  font-size: 0.9375rem;
+  line-height: 1.5;
+}
+
+.auth-feedback-dialog__action {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: none;
+  border-radius: 0.75rem;
+  color: var(--starlinks-surface);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.auth-feedback-dialog__action--success {
+  background: var(--starlinks-success);
+}
+
+.auth-feedback-dialog__action--error {
+  background: var(--starlinks-danger);
+}
+
+.auth-feedback-dialog__action:focus-visible {
+  outline: 2px solid var(--starlinks-focus);
+  outline-offset: 2px;
+}

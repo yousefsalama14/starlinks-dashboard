@@ -1,0 +1,18 @@
+<div class="formly-email-field">
+  <iconsax-icon
+    class="formly-email-field__icon"
+    name="sms"
+    type="linear"
+    size="20"
+    aria-hidden="true"
+  ></iconsax-icon>
+  <input
+    pInputText
+    type="email"
+    class="formly-email-field__input"
+    [formControl]="formControl"
+    [formlyAttributes]="field"
+    [placeholder]="props.placeholder ?? ''"
+    [invalid]="showError"
+  />
+</div>

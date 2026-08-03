@@ -11,6 +11,8 @@ import { NavigationEnd, Router, RouterLink, RouterOutlet } from '@angular/router
 import { TranslatePipe } from '@ngx-translate/core';
 import { filter } from 'rxjs';
 import { PageRouteData } from '../page-route-data';
+import { AUTH_LOGIN_ROUTE } from '../../../features/auth/constants/auth-routes.constants';
+import { AuthFacade } from '../../../features/auth/data-access/auth.facade';
 import { LanguageSwitcherComponent } from '../../../shared/components/language-switcher/language-switcher.component';
 import {
   NavigationMenuComponent,
@@ -33,6 +35,7 @@ import {
 })
 export class AppShellComponent {
   private readonly router = inject(Router);
+  private readonly authFacade = inject(AuthFacade);
   private readonly navigationEnd = toSignal(
     this.router.events.pipe(
       filter((event): event is NavigationEnd => event instanceof NavigationEnd),
@@ -104,8 +107,19 @@ export class AppShellComponent {
   }
 
   protected handleMenuItemSelection(item: NavigationMenuItem): void {
+    if (item.id === 'logout') {
+      this.logout();
+      return;
+    }
     if (item.route) {
       this.closeMobileMenu();
     }
+  }
+
+  private logout(): void {
+    this.authFacade.logout().subscribe(() => {
+      this.closeMobileMenu();
+      void this.router.navigateByUrl(AUTH_LOGIN_ROUTE);
+    });
   }
 }
