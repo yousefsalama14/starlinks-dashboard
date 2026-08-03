@@ -13,6 +13,7 @@
       class="side-drawer side-drawer--inline-end"
       [class.side-drawer--inset]="inset()"
       [class.side-drawer--medium]="width() === 'medium'"
+      [class.side-drawer--wide]="width() === 'wide'"
       [id]="resolvedDrawerId()"
       role="dialog"
       aria-modal="true"
@@ -20,7 +21,16 @@
       tabindex="-1"
     >
       <header class="side-drawer__header">
-        <h2 [id]="titleId()">{{ title().key | translate: title().params }}</h2>
+        @if (customHeader()) {
+          <h2 class="side-drawer__accessible-title" [id]="titleId()">
+            {{ title().key | translate: title().params }}
+          </h2>
+          <div class="side-drawer__custom-header">
+            <ng-content select="[sideDrawerHeader]" />
+          </div>
+        } @else {
+          <h2 [id]="titleId()">{{ title().key | translate: title().params }}</h2>
+        }
         <button
           type="button"
           class="side-drawer__close"

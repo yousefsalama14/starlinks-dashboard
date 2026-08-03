@@ -160,6 +160,23 @@ describe('SideDrawerComponent', () => {
     expect(fixture.nativeElement.querySelector('.side-drawer__footer')).toBeTruthy();
     expect(fixture.nativeElement.querySelector('.side-drawer--inset')).toBeNull();
   });
+
+  it('supports an opt-in wide drawer and accessible projected-header shell', async () => {
+    const fixture = TestBed.createComponent(SideDrawerComponent);
+    fixture.componentRef.setInput('title', { key: 'TEST.TITLE' });
+    fixture.componentRef.setInput('width', 'wide');
+    fixture.componentRef.setInput('customHeader', true);
+    fixture.componentRef.setInput('open', true);
+    fixture.detectChanges();
+    await Promise.resolve();
+    fixture.detectChanges();
+
+    expect(fixture.nativeElement.querySelector('.side-drawer--wide')).toBeTruthy();
+    expect(fixture.nativeElement.querySelector('.side-drawer__custom-header')).toBeTruthy();
+    expect(
+      fixture.nativeElement.querySelector('.side-drawer__accessible-title').textContent,
+    ).toContain('Drawer title');
+  });
 });
 
 function createFixture(): ComponentFixture<DrawerHostComponent> {

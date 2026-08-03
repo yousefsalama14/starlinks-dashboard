@@ -202,6 +202,36 @@
         "EXPECTED_DELIVERY_DATE": "تاريخ التسليم المتوقع",
         "FILTERED_EMPTY_TITLE": "لا توجد شحنات تطابق عوامل التصفية",
         "FILTERED_EMPTY_DESCRIPTION": "عدّل عوامل التصفية أو أعد تعيينها لعرض الشحنات."
+      },
+      "DETAILS": {
+        "ACCESSIBLE_TITLE": "تفاصيل الشحنة {{shipmentNumber}}",
+        "HEADER_LABEL": "الشحنة",
+        "EXPORT": "تصدير تفاصيل الشحنة",
+        "SHIPMENT_INFO": "معلومات الشحنة",
+        "SHIPMENT_NUMBER": "رقم الشحنة",
+        "STATUS": "الحالة",
+        "CUSTOMER_REFERENCE": "مرجع العميل",
+        "SERVICE_TYPE": "نوع الخدمة",
+        "PIECES": "القطع",
+        "WEIGHT": "الوزن",
+        "KILOGRAM": "كجم",
+        "ROUTE": "المسار",
+        "ORIGIN": "المنشأ",
+        "DESTINATION": "الوجهة",
+        "WAREHOUSE": "مستودع",
+        "PICKUP_DATE": "تاريخ الاستلام",
+        "EXPECTED_DELIVERY_DATE": "تاريخ التسليم المتوقع",
+        "PROGRESS": "التقدم",
+        "STATUS_HISTORY": "سجل الحالة",
+        "NO_EVENT": "لا يوجد حدث مسجل",
+        "RAISE_TICKETS": "إنشاء تذكرة",
+        "MILESTONES": {
+          "CREATED": "تم الإنشاء",
+          "PICKED_UP": "تم الاستلام",
+          "IN_TRANSIT": "قيد النقل",
+          "OUT_FOR_DELIVERY": "خرجت للتسليم",
+          "DELIVERED": "التسليم"
+        }
       }
     },
     "NOT_FOUND": {

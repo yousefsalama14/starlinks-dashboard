@@ -27,6 +27,7 @@ import {
 } from '../../../../shared/components/table-toolbar/table-toolbar.types';
 import { TableFiltersComponent } from '../../../../shared/components/table-toolbar/table-filters.component';
 import { TableViewOptionsComponent } from '../../../../shared/components/table-toolbar/table-view-options.component';
+import { ShipmentDetailsDrawerComponent } from '../../components/shipment-details-drawer/shipment-details-drawer.component';
 import { ShipmentsComponent } from './shipments.component';
 
 registerLocaleData(localeAr);
@@ -422,6 +423,74 @@ describe('ShipmentsComponent', () => {
     expect(indicator.getAttribute('type')).toBe('linear');
     expect(indicator.getAttribute('size')).toBe('14');
     expect(indicator.getAttribute('aria-hidden')).toBe('true');
+  });
+
+  it('opens details only from a Shipment No. anchor and selects the exact immutable mock row', async () => {
+    const fixture = createFixture();
+    const signals = componentSignals(fixture);
+    const links = fixture.nativeElement.querySelectorAll(
+      '.shipments-number-cell__link',
+    ) as NodeListOf<HTMLAnchorElement>;
+    const initialPath = window.location.href;
+    const click = new MouseEvent('click', { bubbles: true, cancelable: true });
+
+    links[1].focus();
+    links[1].dispatchEvent(click);
+    await fixture.whenStable();
+    fixture.detectChanges();
+
+    expect(click.defaultPrevented).toBe(true);
+    expect(window.location.href).toBe(initialPath);
+    expect(signals.selectedShipmentId()).toBe(SHIPMENTS_MOCK[1].id);
+    expect(signals.selectedShipment()).toBe(SHIPMENTS_MOCK[1]);
+    expect(signals.activeDrawer()).toBe('shipment-details');
+    const details = fixture.debugElement.query(By.directive(ShipmentDetailsDrawerComponent))
+      .componentInstance as ShipmentDetailsDrawerComponent;
+    expect(details.shipment()).toBe(SHIPMENTS_MOCK[1]);
+    expect(details.open()).toBe(true);
+  });
+
+  it('does not open details from other cells and replaces the single selection by stable identity', () => {
+    const fixture = createFixture();
+    const signals = componentSignals(fixture);
+    const firstRow = fixture.nativeElement.querySelector('.dynamic-table__data-row') as HTMLElement;
+
+    for (const columnKey of ['customerReference', 'service', 'status']) {
+      (firstRow.querySelector(`[data-column-key="${columnKey}"]`) as HTMLElement).click();
+    }
+    (firstRow.querySelector('[data-column-key="actions"] button') as HTMLButtonElement).click();
+    expect(signals.selectedShipment()).toBeNull();
+    expect(signals.activeDrawer()).toBeNull();
+
+    const firstActivation = new MouseEvent('click', { cancelable: true });
+    const secondActivation = new MouseEvent('click', { cancelable: true });
+    signals.handleShipmentLink(firstActivation, SHIPMENTS_MOCK[0].id);
+    signals.handleShipmentLink(secondActivation, SHIPMENTS_MOCK[2].id);
+
+    expect(signals.selectedShipment()).toBe(SHIPMENTS_MOCK[2]);
+    expect(signals.activeDrawer()).toBe('shipment-details');
+    expect(firstActivation.defaultPrevented).toBe(true);
+    expect(secondActivation.defaultPrevented).toBe(true);
+  });
+
+  it('closes details through the shared drawer and restores focus to the Shipment No. link', async () => {
+    const fixture = createFixture();
+    const signals = componentSignals(fixture);
+    const link = fixture.nativeElement.querySelector(
+      '.shipments-number-cell__link',
+    ) as HTMLAnchorElement;
+    link.focus();
+    link.click();
+    await fixture.whenStable();
+    fixture.detectChanges();
+
+    (fixture.nativeElement.querySelector('.side-drawer__close') as HTMLButtonElement).click();
+    fixture.detectChanges();
+    expect(signals.activeDrawer()).toBeNull();
+    await new Promise((resolve) => setTimeout(resolve, 210));
+    await Promise.resolve();
+
+    expect(document.activeElement).toBe(link);
   });
 
   it('renders translated service and origin/destination feature cells', () => {
@@ -1013,7 +1082,9 @@ interface ShipmentSignals {
   readonly searchSuggestionsState: WritableSignal<TableSearchSuggestionsState>;
   readonly visibleColumnKeys: WritableSignal<readonly string[]>;
   readonly columnOrder: WritableSignal<readonly string[]>;
-  readonly activeDrawer: WritableSignal<'view-options' | null>;
+  readonly activeDrawer: WritableSignal<'view-options' | 'shipment-details' | null>;
+  readonly selectedShipmentId: WritableSignal<string | null>;
+  readonly selectedShipment: Signal<Shipment | null>;
   readonly filterDraft: WritableSignal<TableFilterModel>;
   readonly appliedFilters: WritableSignal<TableFilterModel>;
   readonly activeFilterCount: Signal<number>;
@@ -1039,6 +1110,8 @@ interface ShipmentSignals {
   handleClearRecent(): void;
   handleSearchRetry(): void;
   handlePageChange(change: { readonly page: number; readonly pageSize: number }): void;
+  handleShipmentLink(event: Event, shipmentId: string): void;
+  handleShipmentDetailsClosed(): void;
   handleViewOptionChange(change: { readonly key: string; readonly visible: boolean }): void;
   handleViewOptionsShowAll(): void;
   handleViewOptionOrderChange(change: { readonly orderedKeys: readonly string[] }): void;
@@ -1256,6 +1329,36 @@ function shipmentTranslations(values: {
       CONFIRM_TOOLTIP: 'Confirm record',
       CANCEL: 'Cancel',
       CANCEL_TOOLTIP: 'Cancel record',
+    },
+    DETAILS: {
+      ACCESSIBLE_TITLE: 'Shipment {{shipmentNumber}} details',
+      HEADER_LABEL: 'Shipment',
+      EXPORT: 'Export shipment details',
+      SHIPMENT_INFO: 'Shipment info',
+      SHIPMENT_NUMBER: 'Shipment no.',
+      STATUS: 'Status',
+      CUSTOMER_REFERENCE: 'Customer ref.',
+      SERVICE_TYPE: 'Service type',
+      PIECES: 'Pieces',
+      WEIGHT: 'Weight',
+      KILOGRAM: 'kg',
+      ROUTE: 'Route',
+      ORIGIN: 'Origin',
+      DESTINATION: 'Destination',
+      WAREHOUSE: 'Warehouse',
+      PICKUP_DATE: 'Pickup date',
+      EXPECTED_DELIVERY_DATE: 'Expected Delivery Date',
+      PROGRESS: 'Progress',
+      STATUS_HISTORY: 'Status history',
+      NO_EVENT: 'No event recorded',
+      RAISE_TICKETS: 'Raise Tickets',
+      MILESTONES: {
+        CREATED: 'Created',
+        PICKED_UP: 'Picked up',
+        IN_TRANSIT: 'In transit',
+        OUT_FOR_DELIVERY: 'Out for delivery',
+        DELIVERED: 'Delivery',
+      },
     },
   };
 }

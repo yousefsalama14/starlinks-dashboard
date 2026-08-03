@@ -7,7 +7,6 @@ import {
   signal,
 } from '@angular/core';
 import { DecimalPipe } from '@angular/common';
-import { RouterLink } from '@angular/router';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 
 import { DynamicTableComponent } from '../../../../shared/components/dynamic-table/dynamic-table.component';
@@ -48,6 +47,7 @@ import {
   SummaryCardTrend,
 } from '../../../../shared/components/summary-card/summary-card.types';
 import { SHIPMENTS_MOCK } from '../../data/shipments.mock';
+import { ShipmentDetailsDrawerComponent } from '../../components/shipment-details-drawer/shipment-details-drawer.component';
 import {
   Shipment,
   ShipmentActionId,
@@ -284,7 +284,7 @@ const PROGRESS_TONES: Readonly<Record<ShipmentStatus, TableProgressTone>> = {
   imports: [
     DecimalPipe,
     DynamicTableComponent,
-    RouterLink,
+    ShipmentDetailsDrawerComponent,
     SummaryCardComponent,
     TableCellDefDirective,
     TableSearchComponent,
@@ -314,7 +314,8 @@ export class ShipmentsComponent {
   protected readonly searchSuggestionsState = signal<TableSearchSuggestionsState>({ kind: 'idle' });
   protected readonly visibleColumnKeys = signal<readonly string[]>(COLUMN_KEYS);
   protected readonly columnOrder = signal<readonly string[]>(CONFIGURABLE_COLUMN_KEYS);
-  protected readonly activeDrawer = signal<'view-options' | null>(null);
+  protected readonly activeDrawer = signal<'view-options' | 'shipment-details' | null>(null);
+  protected readonly selectedShipmentId = signal<string | null>(null);
   protected readonly filterDraft = signal<TableFilterModel>(EMPTY_SHIPMENT_FILTERS);
   protected readonly appliedFilters = signal<TableFilterModel>(EMPTY_SHIPMENT_FILTERS);
   protected readonly searchFields = SHIPMENT_SEARCH_FIELDS;
@@ -339,6 +340,13 @@ export class ShipmentsComponent {
         });
       }),
     );
+  });
+
+  protected readonly selectedShipment = computed<Shipment | null>(() => {
+    const shipmentId = this.selectedShipmentId();
+    return shipmentId === null
+      ? null
+      : (SHIPMENTS_MOCK.find((shipment) => shipment.id === shipmentId) ?? null);
   });
 
   protected readonly viewState = computed(() =>
@@ -499,6 +507,24 @@ export class ShipmentsComponent {
 
   protected handleActionTriggered(event: TableActionEvent<Shipment>): void {
     this.lastAction.set(event);
+  }
+
+  protected handleShipmentLink(event: Event, shipmentId: string): void {
+    event.preventDefault();
+    const shipment = SHIPMENTS_MOCK.find((candidate) => candidate.id === shipmentId);
+    if (!shipment) {
+      throw new Error(
+        `[Shipments] Cannot open details for unknown shipment identity "${shipmentId}".`,
+      );
+    }
+    this.selectedShipmentId.set(shipment.id);
+    this.activeDrawer.set('shipment-details');
+  }
+
+  protected handleShipmentDetailsClosed(): void {
+    if (this.activeDrawer() === 'shipment-details') {
+      this.activeDrawer.set(null);
+    }
   }
 
   protected handleViewOptionChange(change: TableViewOptionChange): void {

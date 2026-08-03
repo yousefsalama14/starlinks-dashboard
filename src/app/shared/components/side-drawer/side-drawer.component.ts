@@ -18,7 +18,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 
 import { TranslatedText } from '../dynamic-table/dynamic-table.types';
 
-export type SideDrawerWidth = 'narrow' | 'medium';
+export type SideDrawerWidth = 'narrow' | 'medium' | 'wide';
 type SideDrawerPhase = 'closed' | 'opening' | 'open' | 'closing';
 
 const CLOSE_DURATION_MS = 200;
@@ -48,6 +48,7 @@ export class SideDrawerComponent {
   readonly title = input.required<TranslatedText>();
   readonly closeOnBackdrop = input(true);
   readonly closeOnEscape = input(true);
+  readonly customHeader = input(false);
   readonly inset = input(false);
   readonly width = input<SideDrawerWidth>('narrow');
   readonly drawerId = input<string | null>(null);

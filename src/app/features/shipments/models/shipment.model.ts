@@ -18,6 +18,8 @@ export interface Shipment {
   readonly expectedDeliveryDate: string;
   readonly progress: number;
   readonly status: ShipmentStatus;
+  readonly pieces: number;
+  readonly weightKg: number;
   readonly availableActions: readonly ShipmentActionId[];
   readonly hasShipmentIndicator: boolean;
 }

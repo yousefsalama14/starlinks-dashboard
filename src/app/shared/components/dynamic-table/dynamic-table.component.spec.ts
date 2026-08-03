@@ -1134,7 +1134,7 @@ describe('DynamicTableComponent', () => {
         'arrow-down-02',
       ]);
       expect(sortIcons().every((icon) => icon.getAttribute('type') === 'linear')).toBe(true);
-      expect(sortIcons().every((icon) => icon.getAttribute('size') === '8')).toBe(true);
+      expect(sortIcons().every((icon) => icon.getAttribute('size') === '12')).toBe(true);
       expect(sortIcons().every((icon) => icon.getAttribute('aria-hidden') === 'true')).toBe(true);
       expect(
         sortButton().querySelector('.dynamic-table__sort-indicator')?.getAttribute('aria-hidden'),

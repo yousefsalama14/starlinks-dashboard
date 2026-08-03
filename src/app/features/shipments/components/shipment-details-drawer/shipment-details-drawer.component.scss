@@ -1,0 +1,354 @@
+:host {
+  display: contents;
+}
+
+.shipment-details__drawer-header {
+  display: flex;
+  min-width: 0;
+  flex: 1 1 auto;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.shipment-details__drawer-heading {
+  display: flex;
+  min-width: 0;
+  align-items: baseline;
+  gap: 0.65rem;
+}
+
+.shipment-details__drawer-heading span {
+  color: var(--starlinks-text-muted);
+  font-size: 0.7rem;
+}
+
+.shipment-details__drawer-heading strong {
+  overflow: hidden;
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.shipment-details__export {
+  display: grid;
+  width: 2.125rem;
+  height: 2.125rem;
+  flex: 0 0 auto;
+  color: var(--starlinks-text-muted);
+  border-radius: 0.5rem;
+  place-items: center;
+}
+
+.shipment-details__export:hover {
+  color: var(--starlinks-menu-active);
+  background: var(--starlinks-surface-muted);
+}
+
+.shipment-details {
+  display: grid;
+  gap: 1.65rem;
+}
+
+.shipment-details__section {
+  display: grid;
+  min-width: 0;
+  gap: 0.8rem;
+}
+
+.shipment-details__section h3 {
+  margin: 0;
+  color: var(--starlinks-text);
+  font-size: 1.05rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.shipment-details__info-list {
+  display: grid;
+  padding: 0;
+  margin: 0;
+  gap: 0.55rem;
+}
+
+.shipment-details__info-row {
+  display: grid;
+  min-width: 0;
+  align-items: center;
+  grid-template-columns: minmax(10rem, 1fr) minmax(8rem, 1fr);
+  gap: 1rem;
+}
+
+.shipment-details__info-row dt,
+.shipment-details__info-row dd {
+  min-width: 0;
+  margin: 0;
+  font-size: 0.78rem;
+}
+
+.shipment-details__info-row dt {
+  display: flex;
+  color: var(--starlinks-text-muted);
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.shipment-details__info-row dd {
+  overflow-wrap: anywhere;
+  color: var(--starlinks-text);
+  font-weight: 500;
+}
+
+.shipment-details__route-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.9rem 1.5rem;
+}
+
+.shipment-details__route-item {
+  display: grid;
+  min-width: 0;
+  gap: 0.2rem;
+}
+
+.shipment-details__route-label {
+  display: flex;
+  color: var(--starlinks-text-muted);
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.78rem;
+}
+
+.shipment-details__route-item strong {
+  padding-inline-start: 1.7rem;
+  color: var(--starlinks-text);
+  font-size: 0.78rem;
+  font-weight: 500;
+  line-height: 1.35;
+}
+
+iconsax-icon {
+  display: inline-flex;
+  flex: 0 0 auto;
+}
+
+.shipment-details__progress {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.shipment-details__progress-main {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.shipment-details__progress-track,
+.shipment-details__progress-labels {
+  display: grid;
+  min-width: 0;
+  flex: 1 1 auto;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.35rem;
+}
+
+.shipment-details__progress-stage {
+  display: block;
+  overflow: hidden;
+  height: 0.45rem;
+  background: color-mix(in srgb, var(--shipment-stage-tone) 12%, var(--starlinks-surface));
+  border-radius: 999px;
+}
+
+.shipment-details__progress-stage > span {
+  display: block;
+  height: 100%;
+  background: var(--shipment-stage-tone);
+  border-radius: inherit;
+}
+
+.shipment-details__progress-stage[data-tone='neutral'] {
+  --shipment-stage-tone: var(--starlinks-table-tone-neutral);
+}
+
+.shipment-details__progress-stage[data-tone='warning'] {
+  --shipment-stage-tone: var(--starlinks-table-tone-warning);
+}
+
+.shipment-details__progress-stage[data-tone='info'] {
+  --shipment-stage-tone: var(--starlinks-table-tone-info);
+}
+
+.shipment-details__progress-stage[data-tone='accent'] {
+  --shipment-stage-tone: var(--starlinks-table-tone-accent);
+}
+
+.shipment-details__progress-stage[data-tone='success'] {
+  --shipment-stage-tone: var(--starlinks-table-tone-success);
+}
+
+.shipment-details__progress-stage[data-stage='created'],
+.shipment-details__progress-stage[data-stage='out-for-delivery'],
+.shipment-details__progress-labels [data-stage='created'],
+.shipment-details__progress-labels [data-stage='out-for-delivery'] {
+  display: none;
+}
+
+.shipment-details__progress-value {
+  color: var(--starlinks-menu-active);
+  font-size: 0.72rem;
+  white-space: nowrap;
+}
+
+.shipment-details__progress-labels {
+  color: var(--starlinks-text-muted);
+  font-size: 0.72rem;
+}
+
+.shipment-details__timeline {
+  display: grid;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.shipment-details__timeline-item {
+  position: relative;
+  display: grid;
+  min-height: 3rem;
+  padding-block-end: 0.6rem;
+  color: var(--starlinks-text-muted);
+  grid-template-columns: 1.15rem minmax(0, 1fr);
+  gap: 0.55rem;
+}
+
+.shipment-details__timeline-item::after {
+  position: absolute;
+  inset-block-start: 1.05rem;
+  inset-block-end: -0.05rem;
+  inset-inline-start: 0.5rem;
+  width: 1px;
+  background: var(--starlinks-border);
+  content: '';
+}
+
+.shipment-details__timeline-item:last-child::after {
+  display: none;
+}
+
+.shipment-details__timeline-marker {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  width: 1.05rem;
+  height: 1.05rem;
+  margin-block-start: 0.05rem;
+  color: var(--starlinks-text-muted);
+  background: var(--starlinks-surface);
+  border: 3px solid currentcolor;
+  border-radius: 50%;
+  place-items: center;
+}
+
+.shipment-details__timeline-item[data-state='complete'] .shipment-details__timeline-marker {
+  color: var(--starlinks-menu-active);
+  border: 0;
+}
+
+.shipment-details__timeline-item[data-state='current'] .shipment-details__timeline-marker {
+  color: var(--starlinks-menu-active);
+}
+
+.shipment-details__timeline-item[data-state='complete']::after {
+  background: color-mix(in srgb, var(--starlinks-menu-active) 45%, var(--starlinks-border));
+}
+
+.shipment-details__timeline-content {
+  display: grid;
+  min-width: 0;
+  gap: 0.2rem;
+}
+
+.shipment-details__timeline-content strong,
+.shipment-details__timeline-content span {
+  font-size: 0.76rem;
+  line-height: 1.35;
+}
+
+.shipment-details__timeline-content strong {
+  font-weight: 500;
+}
+
+.shipment-details__timeline-item[data-state='current'] .shipment-details__timeline-content span,
+.shipment-details__timeline-item[data-state='complete'] .shipment-details__timeline-content span {
+  color: var(--starlinks-text);
+}
+
+.shipment-details__footer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.shipment-details__raise-ticket {
+  display: inline-flex;
+  min-height: 2.6rem;
+  padding-inline: 1rem;
+  color: var(--starlinks-surface);
+  background: var(--starlinks-menu-active);
+  border-radius: 0.5rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+button:focus-visible {
+  outline: 2px solid var(--starlinks-menu-active);
+  outline-offset: 2px;
+}
+
+@media (max-width: 40rem) {
+  .shipment-details {
+    gap: 1.4rem;
+  }
+
+  .shipment-details__info-row {
+    grid-template-columns: minmax(8rem, 1fr) minmax(7rem, 1fr);
+    gap: 0.75rem;
+  }
+
+  .shipment-details__progress-track,
+  .shipment-details__progress-labels {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 0.25rem;
+  }
+
+  .shipment-details__progress-stage[data-stage='created'],
+  .shipment-details__progress-stage[data-stage='out-for-delivery'],
+  .shipment-details__progress-labels [data-stage='created'],
+  .shipment-details__progress-labels [data-stage='out-for-delivery'] {
+    display: block;
+  }
+
+  .shipment-details__progress-labels {
+    font-size: 0.65rem;
+  }
+
+  .shipment-details__raise-ticket {
+    width: 100%;
+  }
+}
+
+@media (max-width: 27rem) {
+  .shipment-details__route-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shipment-details__progress-stage > span {
+    transition: none;
+  }
+}

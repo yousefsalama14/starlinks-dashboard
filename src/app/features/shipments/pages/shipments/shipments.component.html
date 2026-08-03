@@ -118,8 +118,8 @@
             <span class="shipments-number-cell">
               <a
                 class="shipments-number-cell__link"
-                routerLink="/app/shipments"
-                [queryParams]="{ shipment: row.id }"
+                [attr.href]="'/app/shipments?shipment=' + row.id"
+                (click)="handleShipmentLink($event, row.id)"
               >
                 {{ row.shipmentNumber }}
               </a>
@@ -153,3 +153,11 @@
     </div>
   </section>
 </section>
+
+@if (selectedShipment(); as shipment) {
+  <app-shipment-details-drawer
+    [shipment]="shipment"
+    [open]="activeDrawer() === 'shipment-details'"
+    (closed)="handleShipmentDetailsClosed()"
+  />
+}

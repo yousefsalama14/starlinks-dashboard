@@ -202,6 +202,36 @@
         "EXPECTED_DELIVERY_DATE": "Expected Delivery Date",
         "FILTERED_EMPTY_TITLE": "No shipments match these filters",
         "FILTERED_EMPTY_DESCRIPTION": "Adjust or reset the filters to see shipments."
+      },
+      "DETAILS": {
+        "ACCESSIBLE_TITLE": "Shipment {{shipmentNumber}} details",
+        "HEADER_LABEL": "Shipment",
+        "EXPORT": "Export shipment details",
+        "SHIPMENT_INFO": "Shipment info",
+        "SHIPMENT_NUMBER": "Shipment no.",
+        "STATUS": "Status",
+        "CUSTOMER_REFERENCE": "Customer ref.",
+        "SERVICE_TYPE": "Service type",
+        "PIECES": "Pieces",
+        "WEIGHT": "Weight",
+        "KILOGRAM": "kg",
+        "ROUTE": "Route",
+        "ORIGIN": "Origin",
+        "DESTINATION": "Destination",
+        "WAREHOUSE": "Warehouse",
+        "PICKUP_DATE": "Pickup date",
+        "EXPECTED_DELIVERY_DATE": "Expected Delivery Date",
+        "PROGRESS": "Progress",
+        "STATUS_HISTORY": "Status history",
+        "NO_EVENT": "No event recorded",
+        "RAISE_TICKETS": "Raise Tickets",
+        "MILESTONES": {
+          "CREATED": "Created",
+          "PICKED_UP": "Picked up",
+          "IN_TRANSIT": "In transit",
+          "OUT_FOR_DELIVERY": "Out for delivery",
+          "DELIVERED": "Delivery"
+        }
       }
     },
     "NOT_FOUND": {

@@ -46,6 +46,10 @@
   width: min(30rem, 100vw);
 }
 
+.side-drawer--wide {
+  width: min(36rem, 100vw);
+}
+
 .side-drawer--inset {
   inset-block-start: 1.375rem;
   inset-block-end: 1.25rem;
@@ -92,6 +96,22 @@
   font-size: 0.95rem;
   font-weight: 600;
   line-height: 1.35;
+}
+
+.side-drawer__accessible-title {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.side-drawer__custom-header {
+  display: flex;
+  min-width: 0;
+  flex: 1 1 auto;
 }
 
 .side-drawer__close {
@@ -160,7 +180,8 @@ iconsax-icon {
 
 @media (max-width: 40rem) {
   .side-drawer,
-  .side-drawer--medium {
+  .side-drawer--medium,
+  .side-drawer--wide {
     width: 100vw;
     border: 0;
     border-radius: 0;
