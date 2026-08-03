@@ -3,8 +3,15 @@ import { TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { provideRouter, Router } from '@angular/router';
 import { provideTranslateService } from '@ngx-translate/core';
+import { Subject, of } from 'rxjs';
 import { AppShellComponent } from './app-shell.component';
 import { NavigationMenuComponent } from '../../../shared/components/navigation-menu/navigation-menu.component';
+import { AuthRepositoryContract } from '../../../features/auth/contracts/auth-repository.contract';
+import { TEST_AUTH_SESSION } from '../../../features/auth/testing/auth-test-data';
+import {
+  FakeAuthRepository,
+  provideFakeAuthRepository,
+} from '../../../features/auth/testing/auth-test-providers';
 
 @Component({ template: '', standalone: true })
 class TestPageComponent {}
@@ -30,8 +37,10 @@ describe('AppShellComponent', () => {
               },
             ],
           },
+          { path: 'auth/login', component: TestPageComponent },
         ]),
         provideTranslateService({ fallbackLang: 'en', lang: 'en' }),
+        provideFakeAuthRepository({ restoreSessionResult: () => of(TEST_AUTH_SESSION) }),
       ],
     }).compileComponents();
   });
@@ -184,5 +193,80 @@ describe('AppShellComponent', () => {
     expect(
       fixture.nativeElement.querySelector('.app-header__identity small').textContent,
     ).toContain('STARLINKS.APP_SHELL.ADMIN_ROLE');
+  });
+
+  it('logs out and navigates to login when the Logout item is selected', async () => {
+    const fixture = TestBed.createComponent(AppShellComponent);
+    const router = TestBed.inject(Router);
+    const repository = TestBed.inject(AuthRepositoryContract) as FakeAuthRepository;
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+    const logoutMenu = fixture.debugElement
+      .queryAll(By.directive(NavigationMenuComponent))
+      .map((debugElement) => debugElement.componentInstance as NavigationMenuComponent)
+      .find((menu) => menu.items().some((item) => item.id === 'logout'));
+
+    logoutMenu!.itemSelected.emit({
+      id: 'logout',
+      labelKey: 'STARLINKS.NAV.LOGOUT',
+      icon: 'logout-02',
+    });
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+    expect(repository.calls.logout).toBe(1);
+    expect(router.url).toBe('/auth/login');
+  });
+
+  it('handles a repeated logout click without double-invoking the repository', async () => {
+    const logoutSubject = new Subject<void>();
+    TestBed.resetTestingModule();
+    await TestBed.configureTestingModule({
+      imports: [AppShellComponent, TestPageComponent],
+      providers: [
+        provideRouter([
+          { path: 'app', children: [{ path: 'home', component: TestPageComponent }] },
+          { path: 'auth/login', component: TestPageComponent },
+        ]),
+        provideTranslateService({ fallbackLang: 'en', lang: 'en' }),
+        provideFakeAuthRepository({
+          restoreSessionResult: () => of(TEST_AUTH_SESSION),
+          logoutResult: () => logoutSubject.asObservable(),
+        }),
+      ],
+    }).compileComponents();
+
+    const fixture = TestBed.createComponent(AppShellComponent);
+    const router = TestBed.inject(Router);
+    const repository = TestBed.inject(AuthRepositoryContract) as FakeAuthRepository;
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+    const logoutMenu = fixture.debugElement
+      .queryAll(By.directive(NavigationMenuComponent))
+      .map((debugElement) => debugElement.componentInstance as NavigationMenuComponent)
+      .find((menu) => menu.items().some((item) => item.id === 'logout'));
+
+    logoutMenu!.itemSelected.emit({
+      id: 'logout',
+      labelKey: 'STARLINKS.NAV.LOGOUT',
+      icon: 'logout-02',
+    });
+    logoutMenu!.itemSelected.emit({
+      id: 'logout',
+      labelKey: 'STARLINKS.NAV.LOGOUT',
+      icon: 'logout-02',
+    });
+    fixture.detectChanges();
+
+    expect(repository.calls.logout).toBe(1);
+
+    logoutSubject.next();
+    logoutSubject.complete();
+    fixture.detectChanges();
+    await fixture.whenStable();
+
+    expect(router.url).toBe('/auth/login');
   });
 });
