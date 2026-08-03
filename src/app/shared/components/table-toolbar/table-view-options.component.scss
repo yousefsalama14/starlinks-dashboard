@@ -39,11 +39,11 @@ iconsax-icon {
 
 .view-options__section {
   display: grid;
-  gap: 0.65rem;
+  gap: 0.7rem;
 }
 
-.view-options__filter-section {
-  padding-block-start: 0.35rem;
+.view-options__section + .view-options__section {
+  margin-block-start: 1.5rem;
 }
 
 .view-options__filter-section h3 {
@@ -55,10 +55,10 @@ iconsax-icon {
 
 .view-options__section-heading {
   display: flex;
-  min-height: 1.75rem;
+  min-height: 1.625rem;
   align-items: center;
   justify-content: space-between;
-  gap: 1rem;
+  gap: 1.25rem;
 }
 
 .view-options__section-heading h3 {
@@ -69,11 +69,12 @@ iconsax-icon {
 }
 
 .view-options__show-all {
-  min-height: 1.75rem;
-  padding-inline: 0.25rem;
+  min-height: 1.625rem;
+  padding-inline: 0.35rem;
   color: var(--starlinks-menu-active);
   border-radius: 0.35rem;
   font-size: 0.7rem;
+  line-height: 1;
 }
 
 .view-options__list {
@@ -87,11 +88,11 @@ iconsax-icon {
 .view-options__option {
   position: relative;
   display: grid;
-  min-height: 2.65rem;
-  padding: 0.35rem 0.45rem;
+  min-height: 2.625rem;
+  padding: 0.3rem 0.45rem;
   color: var(--starlinks-text-muted);
   border: 1px solid var(--starlinks-menu-active);
-  border-radius: 0.65rem;
+  border-radius: 0.625rem;
   align-items: center;
   grid-template-columns: auto minmax(0, 1fr) auto;
   gap: 0.45rem;
@@ -123,10 +124,11 @@ iconsax-icon {
 
 .view-options__drag-handle,
 .view-options__visibility,
+.view-options__status-toggle,
 .view-options__keyboard-actions button {
   display: grid;
-  width: 1.9rem;
-  height: 1.9rem;
+  width: 1.875rem;
+  height: 1.875rem;
   color: var(--starlinks-text-muted);
   border-radius: 0.4rem;
   place-items: center;
@@ -142,9 +144,103 @@ iconsax-icon {
 
 .view-options__drag-handle:hover,
 .view-options__visibility:hover,
+.view-options__status-toggle:hover:not(:disabled),
 .view-options__keyboard-actions button:hover:not(:disabled) {
   color: var(--starlinks-menu-active);
   background: var(--starlinks-surface-muted);
+}
+
+.view-options__status-list {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.view-options__status-option {
+  display: flex;
+  width: 100%;
+  min-height: 2.25rem;
+  padding: 0.15rem 0.1rem;
+  border-radius: 0.5rem;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.view-options__status-option:hover {
+  background: color-mix(in srgb, var(--starlinks-surface-muted) 65%, transparent);
+}
+
+.view-options__status-badge {
+  --view-options-status-tone: var(--starlinks-table-tone-neutral);
+
+  display: inline-flex;
+  max-width: calc(100% - 3rem);
+  min-height: 1.5rem;
+  padding: 0.2rem 0.5rem;
+  overflow: hidden;
+  color: var(--view-options-status-tone);
+  background: color-mix(in srgb, var(--view-options-status-tone) 10%, var(--starlinks-surface));
+  border: 1px solid color-mix(in srgb, var(--view-options-status-tone) 18%, transparent);
+  border-radius: 999px;
+  align-items: center;
+  font-size: 0.7rem;
+  font-weight: 500;
+  line-height: 1.15;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.view-options__status-badge[data-tone='warning'] {
+  --view-options-status-tone: var(--starlinks-table-tone-warning);
+}
+
+.view-options__status-badge[data-tone='success'] {
+  --view-options-status-tone: var(--starlinks-table-tone-success);
+}
+
+.view-options__status-badge[data-tone='info'] {
+  --view-options-status-tone: var(--starlinks-table-tone-info);
+}
+
+.view-options__status-badge[data-tone='danger'] {
+  --view-options-status-tone: var(--starlinks-table-tone-danger);
+}
+
+.view-options__status-badge[data-tone='accent'] {
+  --view-options-status-tone: var(--starlinks-table-tone-accent);
+}
+
+.view-options__status-toggle {
+  flex: 0 0 auto;
+}
+
+.view-options__status-toggle[aria-pressed='true'] {
+  color: var(--starlinks-menu-active);
+}
+
+.view-options__segments {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.view-options__segments button {
+  min-height: 2rem;
+  flex: 1 1 auto;
+  padding: 0.35rem 0.65rem;
+  color: var(--starlinks-text-muted);
+  background: var(--starlinks-surface);
+  border: 1px solid var(--starlinks-border);
+  border-radius: 0.4rem;
+  font-size: 0.7rem;
+  line-height: 1.2;
+}
+
+.view-options__segments .view-options__segment--selected {
+  color: var(--starlinks-surface);
+  background: var(--starlinks-menu-active);
+  border-color: var(--starlinks-menu-active);
+  font-weight: 600;
 }
 
 .view-options__keyboard-actions {

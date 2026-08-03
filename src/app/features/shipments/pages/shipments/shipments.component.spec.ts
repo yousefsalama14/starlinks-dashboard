@@ -97,6 +97,24 @@ describe('ShipmentsComponent', () => {
     expect(table.closest('.shipments-table-card')).toBe(tableCard);
   });
 
+  it('configures balanced desktop search widths without allowing toolbar controls to shrink', () => {
+    const fixture = createFixture();
+    const search = fixture.nativeElement.querySelector('.shipments-search') as HTMLElement;
+    const toolbar = fixture.nativeElement.querySelector('.shipments-table-toolbar') as HTMLElement;
+    const searchSlot = fixture.nativeElement.querySelector('.table-toolbar__search') as HTMLElement;
+    const controls = fixture.nativeElement.querySelector('.table-toolbar__controls') as HTMLElement;
+
+    expect(getComputedStyle(toolbar).getPropertyValue('--table-search-idle-width').trim()).toBe(
+      '25rem',
+    );
+    expect(getComputedStyle(toolbar).getPropertyValue('--table-search-expanded-width').trim()).toBe(
+      '31rem',
+    );
+    expect(search.classList).toContain('table-search-host--responsive-width');
+    expect(getComputedStyle(searchSlot).minWidth).toBe('0px');
+    expect(getComputedStyle(controls).flexShrink).toBe('0');
+  });
+
   it('leaves page-title ownership to the shell and renders summary before the table card', () => {
     const fixture = createFixture();
     const page = fixture.nativeElement.querySelector('.shipments-page') as HTMLElement;
@@ -132,7 +150,7 @@ describe('ShipmentsComponent', () => {
     ) as HTMLButtonElement;
 
     expect(add.type).toBe('button');
-    expect(add.textContent).toContain('Add Shipment');
+    expect(add.textContent).toContain('Shipment');
     expect(add.querySelector('iconsax-icon[name="add"][type="linear"]')).toBeTruthy();
     expect(exportButton.type).toBe('button');
     expect(exportButton.textContent).toContain('Export');
@@ -173,6 +191,24 @@ describe('ShipmentsComponent', () => {
     expect(fixture.nativeElement.querySelector('.shipments-summary button')).toBeNull();
     expect(fixture.nativeElement.querySelector('.shipments-summary a')).toBeNull();
     expect(Object.isFrozen(componentSignals(fixture).summaryCards)).toBe(true);
+  });
+
+  it('contains responsive summary scrolling in a dedicated surface without changing card order', () => {
+    const fixture = createFixture();
+    const summary = fixture.nativeElement.querySelector('.shipments-summary') as HTMLElement;
+    const scrollSurface = summary.querySelector('.shipments-summary__scroll') as HTMLElement;
+    const track = summary.querySelector('.shipments-summary__track') as HTMLElement;
+    const cards = Array.from(track.querySelectorAll('app-summary-card'));
+
+    expect(scrollSurface).toBeTruthy();
+    expect(track.parentElement).toBe(scrollSurface);
+    expect(cards).toHaveLength(6);
+    expect(getComputedStyle(summary).overflow).toBe('hidden');
+    expect(getComputedStyle(summary).contain).toBe('inline-size paint');
+    expect(getComputedStyle(scrollSurface).minWidth).toBe('0px');
+    expect(getComputedStyle(scrollSurface).maxWidth).toBe('100%');
+    expect(getComputedStyle(scrollSurface).contain).toBe('inline-size');
+    expect(fixture.nativeElement.querySelector('.dynamic-table__overflow')).toBeTruthy();
   });
 
   it('keeps summary cards independent from all search, filter, layout, sort, and page state', () => {
@@ -355,7 +391,7 @@ describe('ShipmentsComponent', () => {
     fixture.detectChanges();
     expect(fixture.nativeElement.querySelector('iconsax-icon[name="search-normal"]')).toBeTruthy();
     expect(fixture.nativeElement.querySelector('iconsax-icon[name="clock"]')).toBeTruthy();
-    expect(fixture.nativeElement.querySelector('iconsax-icon[name="setting-4"]')).toBeTruthy();
+    expect(fixture.nativeElement.querySelector('iconsax-icon[name="sort"]')).toBeTruthy();
     expect(fixture.nativeElement.querySelector('iconsax-icon[name="filter"]')).toBeNull();
 
     signals.handleSearchFieldChange('shipmentNumber');
@@ -499,9 +535,12 @@ describe('ShipmentsComponent', () => {
     const shipmentHeader = fixture.nativeElement.querySelector(
       '[data-column-key="shipmentNumber"] button',
     ) as HTMLButtonElement;
-    const sortIcon = shipmentHeader.querySelector('iconsax-icon') as HTMLElement;
+    const sortIconNames = () =>
+      Array.from(shipmentHeader.querySelectorAll('iconsax-icon')).map((icon) =>
+        icon.getAttribute('name'),
+      );
 
-    expect(sortIcon.getAttribute('name')).toBe('sort');
+    expect(sortIconNames()).toEqual(['arrow-up-02', 'arrow-down-02']);
 
     shipmentHeader.click();
     fixture.detectChanges();
@@ -513,7 +552,7 @@ describe('ShipmentsComponent', () => {
     });
     expect(table.sort()).toEqual(componentSignals(fixture).sort());
     expect(table.rows()[0].shipmentNumber).toBe('SLK-2024-8841');
-    expect(sortIcon.getAttribute('name')).toBe('arrow-up-01');
+    expect(sortIconNames()).toEqual(['arrow-up-02']);
   });
 
   it('paginates the complete filtered mock source after sorting', () => {
@@ -535,8 +574,8 @@ describe('ShipmentsComponent', () => {
 
     expect(visiblePageNumbers).toEqual([1, 2, 3]);
     expect(paginationIcons.map((icon) => icon.getAttribute('name'))).toEqual([
-      'arrow-left-01',
-      'arrow-right-01',
+      'arrow-left-02',
+      'arrow-right-02',
     ]);
     expect(fixture.nativeElement.querySelector('app-table-pagination')?.textContent).not.toMatch(
       /[←→↑↓]/u,
@@ -617,7 +656,9 @@ describe('ShipmentsComponent', () => {
     await Promise.resolve();
     fixture.detectChanges();
 
-    (fixture.nativeElement.querySelector('.view-options__chip') as HTMLButtonElement).click();
+    (
+      fixture.nativeElement.querySelector('.view-options__status-toggle') as HTMLButtonElement
+    ).click();
     fixture.detectChanges();
     const serviceButtons = fixture.nativeElement
       .querySelectorAll('.view-options__segments')[0]
@@ -1159,7 +1200,7 @@ function shipmentTranslations(values: {
     TABLE_CARD: {
       TITLE: 'Recent Shipments',
       SUBTITLE: 'Track all shipments on your account',
-      ADD_SHIPMENT: 'Add Shipment',
+      SHIPMENT: 'Shipment',
       EXPORT: 'Export',
     },
     SUMMARY: {

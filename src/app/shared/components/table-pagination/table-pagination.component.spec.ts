@@ -126,8 +126,7 @@ describe('TablePaginationComponent', () => {
     expect(changes).toEqual([]);
   });
 
-  it('supports compact and RTL presentation hooks without changing event semantics', () => {
-    document.documentElement.dir = 'rtl';
+  it('uses compact Iconsax chevrons in LTR without changing event semantics', () => {
     const fixture = createFixture({ page: 2, pageSize: 10, totalItems: 40 }, { compact: true });
     const changes: TablePageChange[] = [];
     fixture.componentInstance.pageChange.subscribe((change) => changes.push(change));
@@ -143,17 +142,41 @@ describe('TablePaginationComponent', () => {
       element.querySelectorAll('iconsax-icon.table-pagination__direction-icon'),
     );
     expect(directionIcons.map((icon) => icon.getAttribute('name'))).toEqual([
-      'arrow-left-01',
-      'arrow-right-01',
+      'arrow-left-02',
+      'arrow-right-02',
     ]);
     expect(directionIcons.every((icon) => icon.getAttribute('type') === 'linear')).toBe(true);
-    expect(directionIcons.every((icon) => icon.getAttribute('size') === '14')).toBe(true);
+    expect(directionIcons.every((icon) => icon.getAttribute('size') === '12')).toBe(true);
     expect(directionIcons.every((icon) => icon.getAttribute('aria-hidden') === 'true')).toBe(true);
     expect(element.querySelector('.pi')).toBeNull();
     expect(element.textContent).not.toMatch(/[←→↑↓]/u);
 
     (element.querySelector('.table-pagination__control--next') as HTMLButtonElement).click();
     expect(changes).toEqual([{ page: 3, pageSize: 10 }]);
+  });
+
+  it('mirrors only directional pagination icons in RTL while preserving Previous and Next semantics', () => {
+    document.documentElement.dir = 'rtl';
+    const fixture = createFixture({ page: 2, pageSize: 10, totalItems: 40 });
+    const changes: TablePageChange[] = [];
+    fixture.componentInstance.pageChange.subscribe((change) => changes.push(change));
+    const element = fixture.nativeElement as HTMLElement;
+    const previous = element.querySelector(
+      '.table-pagination__control--previous',
+    ) as HTMLButtonElement;
+    const next = element.querySelector('.table-pagination__control--next') as HTMLButtonElement;
+
+    expect(previous.querySelector('iconsax-icon')?.getAttribute('name')).toBe('arrow-left-02');
+    expect(next.querySelector('iconsax-icon')?.getAttribute('name')).toBe('arrow-right-02');
+    expect(previous.getAttribute('aria-label')).toBe('Previous');
+    expect(next.getAttribute('aria-label')).toBe('Next');
+
+    previous.click();
+    next.click();
+    expect(changes).toEqual([
+      { page: 1, pageSize: 10 },
+      { page: 3, pageSize: 10 },
+    ]);
 
     document.documentElement.dir = 'ltr';
   });

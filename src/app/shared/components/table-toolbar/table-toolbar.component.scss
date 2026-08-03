@@ -13,8 +13,9 @@
 }
 
 .table-toolbar__search {
-  width: min(29.5rem, 100%);
-  min-width: min(18rem, 100%);
+  min-width: 0;
+  max-width: calc(100% - 8.5rem);
+  flex: 0 1 auto;
 }
 
 .table-toolbar__controls {
@@ -34,6 +35,7 @@
 
   .table-toolbar__search {
     width: 100%;
+    max-width: 100%;
   }
 }
 

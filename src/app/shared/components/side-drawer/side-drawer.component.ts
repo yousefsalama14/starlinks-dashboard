@@ -48,6 +48,7 @@ export class SideDrawerComponent {
   readonly title = input.required<TranslatedText>();
   readonly closeOnBackdrop = input(true);
   readonly closeOnEscape = input(true);
+  readonly inset = input(false);
   readonly width = input<SideDrawerWidth>('narrow');
   readonly drawerId = input<string | null>(null);
 

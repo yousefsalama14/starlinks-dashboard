@@ -1126,12 +1126,19 @@ describe('DynamicTableComponent', () => {
       fixture.componentInstance.sortChange.subscribe((sort) => changes.push(sort));
       const sortButton = () =>
         fixture.nativeElement.querySelector('[data-column-key="name"] button') as HTMLButtonElement;
-      const sortIcon = () => sortButton().querySelector('iconsax-icon') as HTMLElement;
+      const sortIcons = () =>
+        Array.from(sortButton().querySelectorAll('iconsax-icon')) as HTMLElement[];
 
-      expect(sortIcon().getAttribute('name')).toBe('sort');
-      expect(sortIcon().getAttribute('type')).toBe('linear');
-      expect(sortIcon().getAttribute('size')).toBe('14');
-      expect(sortIcon().getAttribute('aria-hidden')).toBe('true');
+      expect(sortIcons().map((icon) => icon.getAttribute('name'))).toEqual([
+        'arrow-up-02',
+        'arrow-down-02',
+      ]);
+      expect(sortIcons().every((icon) => icon.getAttribute('type') === 'linear')).toBe(true);
+      expect(sortIcons().every((icon) => icon.getAttribute('size') === '8')).toBe(true);
+      expect(sortIcons().every((icon) => icon.getAttribute('aria-hidden') === 'true')).toBe(true);
+      expect(
+        sortButton().querySelector('.dynamic-table__sort-indicator')?.getAttribute('aria-hidden'),
+      ).toBe('true');
       expect(sortButton().querySelector('.pi')).toBeNull();
       expect(sortButton().textContent).not.toMatch(/[←→↑↓]/u);
 
@@ -1141,13 +1148,17 @@ describe('DynamicTableComponent', () => {
 
       fixture.componentRef.setInput('sort', changes.at(-1));
       fixture.detectChanges();
-      expect(sortIcon().getAttribute('name')).toBe('arrow-up-01');
+      expect(sortIcons().map((icon) => icon.getAttribute('name'))).toEqual(['arrow-up-02']);
+      expect(sortIcons()[0].getAttribute('size')).toBe('12');
       sortButton().click();
       expect(changes.at(-1)).toEqual({ columnKey: 'name', sortKey: 'name', direction: 'desc' });
 
       fixture.componentRef.setInput('sort', changes.at(-1));
       fixture.detectChanges();
-      expect(sortIcon().getAttribute('name')).toBe('arrow-down-01');
+      expect(sortIcons().map((icon) => icon.getAttribute('name'))).toEqual(['arrow-down-02']);
+      expect(sortIcons()[0].getAttribute('size')).toBe('12');
+      expect(sortIcons()[0].getAttribute('type')).toBe('linear');
+      expect(sortIcons()[0].getAttribute('aria-hidden')).toBe('true');
       sortButton().click();
       expect(changes.at(-1)).toBeNull();
     });

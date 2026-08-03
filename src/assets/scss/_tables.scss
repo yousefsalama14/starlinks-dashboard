@@ -111,6 +111,76 @@
     --filter-chip-color: #6540d8;
     --filter-chip-background: #f1edff;
   }
+
+  app-table-search {
+    width: min(var(--table-search-idle-width, 25rem), 100%);
+    max-width: 100%;
+    transition: width 210ms ease-out;
+  }
+
+  app-table-search.table-search-host--expanded {
+    width: min(var(--table-search-expanded-width, 31rem), 100%);
+  }
+
+  .table-toolbar__search:has(> app-table-search.table-search-host--responsive-width) {
+    width: min(var(--table-search-idle-width, 25rem), calc(100% - 8.5rem));
+    transition: width 210ms ease-out;
+  }
+
+  .table-toolbar__search:has(
+    > app-table-search.table-search-host--responsive-width.table-search-host--expanded
+  ) {
+    width: min(var(--table-search-expanded-width, 31rem), calc(100% - 8.5rem));
+  }
+
+  .table-toolbar__search > app-table-search.table-search-host--responsive-width {
+    width: 100%;
+    transition: none;
+  }
+
+  .dynamic-table__sort-indicator {
+    display: inline-grid;
+    width: 0.75rem;
+    height: 0.9rem;
+    flex: 0 0 auto;
+    color: var(--starlinks-text-muted);
+    place-content: center;
+  }
+
+  .dynamic-table__sort-indicator--active {
+    color: var(--starlinks-menu-active);
+  }
+
+  .dynamic-table__sort-icon {
+    display: inline-flex;
+  }
+
+  .dynamic-table__sort-icon--unsorted:first-child {
+    margin-block-end: -0.16rem;
+  }
+
+  .dynamic-table__sort-icon--unsorted:last-child {
+    margin-block-start: -0.16rem;
+  }
+}
+
+@media (max-width: 52rem) {
+  app-table-search,
+  app-table-search.table-search-host--expanded,
+  .table-toolbar__search:has(> app-table-search.table-search-host--responsive-width),
+  .table-toolbar__search:has(
+    > app-table-search.table-search-host--responsive-width.table-search-host--expanded
+  ) {
+    width: 100%;
+    transition: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  app-table-search.table-search-host--motion-safe,
+  .table-toolbar__search:has(> app-table-search.table-search-host--motion-safe) {
+    transition-duration: 1ms;
+  }
 }
 
 @media (max-width: 39.999rem) {

@@ -1,6 +1,6 @@
 @let field = selectedField();
 <div class="table-search" [class.table-search--open]="open()">
-  <div class="table-search__control">
+  <div class="table-search__control" (click)="handleControlClick($event)">
     <iconsax-icon
       class="table-search__search-icon"
       name="search-normal"
@@ -39,7 +39,7 @@
       [attr.aria-autocomplete]="suggestionsMode() ? 'list' : null"
       [attr.aria-activedescendant]="activeDescendant()"
       (focus)="handleInputFocus()"
-      (click)="openOverlay()"
+      (blur)="handleInputBlur()"
       (input)="handleInput($event)"
       (keydown)="handleKeydown($event)"
     />

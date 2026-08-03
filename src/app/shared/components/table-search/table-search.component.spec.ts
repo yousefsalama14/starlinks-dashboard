@@ -55,6 +55,88 @@ describe('TableSearchComponent', () => {
     expect(Object.isFrozen(RECENT)).toBe(true);
   });
 
+  it('exposes responsive sizing and reduced-motion hooks while idle', () => {
+    const fixture = createFixture();
+    const host = fixture.nativeElement as HTMLElement;
+
+    expect(host.classList).toContain('table-search-host--responsive-width');
+    expect(host.classList).toContain('table-search-host--motion-safe');
+    expect(host.classList).not.toContain('table-search-host--expanded');
+  });
+
+  it('opens immediately from a control click and expands without duplicate opened intent', () => {
+    const fixture = createFixture();
+    const host = fixture.nativeElement as HTMLElement;
+    const searchInput = input(fixture);
+    let opened = 0;
+    fixture.componentInstance.opened.subscribe(() => opened++);
+
+    (host.querySelector('.table-search__search-icon') as HTMLElement).click();
+    fixture.detectChanges();
+
+    expect(document.activeElement).toBe(searchInput);
+    expect(host.querySelector('.table-search__overlay')).toBeTruthy();
+    expect(host.querySelector('.table-search__fields')).toBeTruthy();
+    expect(host.querySelector('.table-search__recent-group')).toBeTruthy();
+    expect(host.classList).toContain('table-search-host--focused');
+    expect(host.classList).toContain('table-search-host--open');
+    expect(host.classList).toContain('table-search-host--expanded');
+    expect(opened).toBe(1);
+
+    searchInput.click();
+    fixture.detectChanges();
+    expect(opened).toBe(1);
+  });
+
+  it('keeps the overlay-open search expanded, then collapses only after close and blur', () => {
+    const fixture = createFixture();
+    const host = fixture.nativeElement as HTMLElement;
+    const searchInput = input(fixture);
+
+    expect(host.classList).not.toContain('table-search-host--expanded');
+    expect(host.classList).not.toContain('table-search-host--focused');
+    expect(host.classList).not.toContain('table-search-host--open');
+
+    searchInput.focus();
+    fixture.detectChanges();
+    expect(host.classList).toContain('table-search-host--focused');
+    expect(host.classList).toContain('table-search-host--open');
+    expect(host.classList).toContain('table-search-host--expanded');
+
+    document.body.dispatchEvent(new Event('pointerdown', { bubbles: true }));
+    fixture.detectChanges();
+    expect(host.classList).not.toContain('table-search-host--open');
+    expect(host.classList).toContain('table-search-host--expanded');
+
+    searchInput.blur();
+    fixture.detectChanges();
+    expect(host.classList).not.toContain('table-search-host--focused');
+    expect(host.classList).not.toContain('table-search-host--expanded');
+  });
+
+  it('keeps any non-empty controlled query expanded after the overlay closes and input blurs', () => {
+    const fixture = createFixture({ selectedFieldKey: 'name', query: 'Alpha' });
+    const host = fixture.nativeElement as HTMLElement;
+
+    expect(host.classList).toContain('table-search-host--expanded');
+
+    input(fixture).focus();
+    document.body.dispatchEvent(new Event('pointerdown', { bubbles: true }));
+    input(fixture).blur();
+    fixture.detectChanges();
+    expect(host.classList).not.toContain('table-search-host--open');
+    expect(host.classList).not.toContain('table-search-host--focused');
+    expect(host.classList).toContain('table-search-host--expanded');
+
+    fixture.componentRef.setInput('query', ' ');
+    fixture.detectChanges();
+    expect(host.classList).toContain('table-search-host--expanded');
+
+    fixture.componentRef.setInput('query', '');
+    fixture.detectChanges();
+    expect(host.classList).not.toContain('table-search-host--expanded');
+  });
+
   it('renders translated initial presentation, Iconsax, fields, and valid recent buttons', () => {
     const fixture = createFixture();
     open(fixture);

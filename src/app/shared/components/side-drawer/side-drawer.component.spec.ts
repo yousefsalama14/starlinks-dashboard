@@ -12,6 +12,7 @@ import { SideDrawerFooterDirective } from './side-drawer-footer.directive';
     <app-side-drawer
       [open]="open()"
       [title]="{ key: 'TEST.TITLE' }"
+      [inset]="true"
       (closed)="closed.update((count) => count + 1)"
     >
       <button class="body-action" type="button">Body action</button>
@@ -55,6 +56,7 @@ describe('SideDrawerComponent', () => {
     expect(fixture.nativeElement.querySelector('.body-action')).toBeTruthy();
     expect(fixture.nativeElement.querySelector('.footer-action')).toBeTruthy();
     expect(fixture.nativeElement.querySelector('iconsax-icon[name="close-circle"]')).toBeTruthy();
+    expect(dialog.classList).toContain('side-drawer--inset');
   });
 
   it('uses opening/open/closing lifecycle hooks and keeps the closing layer mounted until animation completes', async () => {
@@ -119,7 +121,7 @@ describe('SideDrawerComponent', () => {
     expect(document.body.style.overflow).toBe('auto');
   });
 
-  it('creates stable unique IDs and preserves physical-right animation hooks in RTL', async () => {
+  it('creates stable unique IDs and attaches the drawer to logical inline-end in RTL', async () => {
     document.documentElement.dir = 'rtl';
     const first = createFixture();
     const second = createFixture();
@@ -130,8 +132,18 @@ describe('SideDrawerComponent', () => {
 
     expect(firstDialog.id).not.toBe(secondDialog.id);
     expect(firstDialog.classList).toContain('side-drawer');
+    expect(firstDialog.classList).toContain('side-drawer--inline-end');
     expect(layer(first).classList).toContain('side-drawer-layer--open');
     expect(firstDialog.getAttribute('dir')).toBeNull();
+  });
+
+  it('attaches the drawer to the physical right in LTR', async () => {
+    const fixture = createFixture();
+    await open(fixture);
+    const dialog = fixture.nativeElement.querySelector('[role="dialog"]') as HTMLElement;
+
+    expect(dialog.classList).toContain('side-drawer--inline-end');
+    expect(document.documentElement.dir).toBe('ltr');
   });
 
   it('supports medium width and exposes reduced-motion/mobile styling hooks', async () => {
@@ -146,6 +158,7 @@ describe('SideDrawerComponent', () => {
     expect(fixture.nativeElement.querySelector('.side-drawer--medium')).toBeTruthy();
     expect(fixture.nativeElement.querySelector('.side-drawer__body')).toBeTruthy();
     expect(fixture.nativeElement.querySelector('.side-drawer__footer')).toBeTruthy();
+    expect(fixture.nativeElement.querySelector('.side-drawer--inset')).toBeNull();
   });
 });
 

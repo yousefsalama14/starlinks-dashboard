@@ -104,6 +104,7 @@
   min-width: 0;
   padding: 0.75rem;
   overflow: hidden;
+  contain: inline-size paint;
   background:
     repeating-linear-gradient(135deg, transparent 0 7px, rgb(255 255 255 / 5%) 7px 9px),
     linear-gradient(110deg, #0a5344, #04483c);
@@ -117,6 +118,13 @@
   gap: 0.65rem;
 }
 
+.shipments-summary__scroll {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  contain: inline-size;
+}
+
 .shipments-summary app-summary-card {
   --summary-card-text: #f8fffd;
   --summary-card-label: rgb(248 255 253 / 78%);
@@ -128,11 +136,10 @@
 }
 
 .shipments-table-toolbar {
-  display: block;
-}
+  --table-search-idle-width: 25rem;
+  --table-search-expanded-width: 31rem;
 
-.shipments-search {
-  width: min(29.5rem, 100%);
+  display: block;
 }
 
 .shipments-search-option {
@@ -261,10 +268,13 @@
 }
 
 @media (max-width: 70rem) {
-  .shipments-summary {
+  .shipments-summary__scroll {
+    max-width: 100%;
     overflow-x: auto;
+    overflow-y: hidden;
     overscroll-behavior-inline: contain;
-    scrollbar-width: thin;
+    scroll-snap-type: inline proximity;
+    -webkit-overflow-scrolling: touch;
   }
 
   .shipments-summary__track {
@@ -272,7 +282,6 @@
     grid-auto-columns: minmax(10rem, 12rem);
     grid-template-columns: none;
     grid-auto-flow: column;
-    scroll-snap-type: inline proximity;
   }
 
   .shipments-summary app-summary-card {

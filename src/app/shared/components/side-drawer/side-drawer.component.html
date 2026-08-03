@@ -10,7 +10,8 @@
 
     <section
       #dialog
-      class="side-drawer"
+      class="side-drawer side-drawer--inline-end"
+      [class.side-drawer--inset]="inset()"
       [class.side-drawer--medium]="width() === 'medium'"
       [id]="resolvedDrawerId()"
       role="dialog"

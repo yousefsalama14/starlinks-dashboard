@@ -70,4 +70,14 @@ describe('TableToolbarComponent', () => {
     expect(toolbar.textContent).not.toContain('Export');
     expect(toolbar.textContent).not.toContain('Add Shipment');
   });
+
+  it('keeps the search flex item shrinkable so expanded content cannot displace controls', () => {
+    const searchSlot = fixture.nativeElement.querySelector('.table-toolbar__search') as HTMLElement;
+    const controls = fixture.nativeElement.querySelector('.table-toolbar__controls') as HTMLElement;
+
+    expect(searchSlot).toBeTruthy();
+    expect(controls).toBeTruthy();
+    expect(getComputedStyle(searchSlot).minWidth).toBe('0px');
+    expect(getComputedStyle(controls).flexShrink).toBe('0');
+  });
 });

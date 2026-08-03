@@ -18,6 +18,7 @@
   [open]="open()"
   [title]="title()"
   [drawerId]="drawerId"
+  [inset]="true"
   width="narrow"
   (closed)="requestClose()"
 >
@@ -136,19 +137,28 @@
       </h3>
 
       @if (field.kind === 'multiple-select') {
-        <div class="view-options__chips" [id]="filterGroupId(field.key)" role="group">
+        <div class="view-options__status-list" [id]="filterGroupId(field.key)" role="group">
           @for (option of field.options; track option.value) {
-            <button
-              type="button"
-              class="view-options__chip"
-              [class.view-options__chip--selected]="multipleSelected(field, option.value)"
-              [attr.data-tone]="option.tone ?? 'neutral'"
-              [attr.aria-pressed]="multipleSelected(field, option.value)"
-              [disabled]="disabled() || field.disabled"
-              (click)="requestMultipleToggle(field, option.value)"
-            >
-              {{ option.label.key | translate: option.label.params }}
-            </button>
+            <div class="view-options__status-option">
+              <span class="view-options__status-badge" [attr.data-tone]="option.tone ?? 'neutral'">
+                {{ option.label.key | translate: option.label.params }}
+              </span>
+
+              <button
+                type="button"
+                class="view-options__status-toggle"
+                [attr.aria-label]="option.label.key | translate: option.label.params"
+                [attr.aria-pressed]="multipleSelected(field, option.value)"
+                [disabled]="disabled() || field.disabled"
+                (click)="requestMultipleToggle(field, option.value)"
+              >
+                @if (multipleSelected(field, option.value)) {
+                  <iconsax-icon name="eye" type="linear" size="18" aria-hidden="true" />
+                } @else {
+                  <iconsax-icon name="eye-slash" type="linear" size="18" aria-hidden="true" />
+                }
+              </button>
+            </div>
           }
         </div>
       } @else if (field.kind === 'single-select') {

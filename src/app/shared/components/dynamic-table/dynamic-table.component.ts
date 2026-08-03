@@ -216,18 +216,14 @@ export class DynamicTableComponent<T> {
     return activeSort.direction === 'asc' ? 'ascending' : 'descending';
   }
 
-  protected sortIconName(column: DynamicTableColumn<T>): 'sort' | 'arrow-up-01' | 'arrow-down-01' {
+  protected sortIconName(column: DynamicTableColumn<T>): 'arrow-up-02' | 'arrow-down-02' {
     const direction = this.ariaSort(column);
 
     if (direction === 'ascending') {
-      return 'arrow-up-01';
+      return 'arrow-up-02';
     }
 
-    if (direction === 'descending') {
-      return 'arrow-down-01';
-    }
-
-    return 'sort';
+    return 'arrow-down-02';
   }
 
   protected sortActionKey(column: DynamicTableColumn<T>): string {

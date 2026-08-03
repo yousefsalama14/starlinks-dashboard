@@ -105,7 +105,7 @@ describe('TableViewOptionsComponent', () => {
     const fixture = createFixture();
     const trigger = getTrigger(fixture);
     expect(trigger.getAttribute('aria-expanded')).toBe('false');
-    expect(trigger.querySelector('iconsax-icon[name="setting-4"][type="linear"]')).toBeTruthy();
+    expect(trigger.querySelector('iconsax-icon[name="sort"][type="linear"]')).toBeTruthy();
     await open(fixture);
 
     expect(trigger.getAttribute('aria-expanded')).toBe('true');
@@ -145,6 +145,26 @@ describe('TableViewOptionsComponent', () => {
     expect(headings).toEqual(['Table content', 'Status', 'Services', 'Period']);
     expect(fixture.nativeElement.querySelectorAll('.side-drawer__footer')).toHaveLength(1);
     expect(fixture.nativeElement.querySelectorAll('.view-options__apply')).toHaveLength(1);
+    expect(fixture.nativeElement.querySelector('.side-drawer--inset')).toBeTruthy();
+  });
+
+  it('renders Status as full-width rows with toned badges and controlled visibility buttons', async () => {
+    const fixture = createFixture();
+    await open(fixture);
+    const rows = [
+      ...fixture.nativeElement.querySelectorAll('.view-options__status-option'),
+    ] as HTMLElement[];
+
+    expect(rows).toHaveLength(2);
+    expect(
+      rows.map((row) => row.querySelector('.view-options__status-badge')?.textContent?.trim()),
+    ).toEqual(['Open', 'Closed']);
+    expect(rows[0].querySelector('.view-options__status-badge[data-tone="success"]')).toBeTruthy();
+    expect(rows[1].querySelector('.view-options__status-badge[data-tone="danger"]')).toBeTruthy();
+    expect(
+      rows[0].querySelector('.view-options__status-toggle[aria-pressed="false"]'),
+    ).toBeTruthy();
+    expect(rows[0].querySelector('iconsax-icon[name="eye-slash"]')).toBeTruthy();
   });
 
   it('emits controlled compact-filter drafts and applies without mutating inputs', async () => {
@@ -155,7 +175,9 @@ describe('TableViewOptionsComponent', () => {
     fixture.componentInstance.apply.subscribe((value) => applied.push(value));
     await open(fixture);
 
-    (fixture.nativeElement.querySelector('.view-options__chip') as HTMLButtonElement).click();
+    (
+      fixture.nativeElement.querySelector('.view-options__status-toggle') as HTMLButtonElement
+    ).click();
     expect(drafts[0]['statusFilter']).toEqual(['open']);
     expect(fixture.componentInstance.draftValue()).toBe(FILTER_DRAFT);
 

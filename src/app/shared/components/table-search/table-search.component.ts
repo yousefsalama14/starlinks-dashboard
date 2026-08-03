@@ -47,6 +47,12 @@ let nextTableSearchInstance = 0;
 
 @Component({
   selector: 'app-table-search',
+  host: {
+    class: 'table-search-host--motion-safe table-search-host--responsive-width',
+    '[class.table-search-host--focused]': 'focused()',
+    '[class.table-search-host--open]': 'open()',
+    '[class.table-search-host--expanded]': 'expanded()',
+  },
   imports: [NgTemplateOutlet, TranslatePipe],
   templateUrl: './table-search.component.html',
   styleUrl: './table-search.component.scss',
@@ -84,6 +90,7 @@ export class TableSearchComponent<T> {
   readonly closed = output<void>();
 
   protected readonly open = signal(false);
+  protected readonly focused = signal(false);
   protected readonly activeControlIndex = signal(-1);
   protected readonly activeSuggestionId = signal<TableSearchId | null>(null);
 
@@ -116,6 +123,9 @@ export class TableSearchComponent<T> {
   protected readonly suggestionsMode = computed(
     () =>
       this.selectedField() !== null && this.query().trim().length >= this.normalizedMinimumLength(),
+  );
+  protected readonly expanded = computed(
+    () => this.focused() || this.open() || this.query().length > 0,
   );
   protected readonly navigationOptions = computed<readonly SearchNavigationOption[]>(() => {
     const fields: FieldNavigationOption[] = this.resolvedFields()
@@ -190,11 +200,28 @@ export class TableSearchComponent<T> {
   }
 
   protected handleInputFocus(): void {
+    this.focused.set(true);
     if (this.suppressNextFocusOpen) {
       this.suppressNextFocusOpen = false;
       return;
     }
     this.openOverlay();
+  }
+
+  protected handleInputBlur(): void {
+    this.focused.set(false);
+  }
+
+  protected handleControlClick(event: MouseEvent): void {
+    const target = event.target;
+    if (this.disabled() || !(target instanceof Element) || target.closest('button')) {
+      return;
+    }
+
+    this.openOverlay();
+    if (target !== this.searchInput().nativeElement) {
+      this.focusInput();
+    }
   }
 
   protected closeOverlay(restoreFocus = false): void {

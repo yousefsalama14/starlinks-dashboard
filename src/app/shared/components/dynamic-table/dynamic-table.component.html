@@ -78,14 +78,36 @@
                     } @else {
                       <span>{{ column.label.key | translate: column.label.params }}</span>
                     }
-                    <iconsax-icon
-                      class="dynamic-table__sort-icon"
-                      [class.dynamic-table__sort-icon--active]="ariaSort(column) !== 'none'"
-                      [attr.name]="sortIconName(column)"
-                      type="linear"
-                      size="14"
+                    <span
+                      class="dynamic-table__sort-indicator"
+                      [class.dynamic-table__sort-indicator--active]="ariaSort(column) !== 'none'"
                       aria-hidden="true"
-                    ></iconsax-icon>
+                    >
+                      @if (ariaSort(column) === 'none') {
+                        <iconsax-icon
+                          class="dynamic-table__sort-icon dynamic-table__sort-icon--unsorted"
+                          name="arrow-up-02"
+                          type="linear"
+                          size="12"
+                          aria-hidden="true"
+                        />
+                        <iconsax-icon
+                          class="dynamic-table__sort-icon dynamic-table__sort-icon--unsorted"
+                          name="arrow-down-02"
+                          type="linear"
+                          size="12"
+                          aria-hidden="true"
+                        />
+                      } @else {
+                        <iconsax-icon
+                          class="dynamic-table__sort-icon"
+                          [attr.name]="sortIconName(column)"
+                          type="linear"
+                          size="12"
+                          aria-hidden="true"
+                        />
+                      }
+                    </span>
                   </button>
                 } @else if (headerTemplate) {
                   <ng-container
