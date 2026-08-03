@@ -1,0 +1,182 @@
+<button
+  #trigger
+  type="button"
+  class="toolbar-trigger"
+  [class.toolbar-trigger--active]="open()"
+  [id]="triggerId"
+  [disabled]="disabled()"
+  [attr.aria-expanded]="open()"
+  [attr.aria-controls]="drawerId"
+  [attr.aria-label]="'STARLINKS.TABLE.FILTERS.TRIGGER' | translate"
+  [attr.aria-describedby]="validatedActiveCount() > 0 ? countId : null"
+  (click)="toggleDrawer()"
+>
+  <iconsax-icon name="filter" type="linear" size="18" aria-hidden="true" />
+  <span>{{ 'STARLINKS.TABLE.FILTERS.TRIGGER' | translate }}</span>
+  @if (validatedActiveCount() > 0) {
+    <span class="filters__count" aria-hidden="true">{{ validatedActiveCount() }}</span>
+    <span class="visually-hidden" [id]="countId">
+      {{ 'STARLINKS.TABLE.FILTERS.ACTIVE_FILTERS' | translate: { count: validatedActiveCount() } }}
+    </span>
+  }
+</button>
+
+<app-side-drawer
+  [open]="open()"
+  [title]="title()"
+  [drawerId]="drawerId"
+  width="narrow"
+  (closed)="requestClose()"
+>
+  @if (resolvedFields().length === 0) {
+    <p class="filters__empty">{{ 'STARLINKS.TABLE.FILTERS.NO_FILTERS' | translate }}</p>
+  } @else {
+    <div class="filters__content">
+      @for (field of compactFields(); track field.key) {
+        <section
+          class="filters__section"
+          [attr.aria-labelledby]="controlId(field.key) + '-heading'"
+        >
+          <h3 [id]="controlId(field.key) + '-heading'">
+            {{ field.label.key | translate: field.label.params }}
+          </h3>
+
+          @if (field.kind === 'multiple-select') {
+            <div class="filters__chips" [id]="groupId(field.key)" role="group">
+              @for (option of field.options; track option.value) {
+                <button
+                  type="button"
+                  class="filters__chip"
+                  [class.filters__chip--selected]="multipleSelected(field, option.value)"
+                  [attr.data-tone]="option.tone ?? 'neutral'"
+                  [attr.aria-pressed]="multipleSelected(field, option.value)"
+                  [disabled]="disabled() || field.disabled"
+                  (click)="requestMultipleToggle(field, option.value)"
+                >
+                  {{ option.label.key | translate: option.label.params }}
+                </button>
+              }
+            </div>
+          } @else if (field.kind === 'single-select') {
+            <div class="filters__segments" [id]="groupId(field.key)" role="group">
+              @if (field.clearOption; as clearOption) {
+                <button
+                  type="button"
+                  [class.filters__segment--selected]="singleValue(field) === ''"
+                  [attr.aria-pressed]="singleValue(field) === ''"
+                  [disabled]="disabled() || field.disabled"
+                  (click)="requestSegmentChange(field, null)"
+                >
+                  {{ clearOption.label.key | translate: clearOption.label.params }}
+                </button>
+              }
+              @for (option of field.options; track option.value) {
+                <button
+                  type="button"
+                  [class.filters__segment--selected]="singleValue(field) === option.value"
+                  [attr.aria-pressed]="singleValue(field) === option.value"
+                  [disabled]="disabled() || field.disabled"
+                  (click)="requestSegmentChange(field, option.value)"
+                >
+                  {{ option.label.key | translate: option.label.params }}
+                </button>
+              }
+            </div>
+          }
+        </section>
+      }
+
+      @if (detailedFields().length > 0) {
+        <section class="filters__section filters__section--details">
+          <h3>{{ 'STARLINKS.TABLE.FILTERS.DETAILS' | translate }}</h3>
+          <div class="filters__grid">
+            @for (field of detailedFields(); track field.key) {
+              <div class="filters__field">
+                @if (field.kind === 'text') {
+                  <label [for]="controlId(field.key)">
+                    {{ field.label.key | translate: field.label.params }}
+                  </label>
+                  <input
+                    type="text"
+                    [id]="controlId(field.key)"
+                    [value]="textValue(field)"
+                    [disabled]="disabled() || field.disabled"
+                    [placeholder]="
+                      field.placeholder
+                        ? (field.placeholder.key | translate: field.placeholder.params)
+                        : ''
+                    "
+                    (input)="requestTextChange(field, $event)"
+                  />
+                } @else if (field.kind === 'date') {
+                  <label [for]="controlId(field.key)">
+                    {{ field.label.key | translate: field.label.params }}
+                  </label>
+                  <input
+                    type="date"
+                    [id]="controlId(field.key)"
+                    [value]="textValue(field)"
+                    [disabled]="disabled() || field.disabled"
+                    (change)="requestDateChange(field, $event)"
+                  />
+                } @else if (field.kind === 'single-select') {
+                  <label [for]="controlId(field.key)">
+                    {{ field.label.key | translate: field.label.params }}
+                  </label>
+                  <select
+                    [id]="controlId(field.key)"
+                    [value]="singleValue(field)"
+                    [disabled]="disabled() || field.disabled"
+                    (change)="requestSingleChange(field, $event)"
+                  >
+                    <option value="">
+                      {{
+                        field.placeholder?.key ?? 'STARLINKS.TABLE.FILTERS.SELECT_PLACEHOLDER'
+                          | translate: field.placeholder?.params
+                      }}
+                    </option>
+                    @for (option of field.options; track option.value) {
+                      <option [value]="option.value">
+                        {{ option.label.key | translate: option.label.params }}
+                      </option>
+                    }
+                  </select>
+                } @else {
+                  <fieldset
+                    class="filters__multiple"
+                    [id]="groupId(field.key)"
+                    [disabled]="disabled() || field.disabled"
+                  >
+                    <legend>{{ field.label.key | translate: field.label.params }}</legend>
+                    @for (option of field.options; track option.value) {
+                      <label [for]="optionId(field.key, option.value)">
+                        <input
+                          type="checkbox"
+                          [id]="optionId(field.key, option.value)"
+                          [checked]="multipleSelected(field, option.value)"
+                          [disabled]="disabled() || field.disabled"
+                          (change)="requestMultipleChange(field, option.value, $event)"
+                        />
+                        <span>{{ option.label.key | translate: option.label.params }}</span>
+                      </label>
+                    }
+                  </fieldset>
+                }
+              </div>
+            }
+          </div>
+        </section>
+      }
+    </div>
+  }
+
+  <div sideDrawerFooter class="filters__footer">
+    <button type="button" class="filters__reset" [disabled]="disabled()" (click)="requestReset()">
+      <iconsax-icon name="refresh-arrow-01" type="linear" size="16" aria-hidden="true" />
+      {{ 'STARLINKS.TABLE.FILTERS.RESET' | translate }}
+    </button>
+    <button type="button" class="filters__apply" [disabled]="disabled()" (click)="requestApply()">
+      {{ 'STARLINKS.TABLE.FILTERS.APPLY' | translate }}
+    </button>
+  </div>
+</app-side-drawer>

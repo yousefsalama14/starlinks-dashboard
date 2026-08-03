@@ -1,0 +1,36 @@
+<article
+  class="summary-card"
+  [attr.data-tone]="resolvedTone()"
+  [attr.aria-labelledby]="labelId + ' ' + valueId"
+  [attr.aria-describedby]="resolvedTrend() ? trendId : null"
+>
+  @if (resolvedIcon(); as iconName) {
+    <span class="summary-card__icon" aria-hidden="true">
+      <iconsax-icon [attr.name]="iconName" type="linear" size="26" />
+    </span>
+  }
+
+  <div class="summary-card__content">
+    <p class="summary-card__label" [id]="labelId">
+      {{ label().key | translate: label().params }}
+    </p>
+    <div class="summary-card__value-row">
+      <strong class="summary-card__value" [id]="valueId" dir="auto">
+        {{ resolvedValue() }}
+      </strong>
+      @if (resolvedTrend(); as trendValue) {
+        <span class="summary-card__trend" [attr.data-direction]="trendValue.direction">
+          <iconsax-icon
+            [attr.name]="trendValue.direction === 'up' ? 'arrow-up-02' : 'arrow-down-02'"
+            type="linear"
+            size="13"
+            aria-hidden="true"
+          />
+          <span class="visually-hidden" [id]="trendId">
+            {{ trendValue.accessibleLabel.key | translate: trendValue.accessibleLabel.params }}
+          </span>
+        </span>
+      }
+    </div>
+  </div>
+</article>

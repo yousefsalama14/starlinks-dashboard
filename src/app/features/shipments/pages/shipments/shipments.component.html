@@ -1,0 +1,153 @@
+<section class="shipments-page">
+  <section class="shipments-summary" aria-labelledby="shipments-summary-heading">
+    <h2 id="shipments-summary-heading" class="visually-hidden">
+      {{ 'STARLINKS.SHIPMENTS.SUMMARY.LABEL' | translate }}
+    </h2>
+    <div class="shipments-summary__track">
+      @for (card of summaryCards; track card.key) {
+        <app-summary-card
+          [label]="card.label"
+          [value]="card.value"
+          [icon]="card.icon"
+          [tone]="card.tone"
+          [trend]="card.trend ?? null"
+        />
+      }
+    </div>
+  </section>
+
+  <section class="shipments-table-card" aria-labelledby="shipments-table-card-title">
+    <header class="shipments-table-card__header">
+      <div class="shipments-table-card__copy">
+        <h2 id="shipments-table-card-title">
+          {{ 'STARLINKS.SHIPMENTS.TABLE_CARD.TITLE' | translate }}
+        </h2>
+        <p>{{ 'STARLINKS.SHIPMENTS.TABLE_CARD.SUBTITLE' | translate }}</p>
+      </div>
+      <div class="shipments-table-card__actions">
+        <button type="button" class="shipments-table-card__export">
+          <iconsax-icon name="export-arrow-02" type="linear" size="17" aria-hidden="true" />
+          {{ 'STARLINKS.SHIPMENTS.TABLE_CARD.EXPORT' | translate }}
+        </button>
+        <button type="button" class="shipments-table-card__add">
+          <iconsax-icon name="add" type="linear" size="17" aria-hidden="true" />
+          {{ 'STARLINKS.SHIPMENTS.TABLE_CARD.SHIPMENT' | translate }}
+        </button>
+      </div>
+    </header>
+
+    <div class="shipments-table-card__body">
+      <app-table-toolbar class="shipments-table-toolbar">
+        <app-table-search
+          class="shipments-search"
+          tableToolbarSearch
+          [fields]="searchFields"
+          [selectedFieldKey]="selectedSearchField()"
+          [query]="searchQuery()"
+          [suggestions]="searchSuggestions()"
+          [suggestionsState]="searchSuggestionsState()"
+          [recentSearches]="recentSearches()"
+          [minimumQueryLength]="minimumSearchLength"
+          [fieldGroupTitle]="{ key: 'STARLINKS.SHIPMENTS.SEARCH.FIELD_GROUP_TITLE' }"
+          [suggestionsTitle]="{ key: 'STARLINKS.SHIPMENTS.SEARCH.SUGGESTED_SHIPMENTS' }"
+          (fieldChange)="handleSearchFieldChange($event)"
+          (queryChange)="handleSearchQueryChange($event)"
+          (suggestionSelected)="handleSuggestionSelected($event)"
+          (recentSearchSelected)="handleRecentSearchSelected($event)"
+          (clearSearch)="handleClearSearch()"
+          (clearRecent)="handleClearRecent()"
+          (retry)="handleSearchRetry()"
+        >
+          <ng-template
+            appTableSearchOptionDef
+            [appTableSearchOptionDefOf]="searchSuggestions()"
+            let-shipment
+          >
+            <span class="shipments-search-option">
+              <span class="shipments-search-option__primary">
+                <strong dir="ltr">{{ shipment.shipmentNumber }}</strong>
+                <app-table-status-cell
+                  [row]="shipment"
+                  [value]="shipment.status"
+                  [column]="statusColumn"
+                  [resolvedDisplay]="statusDisplay(shipment)"
+                />
+              </span>
+              <span class="shipments-search-option__secondary">
+                <span>{{ locationKey(shipment.destination) | translate }}</span>
+                <strong>{{ shipment.progress | number: '1.0-0' }}%</strong>
+              </span>
+            </span>
+          </ng-template>
+        </app-table-search>
+
+        <app-table-view-options
+          tableToolbarViewOptions
+          [options]="viewOptions()"
+          [filterFields]="viewOptionFilterFields"
+          [draftValue]="filterDraft()"
+          [open]="activeDrawer() === 'view-options'"
+          (optionChange)="handleViewOptionChange($event)"
+          (orderChange)="handleViewOptionOrderChange($event)"
+          (showAll)="handleViewOptionsShowAll()"
+          (draftChange)="handleFilterDraftChange($event)"
+          (apply)="handleFiltersApply($event)"
+          (opened)="handleDrawerOpened()"
+          (closed)="handleDrawerClosed()"
+        />
+      </app-table-toolbar>
+
+      <div class="shipments-table-frame">
+        <app-dynamic-table
+          [rows]="visibleRows()"
+          [columns]="columns"
+          rowIdentity="id"
+          [state]="resolvedTableState()"
+          [caption]="{ key: 'STARLINKS.SHIPMENTS.TABLE_CAPTION' }"
+          [sort]="sort()"
+          [pagination]="pagination()"
+          [viewState]="viewState()"
+          (sortChange)="handleSortChange($event)"
+          (pageChange)="handlePageChange($event)"
+          (actionTriggered)="handleActionTriggered($event)"
+          (retry)="handleRetry()"
+        >
+          <ng-template appTableCellDef="shipmentNumber" [appTableCellDefOf]="visibleRows()" let-row>
+            <span class="shipments-number-cell">
+              <a
+                class="shipments-number-cell__link"
+                routerLink="/app/shipments"
+                [queryParams]="{ shipment: row.id }"
+              >
+                {{ row.shipmentNumber }}
+              </a>
+              @if (row.hasShipmentIndicator) {
+                <iconsax-icon
+                  class="shipments-number-cell__indicator"
+                  name="profile-2user"
+                  type="linear"
+                  size="14"
+                  aria-hidden="true"
+                ></iconsax-icon>
+              }
+            </span>
+          </ng-template>
+
+          <ng-template appTableCellDef="route" [appTableCellDefOf]="visibleRows()" let-row>
+            <span class="shipments-route-cell">
+              <span>{{ locationKey(row.origin) | translate }}</span>
+              <iconsax-icon
+                class="shipments-route-cell__separator"
+                name="arrow-right-01"
+                type="linear"
+                size="14"
+                aria-hidden="true"
+              ></iconsax-icon>
+              <span>{{ locationKey(row.destination) | translate }}</span>
+            </span>
+          </ng-template>
+        </app-dynamic-table>
+      </div>
+    </div>
+  </section>
+</section>

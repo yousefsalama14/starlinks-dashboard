@@ -1,0 +1,23 @@
+@let progress = display();
+@let customLabel = progress.label;
+@let label = customLabel ? (customLabel.key | translate: customLabel.params) : defaultLabel();
+<div
+  class="table-progress-cell"
+  role="progressbar"
+  aria-valuemin="0"
+  [attr.aria-valuenow]="progress.value"
+  [attr.aria-valuemax]="progress.max"
+  [attr.aria-valuetext]="label"
+  [class.table-progress-cell--neutral]="progress.tone === 'neutral'"
+  [class.table-progress-cell--info]="progress.tone === 'info'"
+  [class.table-progress-cell--success]="progress.tone === 'success'"
+  [class.table-progress-cell--warning]="progress.tone === 'warning'"
+  [class.table-progress-cell--danger]="progress.tone === 'danger'"
+  [attr.data-tone]="progress.tone"
+  [attr.title]="column().tooltip === 'always' ? label : null"
+>
+  <span class="table-progress-cell__track" aria-hidden="true">
+    <span class="table-progress-cell__value" [style.inline-size.%]="progress.percentage"></span>
+  </span>
+  <span class="table-progress-cell__label">{{ label }}</span>
+</div>

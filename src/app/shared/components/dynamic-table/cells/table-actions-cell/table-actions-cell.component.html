@@ -1,0 +1,37 @@
+<div class="table-actions-cell">
+  @for (view of resolvedActions(); track view.action.id) {
+    @let accessibleName = view.accessibleLabel.key | translate: view.accessibleLabel.params;
+    <button
+      type="button"
+      class="table-actions-cell__button"
+      [class.table-actions-cell__button--default]="view.variant === 'default'"
+      [class.table-actions-cell__button--primary]="view.variant === 'primary'"
+      [class.table-actions-cell__button--success]="view.variant === 'success'"
+      [class.table-actions-cell__button--danger]="view.variant === 'danger'"
+      [class.table-actions-cell__button--loading]="view.loading"
+      [attr.data-action-id]="view.action.id"
+      [attr.data-variant]="view.variant"
+      [attr.aria-label]="
+        view.loading
+          ? ('STARLINKS.TABLE.ACTION_LOADING' | translate: { action: accessibleName })
+          : accessibleName
+      "
+      [attr.aria-busy]="view.loading ? 'true' : null"
+      [attr.title]="view.tooltip ? (view.tooltip.key | translate: view.tooltip.params) : null"
+      [disabled]="view.disabled"
+      (click)="triggerAction(view, $event)"
+    >
+      @if (view.loading) {
+        <span class="table-actions-cell__spinner" aria-hidden="true"></span>
+      } @else if (view.icon) {
+        <iconsax-icon
+          class="table-actions-cell__icon"
+          [attr.name]="view.icon"
+          type="linear"
+          size="16"
+          aria-hidden="true"
+        ></iconsax-icon>
+      }
+    </button>
+  }
+</div>

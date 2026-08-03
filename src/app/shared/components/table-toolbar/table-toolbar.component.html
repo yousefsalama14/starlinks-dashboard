@@ -1,0 +1,17 @@
+<div
+  class="table-toolbar"
+  role="toolbar"
+  [attr.aria-label]="label().key | translate: label().params"
+>
+  <div class="table-toolbar__search">
+    <ng-content select="[tableToolbarSearch]" />
+  </div>
+  <div class="table-toolbar__controls">
+    <div class="table-toolbar__control">
+      <ng-content select="[tableToolbarViewOptions]" />
+    </div>
+    <div class="table-toolbar__control">
+      <ng-content select="[tableToolbarFilters]" />
+    </div>
+  </div>
+</div>

@@ -1,0 +1,201 @@
+:host {
+  display: block;
+}
+
+.toolbar-trigger {
+  display: inline-flex;
+  min-height: 2.75rem;
+  padding-inline: 0.8rem;
+  color: var(--starlinks-text-muted);
+  background: var(--starlinks-surface);
+  border: 1px solid var(--starlinks-border);
+  border-radius: 0.7rem;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.78rem;
+  white-space: nowrap;
+}
+
+.toolbar-trigger:hover:not(:disabled),
+.toolbar-trigger--active {
+  color: var(--starlinks-menu-active);
+  border-color: color-mix(in srgb, var(--starlinks-menu-active) 40%, var(--starlinks-border));
+}
+
+button:focus-visible {
+  outline: 2px solid var(--starlinks-menu-active);
+  outline-offset: 2px;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+iconsax-icon {
+  display: inline-flex;
+  flex: 0 0 auto;
+}
+
+.view-options__section {
+  display: grid;
+  gap: 0.65rem;
+}
+
+.view-options__filter-section {
+  padding-block-start: 0.35rem;
+}
+
+.view-options__filter-section h3 {
+  margin: 0;
+  color: var(--starlinks-text-muted);
+  font-size: 0.78rem;
+  font-weight: 500;
+}
+
+.view-options__section-heading {
+  display: flex;
+  min-height: 1.75rem;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.view-options__section-heading h3 {
+  margin: 0;
+  color: var(--starlinks-text-muted);
+  font-size: 0.78rem;
+  font-weight: 500;
+}
+
+.view-options__show-all {
+  min-height: 1.75rem;
+  padding-inline: 0.25rem;
+  color: var(--starlinks-menu-active);
+  border-radius: 0.35rem;
+  font-size: 0.7rem;
+}
+
+.view-options__list {
+  display: grid;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  gap: 0.55rem;
+}
+
+.view-options__option {
+  position: relative;
+  display: grid;
+  min-height: 2.65rem;
+  padding: 0.35rem 0.45rem;
+  color: var(--starlinks-text-muted);
+  border: 1px solid var(--starlinks-menu-active);
+  border-radius: 0.65rem;
+  align-items: center;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 0.45rem;
+  transition:
+    opacity 140ms ease,
+    background-color 140ms ease,
+    border-color 140ms ease;
+}
+
+.view-options__option--hidden {
+  background: var(--starlinks-surface-muted);
+  border-color: var(--starlinks-border);
+  border-style: dashed;
+  opacity: 0.72;
+}
+
+.view-options__option--dragging {
+  background: color-mix(in srgb, var(--starlinks-menu-active) 8%, var(--starlinks-surface));
+  opacity: 0.5;
+}
+
+.view-options__label {
+  overflow: hidden;
+  font-size: 0.75rem;
+  font-weight: 500;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.view-options__drag-handle,
+.view-options__visibility,
+.view-options__keyboard-actions button {
+  display: grid;
+  width: 1.9rem;
+  height: 1.9rem;
+  color: var(--starlinks-text-muted);
+  border-radius: 0.4rem;
+  place-items: center;
+}
+
+.view-options__drag-handle {
+  cursor: grab;
+}
+
+.view-options__drag-handle:active {
+  cursor: grabbing;
+}
+
+.view-options__drag-handle:hover,
+.view-options__visibility:hover,
+.view-options__keyboard-actions button:hover:not(:disabled) {
+  color: var(--starlinks-menu-active);
+  background: var(--starlinks-surface-muted);
+}
+
+.view-options__keyboard-actions {
+  position: absolute;
+  z-index: 3;
+  inset-block-start: calc(100% - 0.2rem);
+  inset-inline-start: 0.35rem;
+  display: flex;
+  padding: 0.2rem;
+  background: var(--starlinks-surface);
+  border: 1px solid var(--starlinks-border);
+  border-radius: 0.45rem;
+  box-shadow: 0 0.3rem 0.8rem rgb(15 23 42 / 12%);
+  gap: 0.1rem;
+}
+
+.view-options__footer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.view-options__apply {
+  min-width: 5.75rem;
+  min-height: 2.55rem;
+  padding-inline: 1rem;
+  color: var(--starlinks-surface);
+  background: var(--starlinks-menu-active);
+  border-radius: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@media (max-width: 40rem) {
+  .toolbar-trigger {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .view-options__option {
+    transition: none;
+  }
+}
