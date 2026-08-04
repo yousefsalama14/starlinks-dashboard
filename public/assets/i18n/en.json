@@ -10,6 +10,21 @@
       "ENGLISH": "English",
       "ARABIC": "Arabic"
     },
+    "COMMON": {
+      "EMAIL": "Email",
+      "PASSWORD": "Password",
+      "CONFIRM": "Confirm",
+      "CONTINUE": "Continue",
+      "BACK": "Back",
+      "SUPPORT": "Support",
+      "PRIVACY_POLICY": "Privacy policy",
+      "COPYRIGHT": "© {{year}} Starlinks.",
+      "SHOW_PASSWORD": "Show password",
+      "HIDE_PASSWORD": "Hide password",
+      "GENERIC_ERROR_TITLE": "Something went wrong",
+      "GENERIC_ERROR_MESSAGE": "We couldn't complete that request. Please try again.",
+      "CLOSE": "Close"
+    },
     "NAV": {
       "HOME": "Home",
       "DASHBOARD": "Dashboard",
@@ -32,6 +47,77 @@
       "ADMIN_ROLE": "Admin",
       "DEMO_USER": "Demo Brand",
       "DEMO_USER_INITIALS": "DB"
+    },
+    "AUTH": {
+      "BRAND": {
+        "HEADING": "Beyond your Expectations"
+      },
+      "LOGIN": {
+        "TITLE": "Login to your account",
+        "SUBTITLE": "Enter your email and password to log in",
+        "EMAIL_PLACEHOLDER": "you@example.com",
+        "PASSWORD_PLACEHOLDER": "Enter your password",
+        "REMEMBER_ME": "Remember Me",
+        "FORGOT_PASSWORD": "Forgot Password?",
+        "SUBMIT": "Login",
+        "SUBMITTING": "Logging in…",
+        "INVALID_CREDENTIALS_TITLE": "Invalid input",
+        "INVALID_CREDENTIALS_MESSAGE": "Invalid credentials, please verify them and try again."
+      },
+      "FORGOT_PASSWORD": {
+        "TITLE": "Forgot Password",
+        "SUBTITLE": "Enter your email to get a password reset link.",
+        "EMAIL_PLACEHOLDER": "you@example.com",
+        "SUBMIT": "Submit",
+        "SUBMITTING": "Sending…",
+        "REMEMBERED_PASSWORD": "Remembered your password?",
+        "SIGN_IN": "Sign in",
+        "SUCCESS_TITLE": "Password reset request",
+        "SUCCESS_MESSAGE": "Your password reset request has been successfully sent."
+      },
+      "RESET_PASSWORD": {
+        "TITLE": "Set your new password",
+        "SUBTITLE": "Enter your new password.",
+        "NEW_PASSWORD_LABEL": "New password",
+        "NEW_PASSWORD_PLACEHOLDER": "Enter your new password",
+        "CONFIRM_PASSWORD_LABEL": "Confirm new password",
+        "CONFIRM_PASSWORD_PLACEHOLDER": "Re-enter your new password",
+        "SUBMIT": "Set password",
+        "SUBMITTING": "Saving…",
+        "BACK_TO_LOGIN": "Back to login",
+        "SUCCESS_TITLE": "Password reset",
+        "SUCCESS_MESSAGE": "Your password has been successfully reset.",
+        "INVALID_TOKEN_TITLE": "Invalid reset link",
+        "INVALID_TOKEN_MESSAGE": "This password reset link is invalid. Please request a new one.",
+        "EXPIRED_TOKEN_TITLE": "Reset link expired",
+        "EXPIRED_TOKEN_MESSAGE": "This password reset link has expired. Please request a new one.",
+        "REQUEST_NEW_LINK": "Request a new link"
+      },
+      "PASSWORD": {
+        "MIN_LENGTH": "8 characters minimum",
+        "NUMBER": "numbers (0-9)",
+        "UPPERCASE": "Uppercase letters (A-Z)",
+        "SPECIAL_CHARACTER": "special characters (!@#$%^&*)",
+        "REQUIREMENTS_LABEL": "Password requirements",
+        "REQUIREMENT_MET": "Requirement met",
+        "REQUIREMENT_NOT_MET": "Requirement not met yet",
+        "STRENGTH_LABEL": "Password strength",
+        "MISMATCH": "Passwords do not match",
+        "STRENGTH": {
+          "EMPTY": "—",
+          "WEAK": "Weak",
+          "FAIR": "Fair",
+          "GOOD": "Good",
+          "STRONG": "Strong"
+        }
+      },
+      "VALIDATION": {
+        "EMAIL_REQUIRED": "Email is required",
+        "EMAIL_INVALID": "Enter a valid email address",
+        "PASSWORD_REQUIRED": "Password is required",
+        "CONFIRM_PASSWORD_REQUIRED": "Please confirm your password",
+        "PASSWORD_POLICY": "Your password doesn't meet the requirements below"
+      }
     },
     "DASHBOARD": {
       "BREADCRUMB_LABEL": "Dashboard context",

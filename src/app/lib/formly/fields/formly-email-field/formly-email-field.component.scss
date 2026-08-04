@@ -1,0 +1,20 @@
+.formly-email-field {
+  position: relative;
+  display: flex;
+  width: 100%;
+
+  &__icon {
+    position: absolute;
+    inset-inline-start: 0.75rem;
+    top: 50%;
+    display: inline-flex;
+    color: var(--starlinks-text-muted);
+    pointer-events: none;
+    transform: translateY(-50%);
+  }
+
+  &__input {
+    width: 100%;
+    padding-inline-start: 2.5rem;
+  }
+}

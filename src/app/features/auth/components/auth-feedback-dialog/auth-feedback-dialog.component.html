@@ -1,0 +1,41 @@
+<p-dialog
+  [visible]="visible()"
+  (visibleChange)="onVisibleChange($event)"
+  [modal]="true"
+  [closable]="dismissible()"
+  [dismissableMask]="dismissible()"
+  [closeOnEscape]="closeOnEscape()"
+  [closeAriaLabel]="'STARLINKS.COMMON.CLOSE' | translate"
+  [header]="titleKey() | translate"
+  role="alertdialog"
+  [style]="{ width: '26rem' }"
+  styleClass="auth-feedback-dialog"
+>
+  <ng-template #header let-ariaLabelledBy="ariaLabelledBy">
+    <div
+      class="auth-feedback-dialog__icon-ring"
+      [class.auth-feedback-dialog__icon-ring--success]="variant() === 'success'"
+      [class.auth-feedback-dialog__icon-ring--error]="variant() === 'error'"
+    >
+      <iconsax-icon
+        [attr.name]="iconName()"
+        type="bold"
+        size="36"
+        aria-hidden="true"
+      ></iconsax-icon>
+    </div>
+    <h2 class="auth-feedback-dialog__title" [id]="ariaLabelledBy">{{ titleKey() | translate }}</h2>
+  </ng-template>
+
+  <p class="auth-feedback-dialog__message">{{ messageKey() | translate }}</p>
+
+  <button
+    type="button"
+    class="auth-feedback-dialog__action"
+    [class.auth-feedback-dialog__action--success]="variant() === 'success'"
+    [class.auth-feedback-dialog__action--error]="variant() === 'error'"
+    (click)="onAction()"
+  >
+    {{ actionLabelKey() | translate }}
+  </button>
+</p-dialog>

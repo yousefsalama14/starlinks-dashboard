@@ -1,0 +1,119 @@
+:host {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+.auth-brand-panel {
+  position: relative;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  min-height: 22rem;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 2.5rem;
+  background:
+    radial-gradient(120% 90% at 50% 0%, var(--starlinks-brand-dark-strong) 0%, transparent 60%),
+    var(--starlinks-brand-dark);
+}
+
+.auth-brand-panel__starfield {
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(color-mix(in srgb, white 60%, transparent) 1px, transparent 1px),
+    radial-gradient(color-mix(in srgb, white 35%, transparent) 1px, transparent 1px);
+  background-position:
+    0 0,
+    28px 32px;
+  background-size:
+    42px 42px,
+    58px 58px;
+  opacity: 0.3;
+}
+
+.auth-brand-panel__glow {
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  width: 20rem;
+  height: 20rem;
+  background: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--starlinks-brand-star) 30%, transparent) 0%,
+    transparent 70%
+  );
+  transform: translateX(-50%);
+}
+
+.auth-brand-panel__card {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  width: 100%;
+  max-width: 20rem;
+  flex-direction: column;
+  align-items: center;
+  gap: 2.5rem;
+  padding: 2.5rem 2rem;
+  background: color-mix(in srgb, white 8%, transparent);
+  border: 1px solid color-mix(in srgb, white 14%, transparent);
+  border-radius: 1.5rem;
+}
+
+.auth-brand-panel__heading {
+  margin: 0;
+  color: var(--starlinks-surface);
+  font-size: 1.75rem;
+  font-weight: 600;
+  line-height: 1.3;
+  text-align: center;
+}
+
+.auth-brand-panel__star-area {
+  position: relative;
+  display: grid;
+  width: 8rem;
+  height: 8rem;
+  place-items: center;
+}
+
+.auth-brand-panel__ring {
+  position: absolute;
+  border: 1px solid color-mix(in srgb, var(--starlinks-brand-star-ring) 60%, transparent);
+  border-radius: 50%;
+}
+
+.auth-brand-panel__ring--outer {
+  width: 8rem;
+  height: 8rem;
+  opacity: 0.25;
+}
+
+.auth-brand-panel__ring--inner {
+  width: 6.25rem;
+  height: 6.25rem;
+  opacity: 0.45;
+}
+
+.auth-brand-panel__star {
+  position: relative;
+  display: grid;
+  width: 5rem;
+  height: 5rem;
+  color: var(--starlinks-brand-star);
+  background: color-mix(in srgb, black 25%, var(--starlinks-brand-dark-strong));
+  border: 5px solid var(--starlinks-brand-star-ring);
+  border-radius: 1.25rem;
+  place-items: center;
+}
+
+.auth-brand-panel__star::before {
+  width: 2.25rem;
+  height: 2.25rem;
+  content: '';
+  background: currentcolor;
+  clip-path: polygon(50% 0, 58% 38%, 100% 50%, 58% 62%, 50% 100%, 42% 62%, 0 50%, 42% 38%);
+}

@@ -1,0 +1,94 @@
+// Shared chrome reused by the login / forgot-password / reset-password pages.
+// Lives globally (rather than in auth-layout.component.scss) because it styles
+// page-owned content projected *into* the shared layout, not the layout itself.
+
+.auth-page__title {
+  margin: 0;
+  color: var(--starlinks-text);
+  font-size: 1.75rem;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.auth-page__subtitle {
+  margin: 0.5rem 0 0;
+  color: var(--starlinks-text);
+  font-size: 0.9375rem;
+  line-height: 1.5;
+}
+
+.auth-page__form {
+  display: grid;
+  gap: 1.25rem;
+  margin-top: 2rem;
+}
+
+.auth-page__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.auth-page__row--end {
+  justify-content: flex-end;
+}
+
+.auth-page__row--center {
+  justify-content: center;
+  gap: 0.375rem;
+  color: var(--starlinks-text-muted);
+  font-size: 0.875rem;
+}
+
+.auth-page__link {
+  color: var(--starlinks-brand-dark);
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.auth-page__link:hover {
+  text-decoration: underline;
+}
+
+.auth-page__link:focus-visible {
+  border-radius: 0.25rem;
+  outline: 2px solid var(--starlinks-focus);
+  outline-offset: 2px;
+}
+
+.auth-page__back {
+  display: inline-flex;
+  align-self: flex-start;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  padding: 0;
+  border: 2px solid #d0ddda;
+  border-radius: 0.5rem;
+  background: none;
+  color: var(--starlinks-text-muted);
+  cursor: pointer;
+  margin-bottom: 42px;
+}
+
+.auth-page__back:hover {
+  border-color: var(--starlinks-text-muted);
+  color: var(--starlinks-text);
+}
+
+.auth-page__back:focus-visible {
+  border-radius: 0.25rem;
+  outline: 2px solid var(--starlinks-focus);
+  outline-offset: 2px;
+}
+
+.auth-page__back-icon {
+  display: inline-flex;
+}
+
+[dir='rtl'] .auth-page__back-icon {
+  transform: scaleX(-1);
+}

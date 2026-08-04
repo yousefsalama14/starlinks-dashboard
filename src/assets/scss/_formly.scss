@@ -1,1 +1,7 @@
 // Formly global overrides belong here.
+
+.p-error {
+  .ui-message-text {
+    color: #d81b60;
+  }
+}

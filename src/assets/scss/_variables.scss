@@ -10,7 +10,7 @@
   --starlinks-bg: #f8fafc;
   --starlinks-surface: #ffffff;
   --starlinks-surface-muted: #f1f5f9;
-  --starlinks-text: #111827;
+  --starlinks-text: #616e69;
   --starlinks-text-muted: #64748b;
   --starlinks-border: #e2e8f0;
   --starlinks-focus: #d6a756;
@@ -25,6 +25,14 @@
   --starlinks-table-tone-danger: #e91e63;
   --starlinks-table-tone-accent: #6d28d9;
   --starlinks-menu-rail-width: 84px;
+  --starlinks-success: var(--starlinks-menu-active);
+  --starlinks-success-soft: #e3f6f0;
+  --starlinks-danger: var(--starlinks-menu-notification);
+  --starlinks-danger-soft: #fdeaf1;
+  --starlinks-brand-dark: #148c69;
+  --starlinks-brand-dark-strong: #003d32;
+  --starlinks-brand-star: #54e815;
+  --starlinks-brand-star-ring: #2a8976;
   --starlinks-font-body: Roboto, ui-sans-serif, system-ui, sans-serif;
   --starlinks-font-display: Montserrat, Roboto, ui-sans-serif, system-ui, sans-serif;
   --starlinks-font-body-rtl: Cairo, ui-sans-serif, system-ui, sans-serif;

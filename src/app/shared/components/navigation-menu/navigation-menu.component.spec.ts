@@ -2,10 +2,7 @@ import { Component } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { provideRouter, Router } from '@angular/router';
 import { provideTranslateService } from '@ngx-translate/core';
-import {
-  NavigationMenuComponent,
-  NavigationMenuItem,
-} from './navigation-menu.component';
+import { NavigationMenuComponent, NavigationMenuItem } from './navigation-menu.component';
 
 @Component({ template: '', standalone: true })
 class TestRouteComponent {}

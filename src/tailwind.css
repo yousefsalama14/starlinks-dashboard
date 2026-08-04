@@ -20,5 +20,13 @@
   --color-starlinks-text: var(--starlinks-text);
   --color-starlinks-textMuted: var(--starlinks-text-muted);
   --color-starlinks-border: var(--starlinks-border);
+  --color-starlinks-success: var(--starlinks-success);
+  --color-starlinks-successSoft: var(--starlinks-success-soft);
+  --color-starlinks-danger: var(--starlinks-danger);
+  --color-starlinks-dangerSoft: var(--starlinks-danger-soft);
+  --color-starlinks-brandDark: var(--starlinks-brand-dark);
+  --color-starlinks-brandDarkStrong: var(--starlinks-brand-dark-strong);
+  --color-starlinks-brandStar: var(--starlinks-brand-star);
+  --color-starlinks-brandStarRing: var(--starlinks-brand-star-ring);
   --font-display: var(--starlinks-font-display);
 }

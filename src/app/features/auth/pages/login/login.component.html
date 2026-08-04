@@ -1,0 +1,41 @@
+<app-auth-layout>
+  <h1 class="auth-page__title font-display">{{ 'STARLINKS.AUTH.LOGIN.TITLE' | translate }}</h1>
+  <p class="auth-page__subtitle">{{ 'STARLINKS.AUTH.LOGIN.SUBTITLE' | translate }}</p>
+
+  <form class="auth-page__form" [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+    <formly-form [form]="form" [fields]="fields" [model]="formModel"></formly-form>
+
+    <div class="auth-page__row auth-page__row--end">
+      <a routerLink="/auth/forgot-password" class="auth-page__link">
+        {{ 'STARLINKS.AUTH.LOGIN.FORGOT_PASSWORD' | translate }}
+      </a>
+    </div>
+
+    <button
+      type="submit"
+      class="btn-primary"
+      [disabled]="isSubmitting()"
+      [attr.aria-busy]="isSubmitting()"
+    >
+      @if (isSubmitting()) {
+        {{ 'STARLINKS.AUTH.LOGIN.SUBMITTING' | translate }}
+      } @else {
+        {{ 'STARLINKS.AUTH.LOGIN.SUBMIT' | translate }}
+      }
+    </button>
+  </form>
+
+  <div authLayoutFooter>
+    <app-auth-footer />
+  </div>
+</app-auth-layout>
+
+<app-auth-feedback-dialog
+  [visible]="showErrorDialog()"
+  variant="error"
+  titleKey="STARLINKS.AUTH.LOGIN.INVALID_CREDENTIALS_TITLE"
+  messageKey="STARLINKS.AUTH.LOGIN.INVALID_CREDENTIALS_MESSAGE"
+  actionLabelKey="STARLINKS.COMMON.CONFIRM"
+  (action)="onErrorDialogClosed()"
+  (closed)="onErrorDialogClosed()"
+/>

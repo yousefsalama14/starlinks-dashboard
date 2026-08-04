@@ -2,11 +2,17 @@ import { Routes } from '@angular/router';
 
 import { AppShellComponent } from './core/layout/app-shell/app-shell.component';
 import { pageRouteData } from './core/layout/page-route-data';
+import { authGuard } from './features/auth/guards/auth.guard';
 
 export const routes: Routes = [
   {
+    path: 'auth',
+    loadChildren: () => import('./features/auth/auth.routes').then((m) => m.AUTH_ROUTES),
+  },
+  {
     path: 'app',
     component: AppShellComponent,
+    canActivate: [authGuard],
     children: [
       {
         path: 'home',
