@@ -1,0 +1,15 @@
+@let status = display();
+@let label = status.label.key | translate: status.label.params;
+<span
+  class="table-status-cell"
+  [class.table-status-cell--neutral]="status.tone === 'neutral'"
+  [class.table-status-cell--info]="status.tone === 'info'"
+  [class.table-status-cell--success]="status.tone === 'success'"
+  [class.table-status-cell--warning]="status.tone === 'warning'"
+  [class.table-status-cell--danger]="status.tone === 'danger'"
+  [class.table-status-cell--accent]="status.tone === 'accent'"
+  [attr.data-tone]="status.tone"
+  [attr.title]="column().tooltip === 'always' ? label : null"
+>
+  {{ label }}
+</span>

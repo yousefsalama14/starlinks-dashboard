@@ -10,7 +10,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { NavigationEnd, Router, RouterLink, RouterOutlet } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
 import { filter } from 'rxjs';
-import { PageRouteData } from '../page-route-data';
+import { PageBreadcrumb, PageHeaderMode, PageRouteData } from '../page-route-data';
 import { LanguageSwitcherComponent } from '../../../shared/components/language-switcher/language-switcher.component';
 import {
   NavigationMenuComponent,
@@ -41,7 +41,7 @@ export class AppShellComponent {
   );
 
   protected readonly isMobileMenuOpen = signal(false);
-  protected readonly headerTitleKey = computed(() => {
+  private readonly activeRouteData = computed(() => {
     this.navigationEnd();
 
     let route = this.router.routerState.snapshot.root;
@@ -49,8 +49,31 @@ export class AppShellComponent {
       route = route.firstChild;
     }
 
-    return (route.data as Partial<PageRouteData>).headerTitleKey ?? 'STARLINKS.NAV.HOME';
+    return route.data as Partial<PageRouteData>;
   });
+  protected readonly headerTitleKey = computed(
+    () => this.activeRouteData().headerTitleKey ?? 'STARLINKS.NAV.HOME',
+  );
+  protected readonly headerMode = computed<PageHeaderMode>(
+    () => this.activeRouteData().headerMode ?? 'root',
+  );
+  protected readonly headerSupportingTextKey = computed(
+    () => this.activeRouteData().headerSupportingTextKey,
+  );
+  protected readonly showHeaderTitle = computed(
+    () => this.activeRouteData().contentOwnsHeading !== true,
+  );
+  protected readonly breadcrumbs = computed<readonly PageBreadcrumb[]>(() =>
+    this.headerMode() === 'nested'
+      ? (this.activeRouteData().breadcrumbs ?? Object.freeze([]))
+      : Object.freeze([]),
+  );
+  protected readonly backRoute = computed(() =>
+    this.headerMode() === 'nested' ? this.activeRouteData().backRoute : undefined,
+  );
+  protected readonly backLabelKey = computed(
+    () => this.activeRouteData().backLabelKey ?? 'STARLINKS.APP_SHELL.BACK',
+  );
   protected readonly navItems: readonly NavigationMenuItem[] = [
     { id: 'home', labelKey: 'STARLINKS.NAV.HOME', route: '/app/home', icon: 'home', exact: true },
     {
@@ -62,6 +85,8 @@ export class AppShellComponent {
       id: 'shipments',
       labelKey: 'STARLINKS.NAV.SHIPMENTS',
       icon: 'box',
+      route: '/app/shipments',
+      exact: true,
     },
     {
       id: 'fulfillment',

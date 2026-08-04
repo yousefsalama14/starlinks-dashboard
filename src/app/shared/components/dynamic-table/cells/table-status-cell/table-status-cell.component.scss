@@ -1,0 +1,44 @@
+:host {
+  display: inline-block;
+  max-width: 100%;
+  min-width: 0;
+  vertical-align: middle;
+}
+
+.table-status-cell {
+  --table-status-tone: var(--starlinks-table-tone-neutral);
+
+  display: inline-block;
+  max-width: 100%;
+  overflow: hidden;
+  padding: 0.2rem 0.5rem;
+  color: var(--table-status-tone);
+  background: color-mix(in srgb, var(--table-status-tone) 10%, var(--starlinks-surface));
+  border: 1px solid color-mix(in srgb, var(--table-status-tone) 18%, transparent);
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 500;
+  line-height: 1.25;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.table-status-cell--info {
+  --table-status-tone: var(--starlinks-table-tone-info);
+}
+
+.table-status-cell--success {
+  --table-status-tone: var(--starlinks-table-tone-success);
+}
+
+.table-status-cell--warning {
+  --table-status-tone: var(--starlinks-table-tone-warning);
+}
+
+.table-status-cell--danger {
+  --table-status-tone: var(--starlinks-table-tone-danger);
+}
+
+.table-status-cell--accent {
+  --table-status-tone: var(--starlinks-table-tone-accent);
+}

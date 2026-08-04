@@ -1,0 +1,211 @@
+:host {
+  display: block;
+  min-width: 0;
+}
+
+.dynamic-table {
+  position: relative;
+  min-width: 0;
+  color: var(--starlinks-text);
+  background: var(--starlinks-surface);
+  // border: 1px solid var(--starlinks-border);
+  border-radius: 0.9rem;
+  overflow: hidden;
+}
+
+.dynamic-table__overflow {
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+}
+
+table {
+  width: 100%;
+  min-width: max-content;
+  border-spacing: 0;
+  border-collapse: separate;
+}
+
+.dynamic-table__header-cell,
+.dynamic-table__placeholder-header {
+  height: 2.75rem;
+  padding: 0.75rem 1rem;
+  color: var(--starlinks-text-muted);
+  background: var(--starlinks-surface-muted);
+  border-block-end: 1px solid var(--starlinks-border);
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.25;
+  text-align: start;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.dynamic-table__body-cell {
+  max-width: 24rem;
+  height: 2.5rem;
+  padding: 0.625rem 1rem;
+  background: var(--starlinks-surface);
+  border-block-end: 1px solid var(--starlinks-border);
+  font-size: 0.8rem;
+  line-height: 1.35;
+  text-align: start;
+  vertical-align: middle;
+}
+
+.dynamic-table__data-row:last-child .dynamic-table__body-cell {
+  border-block-end: 0;
+}
+
+.dynamic-table__data-row:hover .dynamic-table__body-cell {
+  background: color-mix(in srgb, var(--starlinks-surface-muted) 55%, var(--starlinks-surface));
+}
+
+.dynamic-table__sort-button {
+  display: inline-flex;
+  width: 100%;
+  color: inherit;
+  align-items: center;
+  justify-content: inherit;
+  gap: 0.22rem;
+  text-align: inherit;
+}
+
+.dynamic-table__sort-button:not(:disabled):hover,
+.dynamic-table__sort-button:focus-visible {
+  color: var(--starlinks-menu-active);
+}
+
+.dynamic-table__sort-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.dynamic-table__fallback {
+  color: var(--starlinks-text-muted);
+}
+
+.dynamic-table__state-row td,
+.dynamic-table__inline-error td {
+  padding: 0;
+}
+
+.dynamic-table__state {
+  display: grid;
+  min-height: 12rem;
+  padding: 2rem;
+  color: var(--starlinks-text-muted);
+  text-align: center;
+  place-content: center;
+  justify-items: center;
+}
+
+.dynamic-table__state strong {
+  color: var(--starlinks-text);
+  font-size: 1rem;
+}
+
+.dynamic-table__state p {
+  max-width: 32rem;
+  margin: 0.45rem 0 0;
+}
+
+.dynamic-table__state--no-results {
+  background: color-mix(in srgb, var(--starlinks-surface-muted) 45%, transparent);
+}
+
+.dynamic-table__state--error,
+.dynamic-table__inline-error-content {
+  color: var(--starlinks-menu-notification);
+}
+
+.dynamic-table__state button,
+.dynamic-table__inline-error button {
+  margin-block-start: 1rem;
+  padding: 0.55rem 0.9rem;
+  color: var(--starlinks-surface);
+  background: var(--starlinks-menu-active);
+  border-radius: 0.55rem;
+}
+
+.dynamic-table__inline-error-content {
+  display: flex;
+  padding: 0.65rem 1rem;
+  background: color-mix(in srgb, var(--starlinks-menu-notification) 7%, var(--starlinks-surface));
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.dynamic-table__inline-error button {
+  margin-block-start: 0;
+}
+
+.dynamic-table__refresh-indicator {
+  display: flex;
+  min-height: 2rem;
+  padding-inline: 1rem;
+  color: var(--starlinks-text-muted);
+  background: var(--starlinks-surface-muted);
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+}
+
+.dynamic-table__spinner {
+  width: 0.8rem;
+  height: 0.8rem;
+  border: 2px solid var(--starlinks-border);
+  border-block-start-color: var(--starlinks-menu-active);
+  border-radius: 50%;
+  animation: dynamic-table-spin 800ms linear infinite;
+}
+
+.dynamic-table__skeleton-row td {
+  height: 2.5rem;
+  padding: 0.625rem 1rem;
+  border-block-end: 1px solid var(--starlinks-border);
+}
+
+.dynamic-table__skeleton {
+  display: block;
+  width: min(8rem, 80%);
+  height: 0.8rem;
+  background: linear-gradient(
+    90deg,
+    var(--starlinks-surface-muted),
+    var(--starlinks-border),
+    var(--starlinks-surface-muted)
+  );
+  background-size: 200% 100%;
+  border-radius: 999px;
+  animation: dynamic-table-skeleton 1.25s ease-in-out infinite;
+}
+
+app-table-pagination {
+  padding: 0.75rem 1rem;
+  background: var(--starlinks-surface-muted);
+  border-block-start: 1px solid var(--starlinks-border);
+}
+
+@keyframes dynamic-table-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes dynamic-table-skeleton {
+  from {
+    background-position: 100% 0;
+  }
+
+  to {
+    background-position: -100% 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dynamic-table__spinner,
+  .dynamic-table__skeleton {
+    animation: none;
+  }
+}

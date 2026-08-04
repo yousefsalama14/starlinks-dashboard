@@ -1,0 +1,70 @@
+<nav
+  class="table-pagination"
+  [class.table-pagination--compact]="compact()"
+  [attr.aria-label]="labelKeys().navigation | translate"
+>
+  <button
+    type="button"
+    class="table-pagination__control table-pagination__control--previous"
+    [disabled]="!canGoPrevious()"
+    [attr.aria-label]="labelKeys().previous | translate"
+    (click)="requestPage(pagination().page - 1)"
+  >
+    <iconsax-icon
+      class="table-pagination__direction-icon"
+      name="arrow-left-02"
+      type="linear"
+      size="12"
+      aria-hidden="true"
+    ></iconsax-icon>
+    <span class="table-pagination__control-label">{{ labelKeys().previous | translate }}</span>
+  </button>
+
+  <ol class="table-pagination__pages">
+    @for (item of range(); track item.kind === 'page' ? item.page : item.position) {
+      <li>
+        @if (item.kind === 'page') {
+          <button
+            type="button"
+            class="table-pagination__page"
+            [class.table-pagination__page--active]="item.page === pagination().page"
+            [disabled]="disabled()"
+            [attr.aria-current]="item.page === pagination().page ? 'page' : null"
+            [attr.aria-label]="labelKeys().page | translate: { page: item.page }"
+            (click)="requestPage(item.page)"
+          >
+            {{ item.page }}
+          </button>
+        } @else {
+          <span class="table-pagination__ellipsis" aria-hidden="true">&hellip;</span>
+        }
+      </li>
+    }
+  </ol>
+
+  <span class="table-pagination__summary" aria-live="polite">
+    <span class="starlinks-table__visually-hidden">
+      {{
+        labelKeys().currentPage | translate: { page: pagination().page, totalPages: totalPages() }
+      }}
+    </span>
+    <span aria-hidden="true">{{ pagination().page }} / {{ totalPages() }}</span>
+  </span>
+
+  <button
+    type="button"
+    class="table-pagination__control table-pagination__control--next"
+    [disabled]="!canGoNext()"
+    [attr.aria-label]="labelKeys().next | translate"
+    (click)="requestPage(pagination().page + 1)"
+  >
+    <span class="table-pagination__control-label">{{ labelKeys().next | translate }}</span>
+    <iconsax-icon
+      class="table-pagination__direction-icon"
+      name="arrow-right-02"
+      type="linear"
+      size="12"
+      aria-hidden="true"
+    ></iconsax-icon>
+  </button>
+</nav>

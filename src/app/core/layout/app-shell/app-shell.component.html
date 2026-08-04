@@ -30,7 +30,56 @@
         >
           <i class="pi pi-bars" aria-hidden="true"></i>
         </button>
-        <h1>{{ headerTitleKey() | translate }}</h1>
+        @if (showHeaderTitle()) {
+          <div class="app-header__page-copy" [attr.data-header-mode]="headerMode()">
+            <div class="app-header__title-row">
+              @if (backRoute(); as route) {
+                <a
+                  class="app-header__back"
+                  [routerLink]="route"
+                  [attr.aria-label]="backLabelKey() | translate"
+                >
+                  <iconsax-icon name="arrow-left-01" type="linear" size="18" aria-hidden="true" />
+                </a>
+              }
+              <h1>{{ headerTitleKey() | translate }}</h1>
+            </div>
+            @if (headerMode() === 'nested' && breadcrumbs().length > 0) {
+              <nav
+                class="app-header__breadcrumbs"
+                [attr.aria-label]="'STARLINKS.APP_SHELL.BREADCRUMBS' | translate"
+              >
+                <ol>
+                  @for (breadcrumb of breadcrumbs(); track breadcrumb.labelKey; let last = $last) {
+                    <li>
+                      @if (breadcrumb.route && !last) {
+                        <a [routerLink]="breadcrumb.route">
+                          {{ breadcrumb.labelKey | translate }}
+                        </a>
+                      } @else {
+                        <span [attr.aria-current]="last ? 'page' : null">
+                          {{ breadcrumb.labelKey | translate }}
+                        </span>
+                      }
+                      @if (!last) {
+                        <iconsax-icon
+                          class="app-header__breadcrumb-separator"
+                          name="arrow-right-01"
+                          type="linear"
+                          size="12"
+                          aria-hidden="true"
+                        />
+                      }
+                    </li>
+                  }
+                </ol>
+              </nav>
+            }
+            @if (headerSupportingTextKey(); as supportingTextKey) {
+              <p class="app-header__supporting-text">{{ supportingTextKey | translate }}</p>
+            }
+          </div>
+        }
       </div>
 
       <div

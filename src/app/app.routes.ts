@@ -17,6 +17,13 @@ export const routes: Routes = [
           ),
       },
       {
+        path: 'shipments',
+        loadChildren: () =>
+          import('./features/shipments/shipments.routes').then(
+            (shipmentRoutes) => shipmentRoutes.SHIPMENTS_ROUTES,
+          ),
+      },
+      {
         path: 'not-found',
         data: pageRouteData({ headerTitleKey: 'STARLINKS.NOT_FOUND.HEADER_TITLE' }),
         loadComponent: () =>

@@ -1,0 +1,25 @@
+@let text = displayValue();
+@if (text !== null) {
+  @let label = accessibleLabel();
+  @if (linkTarget(); as target) {
+    <a
+      class="table-link-cell__link"
+      [routerLink]="target.commands"
+      [queryParams]="target.queryParams ?? null"
+      [attr.aria-label]="label ? (label.key | translate: label.params) : null"
+      [attr.title]="tooltip()"
+    >
+      {{ text }}
+    </a>
+  } @else {
+    <span
+      class="table-link-cell__disabled"
+      role="link"
+      aria-disabled="true"
+      [attr.aria-label]="label ? (label.key | translate: label.params) : null"
+      [attr.title]="tooltip()"
+    >
+      {{ text }}
+    </span>
+  }
+}

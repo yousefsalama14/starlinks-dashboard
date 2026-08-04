@@ -1,0 +1,213 @@
+@let field = selectedField();
+<div class="table-search" [class.table-search--open]="open()">
+  <div class="table-search__control" (click)="handleControlClick($event)">
+    <iconsax-icon
+      class="table-search__search-icon"
+      name="search-normal"
+      type="linear"
+      size="18"
+      aria-hidden="true"
+    ></iconsax-icon>
+
+    @if (field) {
+      <span class="table-search__prefix" [id]="inputId + '-field'">
+        {{ field.label.key | translate: field.label.params }}
+        <span aria-hidden="true">{{ 'STARLINKS.TABLE.SEARCH.SEPARATOR' | translate }}</span>
+      </span>
+    }
+
+    <input
+      #searchInput
+      class="table-search__input"
+      type="search"
+      autocomplete="off"
+      [id]="inputId"
+      [value]="query()"
+      [readOnly]="field === null"
+      [disabled]="disabled()"
+      [placeholder]="
+        (field
+          ? 'STARLINKS.TABLE.SEARCH.SEARCH_PLACEHOLDER'
+          : 'STARLINKS.TABLE.SEARCH.SELECT_FIELD'
+        ) | translate
+      "
+      [attr.role]="suggestionsMode() ? 'combobox' : null"
+      [attr.aria-label]="'STARLINKS.TABLE.SEARCH.COMBOBOX_LABEL' | translate"
+      [attr.aria-describedby]="field ? inputId + '-field' : null"
+      [attr.aria-expanded]="suggestionsMode() ? open() : null"
+      [attr.aria-controls]="suggestionsMode() ? listboxId : null"
+      [attr.aria-autocomplete]="suggestionsMode() ? 'list' : null"
+      [attr.aria-activedescendant]="activeDescendant()"
+      (focus)="handleInputFocus()"
+      (blur)="handleInputBlur()"
+      (input)="handleInput($event)"
+      (keydown)="handleKeydown($event)"
+    />
+
+    @if (field) {
+      <button
+        type="button"
+        class="table-search__clear"
+        [disabled]="disabled()"
+        [attr.aria-label]="'STARLINKS.TABLE.SEARCH.CLEAR_SEARCH' | translate"
+        (click)="requestClearSearch()"
+      >
+        <iconsax-icon name="close-circle" type="linear" size="16" aria-hidden="true"></iconsax-icon>
+      </button>
+    }
+  </div>
+
+  @if (open()) {
+    <div class="table-search__overlay" [id]="overlayId" (pointerdown)="$event.stopPropagation()">
+      @if (!suggestionsMode()) {
+        <section
+          class="table-search__group"
+          [id]="fieldGroupId"
+          [attr.aria-label]="'STARLINKS.TABLE.SEARCH.FIELD_GROUP_LABEL' | translate"
+        >
+          @if (fieldGroupTitle(); as title) {
+            <h2>{{ title.key | translate: title.params }}</h2>
+          }
+          <div class="table-search__fields">
+            @for (searchField of resolvedFields(); track searchField.key) {
+              @let navigationIndex = fieldNavigationIndex(searchField);
+              <button
+                type="button"
+                class="table-search__field"
+                [class.table-search__field--active]="controlIsActive(navigationIndex)"
+                [disabled]="disabled() || searchField.searchable === false"
+                (click)="selectField(searchField)"
+              >
+                {{ searchField.label.key | translate: searchField.label.params }}
+              </button>
+            }
+          </div>
+        </section>
+
+        @if (showRecentSearches() && resolvedRecentSearches().length > 0) {
+          <section
+            class="table-search__group table-search__recent-group"
+            [id]="recentGroupId"
+            [attr.aria-label]="'STARLINKS.TABLE.SEARCH.RECENT_SEARCHES' | translate"
+          >
+            <h2>{{ 'STARLINKS.TABLE.SEARCH.RECENT_SEARCHES' | translate }}</h2>
+            <div class="table-search__recent-list">
+              @for (recent of resolvedRecentSearches(); track recent.id) {
+                @let recentIndex = recentNavigationIndex(recent);
+                @let recentField = resolvedRecentField(recent);
+                <button
+                  type="button"
+                  class="table-search__recent"
+                  [class.table-search__recent--active]="controlIsActive(recentIndex)"
+                  [disabled]="disabled()"
+                  (click)="selectRecent(recent)"
+                >
+                  <iconsax-icon
+                    name="clock"
+                    type="linear"
+                    size="16"
+                    aria-hidden="true"
+                  ></iconsax-icon>
+                  <span class="table-search__recent-field">
+                    {{ recentField.label.key | translate: recentField.label.params }}
+                  </span>
+                  <span aria-hidden="true">{{
+                    'STARLINKS.TABLE.SEARCH.SEPARATOR' | translate
+                  }}</span>
+                  <span class="table-search__recent-value">
+                    @if (recent.displayValue; as displayValue) {
+                      {{ displayValue.key | translate: displayValue.params }}
+                    } @else {
+                      {{ recent.value }}
+                    }
+                  </span>
+                </button>
+              }
+            </div>
+            @if (allowClearRecent()) {
+              <button
+                type="button"
+                class="table-search__clear-recent"
+                [disabled]="disabled()"
+                (click)="requestClearRecent()"
+              >
+                {{ 'STARLINKS.TABLE.SEARCH.CLEAR_RECENT' | translate }}
+              </button>
+            }
+          </section>
+        }
+      } @else {
+        @let state = suggestionsState();
+        @if (state.kind !== 'idle') {
+          <h2 class="table-search__suggestions-title">
+            {{ suggestionsTitle().key | translate: suggestionsTitle().params }}
+          </h2>
+        }
+
+        @if (state.kind === 'loading') {
+          @let message = loadingMessage();
+          <div class="table-search__state" role="status" aria-live="polite">
+            {{ message.key | translate: message.params }}
+          </div>
+        } @else if (state.kind === 'ready' && resolvedSuggestions().length > 0) {
+          <div
+            class="table-search__suggestions"
+            role="listbox"
+            [id]="listboxId"
+            [attr.aria-label]="'STARLINKS.TABLE.SEARCH.SUGGESTIONS_LIST_LABEL' | translate"
+          >
+            @for (suggestion of resolvedSuggestions(); track suggestion.id; let index = $index) {
+              <button
+                type="button"
+                class="table-search__suggestion"
+                role="option"
+                [id]="optionDomId(suggestion.id)"
+                [class.table-search__suggestion--active]="suggestionIsActive(suggestion)"
+                [attr.aria-selected]="suggestionIsActive(suggestion)"
+                [disabled]="disabled()"
+                (pointerenter)="activateSuggestion(suggestion)"
+                (pointerdown)="$event.preventDefault()"
+                (click)="selectSuggestion(suggestion)"
+              >
+                @if (optionTemplate(); as template) {
+                  <ng-container
+                    [ngTemplateOutlet]="template"
+                    [ngTemplateOutletContext]="optionContext(suggestion, index)"
+                  />
+                } @else if (fallbackValue(suggestion.value); as fallback) {
+                  {{ fallback }}
+                } @else {
+                  {{ 'STARLINKS.TABLE.MISSING_VALUE' | translate }}
+                }
+              </button>
+            }
+          </div>
+        } @else if (
+          state.kind === 'empty' || (state.kind === 'ready' && resolvedSuggestions().length === 0)
+        ) {
+          @let message = emptyMessage();
+          <div class="table-search__state" role="status" aria-live="polite">
+            <strong>{{ message.key | translate: message.params }}</strong>
+            <span>{{ 'STARLINKS.TABLE.SEARCH.NO_RESULTS_DESCRIPTION' | translate }}</span>
+          </div>
+        } @else if (state.kind === 'error') {
+          @let message = errorMessage();
+          <div class="table-search__state table-search__state--error" role="alert">
+            <strong>{{ message.key | translate: message.params }}</strong>
+            @if (state.retryable) {
+              <button type="button" [disabled]="disabled()" (click)="requestRetry()">
+                <iconsax-icon
+                  name="refresh-arrow-01"
+                  type="linear"
+                  size="16"
+                  aria-hidden="true"
+                ></iconsax-icon>
+                {{ 'STARLINKS.TABLE.SEARCH.RETRY' | translate }}
+              </button>
+            }
+          </div>
+        }
+      }
+    </div>
+  }
+</div>

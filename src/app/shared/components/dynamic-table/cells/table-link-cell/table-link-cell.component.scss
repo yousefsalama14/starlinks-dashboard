@@ -1,0 +1,36 @@
+:host {
+  display: inline-block;
+  max-width: 100%;
+  min-width: 0;
+  vertical-align: middle;
+}
+
+.table-link-cell__link,
+.table-link-cell__disabled {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.table-link-cell__link {
+  color: var(--starlinks-menu-active);
+  text-decoration: underline;
+  text-decoration-thickness: from-font;
+  text-underline-offset: 0.16em;
+}
+
+.table-link-cell__link:hover {
+  text-decoration-thickness: 0.12em;
+}
+
+.table-link-cell__link:focus-visible {
+  border-radius: 0.2rem;
+  outline: 2px solid currentcolor;
+  outline-offset: 2px;
+}
+
+.table-link-cell__disabled {
+  color: var(--starlinks-text-muted);
+  cursor: not-allowed;
+}

@@ -17,6 +17,103 @@
   gap: 0.75rem;
 }
 
+.app-header__page-copy {
+  display: grid;
+  min-width: 0;
+  gap: 0.15rem;
+}
+
+.app-header__title-row {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.app-header__back {
+  display: grid;
+  width: 1.75rem;
+  height: 1.75rem;
+  flex: 0 0 auto;
+  color: var(--starlinks-text);
+  border: 1px solid var(--starlinks-border);
+  border-radius: 0.45rem;
+  place-items: center;
+  text-decoration: none;
+  transition:
+    color 160ms ease,
+    border-color 160ms ease,
+    background-color 160ms ease;
+}
+
+.app-header__back:hover {
+  color: var(--starlinks-menu-active);
+  border-color: var(--starlinks-menu-active);
+  background: var(--starlinks-menu-divider);
+}
+
+.app-header__back:focus-visible {
+  outline: 2px solid var(--starlinks-menu-active);
+  outline-offset: 2px;
+}
+
+.app-header__supporting-text {
+  overflow: hidden;
+  margin: 0;
+  color: var(--starlinks-text-muted);
+  font-size: 0.68rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.app-header__breadcrumbs ol {
+  display: flex;
+  min-width: 0;
+  padding: 0;
+  margin: 0;
+  color: var(--starlinks-text-muted);
+  align-items: center;
+  list-style: none;
+  gap: 0.3rem;
+  font-size: 0.66rem;
+}
+
+.app-header__breadcrumbs li,
+.app-header__breadcrumbs a,
+.app-header__breadcrumb-separator {
+  display: inline-flex;
+  min-width: 0;
+  align-items: center;
+}
+
+.app-header__breadcrumbs li {
+  gap: 0.3rem;
+}
+
+.app-header__breadcrumbs a {
+  overflow: hidden;
+  color: inherit;
+  border-radius: 0.15rem;
+  text-decoration: none;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.app-header__breadcrumbs a:hover {
+  color: var(--starlinks-menu-active);
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+.app-header__breadcrumbs a:focus-visible {
+  outline: 2px solid var(--starlinks-menu-active);
+  outline-offset: 2px;
+}
+
+.app-header__breadcrumb-separator {
+  flex: 0 0 auto;
+}
+
 .app-header__menu-button {
   display: grid;
   width: 2.5rem;
@@ -40,12 +137,20 @@
 .app-header h1 {
   overflow: hidden;
   margin: 0;
-  color: #64716d;
+  color: var(--starlinks-text);
   font-family: var(--starlinks-font-body);
-  font-size: 0.9rem;
-  font-weight: 500;
+  font-size: 1.1rem;
+  font-weight: 600;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+:host-context([dir='rtl']) .app-header__breadcrumb-separator {
+  transform: scaleX(-1);
+}
+
+:host-context([dir='rtl']) .app-header__back iconsax-icon {
+  transform: scaleX(-1);
 }
 
 .app-header__account {

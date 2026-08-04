@@ -1,0 +1,210 @@
+<app-side-drawer
+  [open]="open()"
+  [title]="drawerTitle()"
+  [customHeader]="true"
+  [inset]="true"
+  width="wide"
+  (closed)="requestClose()"
+>
+  <div sideDrawerHeader class="shipment-details__drawer-header">
+    <div class="shipment-details__drawer-heading">
+      <span>{{ 'STARLINKS.SHIPMENTS.DETAILS.HEADER_LABEL' | translate }}</span>
+      <strong dir="ltr">{{ shipment().shipmentNumber }}</strong>
+    </div>
+    <button
+      type="button"
+      class="shipment-details__export"
+      [attr.aria-label]="'STARLINKS.SHIPMENTS.DETAILS.EXPORT' | translate"
+      (click)="requestExport()"
+    >
+      <iconsax-icon name="export-arrow-02" type="linear" size="20" aria-hidden="true" />
+    </button>
+  </div>
+
+  <article class="shipment-details">
+    <section class="shipment-details__section" aria-labelledby="shipment-details-info-heading">
+      <h3 id="shipment-details-info-heading">
+        {{ 'STARLINKS.SHIPMENTS.DETAILS.SHIPMENT_INFO' | translate }}
+      </h3>
+
+      <dl class="shipment-details__info-list">
+        <div class="shipment-details__info-row">
+          <dt>
+            <iconsax-icon name="hashtag" type="linear" size="18" aria-hidden="true" />
+            {{ 'STARLINKS.SHIPMENTS.DETAILS.SHIPMENT_NUMBER' | translate }}
+          </dt>
+          <dd dir="ltr">{{ shipment().shipmentNumber }}</dd>
+        </div>
+        <div class="shipment-details__info-row">
+          <dt>
+            <iconsax-icon name="status" type="linear" size="18" aria-hidden="true" />
+            {{ 'STARLINKS.SHIPMENTS.DETAILS.STATUS' | translate }}
+          </dt>
+          <dd>
+            <app-table-status-cell
+              [row]="shipment()"
+              [value]="shipment().status"
+              [column]="statusColumn"
+              [resolvedDisplay]="statusDisplay(shipment())"
+            />
+          </dd>
+        </div>
+        <div class="shipment-details__info-row">
+          <dt>
+            <iconsax-icon name="receipt-item" type="linear" size="18" aria-hidden="true" />
+            {{ 'STARLINKS.SHIPMENTS.DETAILS.CUSTOMER_REFERENCE' | translate }}
+          </dt>
+          <dd dir="ltr">{{ shipment().customerReference }}</dd>
+        </div>
+        <div class="shipment-details__info-row">
+          <dt>
+            <iconsax-icon name="box" type="linear" size="18" aria-hidden="true" />
+            {{ 'STARLINKS.SHIPMENTS.DETAILS.SERVICE_TYPE' | translate }}
+          </dt>
+          <dd>{{ serviceLabelKey() | translate }}</dd>
+        </div>
+        <div class="shipment-details__info-row">
+          <dt>
+            <iconsax-icon name="box-time" type="linear" size="18" aria-hidden="true" />
+            {{ 'STARLINKS.SHIPMENTS.DETAILS.PIECES' | translate }}
+          </dt>
+          <dd>{{ shipment().pieces }}</dd>
+        </div>
+        <div class="shipment-details__info-row">
+          <dt>
+            <iconsax-icon name="weight" type="linear" size="18" aria-hidden="true" />
+            {{ 'STARLINKS.SHIPMENTS.DETAILS.WEIGHT' | translate }}
+          </dt>
+          <dd dir="ltr">
+            {{ shipment().weightKg }} {{ 'STARLINKS.SHIPMENTS.DETAILS.KILOGRAM' | translate }}
+          </dd>
+        </div>
+      </dl>
+    </section>
+
+    <section class="shipment-details__section" aria-labelledby="shipment-details-route-heading">
+      <h3 id="shipment-details-route-heading">
+        {{ 'STARLINKS.SHIPMENTS.DETAILS.ROUTE' | translate }}
+      </h3>
+
+      <div class="shipment-details__route-grid">
+        <div class="shipment-details__route-item">
+          <span class="shipment-details__route-label">
+            <iconsax-icon name="location" type="linear" size="18" aria-hidden="true" />
+            {{ 'STARLINKS.SHIPMENTS.DETAILS.ORIGIN' | translate }}
+          </span>
+          <strong>
+            {{ locationKey(shipment().origin) | translate }}
+            {{ 'STARLINKS.SHIPMENTS.DETAILS.WAREHOUSE' | translate }}
+          </strong>
+        </div>
+        <div class="shipment-details__route-item">
+          <span class="shipment-details__route-label">
+            <iconsax-icon name="location-tick" type="linear" size="18" aria-hidden="true" />
+            {{ 'STARLINKS.SHIPMENTS.DETAILS.DESTINATION' | translate }}
+          </span>
+          <strong>{{ locationKey(shipment().destination) | translate }}</strong>
+        </div>
+        <div class="shipment-details__route-item">
+          <span class="shipment-details__route-label">
+            <iconsax-icon name="calendar" type="linear" size="18" aria-hidden="true" />
+            {{ 'STARLINKS.SHIPMENTS.DETAILS.PICKUP_DATE' | translate }}
+          </span>
+          <strong dir="ltr">{{ formatDate(shipment().pickupDate) }}</strong>
+        </div>
+        <div class="shipment-details__route-item">
+          <span class="shipment-details__route-label">
+            <iconsax-icon name="calendar-tick" type="linear" size="18" aria-hidden="true" />
+            {{ 'STARLINKS.SHIPMENTS.DETAILS.EXPECTED_DELIVERY_DATE' | translate }}
+          </span>
+          <strong dir="ltr">{{ formatDate(shipment().expectedDeliveryDate) }}</strong>
+        </div>
+      </div>
+    </section>
+
+    <section class="shipment-details__section" aria-labelledby="shipment-details-progress-heading">
+      <h3 id="shipment-details-progress-heading">
+        {{ 'STARLINKS.SHIPMENTS.DETAILS.PROGRESS' | translate }}
+      </h3>
+
+      <div
+        class="shipment-details__progress"
+        role="progressbar"
+        aria-valuemin="0"
+        aria-valuemax="100"
+        [attr.aria-valuenow]="shipment().progress"
+        [attr.aria-label]="'STARLINKS.SHIPMENTS.DETAILS.PROGRESS' | translate"
+      >
+        <div class="shipment-details__progress-main">
+          <div class="shipment-details__progress-track" aria-hidden="true">
+            @for (stage of progressStages(); track stage.key) {
+              <span
+                class="shipment-details__progress-stage"
+                [attr.data-stage]="stage.key"
+                [attr.data-tone]="stage.tone"
+              >
+                <span [style.inline-size.%]="stage.fill"></span>
+              </span>
+            }
+          </div>
+          <strong class="shipment-details__progress-value" dir="ltr">
+            {{ shipment().progress }}%
+          </strong>
+        </div>
+        <div class="shipment-details__progress-labels" aria-hidden="true">
+          @for (stage of progressStages(); track stage.key) {
+            <span [attr.data-stage]="stage.key">{{
+              milestoneLabelKey(stage.key) | translate
+            }}</span>
+          }
+        </div>
+      </div>
+    </section>
+
+    <section class="shipment-details__section" aria-labelledby="shipment-details-history-heading">
+      <h3 id="shipment-details-history-heading">
+        {{ 'STARLINKS.SHIPMENTS.DETAILS.STATUS_HISTORY' | translate }}
+      </h3>
+
+      <ol class="shipment-details__timeline">
+        @for (item of timeline(); track item.key) {
+          <li class="shipment-details__timeline-item" [attr.data-state]="item.state">
+            <span class="shipment-details__timeline-marker" aria-hidden="true">
+              @if (item.state === 'complete') {
+                <iconsax-icon name="tick-circle" type="linear" size="17" />
+              }
+            </span>
+            <div class="shipment-details__timeline-content">
+              <strong>{{ milestoneLabelKey(item.key) | translate }}</strong>
+              @if (item.timestamp) {
+                <span>
+                  {{ formatTimestamp(item.timestamp) }}
+                  @if (item.detail === 'origin') {
+                    · {{ locationKey(shipment().origin) | translate }}
+                    {{ 'STARLINKS.SHIPMENTS.DETAILS.WAREHOUSE' | translate }}
+                  } @else if (item.detail === 'route') {
+                    · {{ locationKey(shipment().origin) | translate }} →
+                    {{ locationKey(shipment().destination) | translate }}
+                  } @else if (item.detail === 'destination') {
+                    · {{ locationKey(shipment().destination) | translate }}
+                  }
+                </span>
+              } @else {
+                <span [attr.aria-label]="'STARLINKS.SHIPMENTS.DETAILS.NO_EVENT' | translate"
+                  >---</span
+                >
+              }
+            </div>
+          </li>
+        }
+      </ol>
+    </section>
+  </article>
+
+  <div sideDrawerFooter class="shipment-details__footer">
+    <button type="button" class="shipment-details__raise-ticket" (click)="requestRaiseTicket()">
+      <iconsax-icon name="ticket" type="linear" size="18" aria-hidden="true" />
+      {{ 'STARLINKS.SHIPMENTS.DETAILS.RAISE_TICKETS' | translate }}
+    </button>
+  </div>
+</app-side-drawer>

@@ -22,6 +22,8 @@
       "LOGOUT": "تسجيل الخروج"
     },
     "APP_SHELL": {
+      "BREADCRUMBS": "مسار التنقل",
+      "BACK": "العودة",
       "NOTIFICATIONS": "الإشعارات: توجد عناصر غير مقروءة",
       "ACCOUNT_SUMMARY": "حساب مسؤول ستارلينكس",
       "ADMIN_ROLE": "مسؤول",
@@ -43,6 +45,194 @@
       "BREADCRUMB_LABEL": "مسار النشاط",
       "TITLE": "لا يوجد نشاط بعد",
       "DESCRIPTION": "ستظهر تحديثات مساحة عملك في ستارلينكس هنا عند توفرها."
+    },
+    "DRAWER": {
+      "CLOSE": "إغلاق اللوحة"
+    },
+    "TABLE": {
+      "MISSING_VALUE": "غير متاح",
+      "EMPTY_TITLE": "لا توجد بيانات بعد",
+      "EMPTY_DESCRIPTION": "ستظهر البيانات هنا عند توفرها.",
+      "NO_RESULTS_TITLE": "لا توجد نتائج مطابقة",
+      "NO_RESULTS_DESCRIPTION": "جرّب تغيير البحث أو عوامل التصفية.",
+      "NO_COLUMNS_TITLE": "لا توجد أعمدة متاحة",
+      "NO_COLUMNS_DESCRIPTION": "اختر عمودًا واحدًا على الأقل لعرضه.",
+      "ERROR_MESSAGE": "تعذر تحميل بيانات الجدول.",
+      "RETRY": "إعادة المحاولة",
+      "LOADING": "جارٍ تحميل بيانات الجدول",
+      "REFRESH_LOADING": "جارٍ تحديث بيانات الجدول",
+      "SORT_ASCENDING": "ترتيب {{column}} تصاعديًا",
+      "SORT_DESCENDING": "ترتيب {{column}} تنازليًا",
+      "CLEAR_SORTING": "مسح ترتيب {{column}}",
+      "ACTION_LOADING": "{{action}} \u0642\u064a\u062f \u0627\u0644\u062a\u0646\u0641\u064a\u0630",
+      "PAGINATION": {
+        "PREVIOUS": "السابق",
+        "NEXT": "التالي",
+        "NAVIGATION": "ترقيم صفحات الجدول",
+        "PAGE": "الانتقال إلى الصفحة {{page}}",
+        "CURRENT_PAGE": "الصفحة {{page}} من {{totalPages}}"
+      },
+      "SEARCH": {
+        "SELECT_FIELD": "اختر حقل البحث",
+        "SEARCH_PLACEHOLDER": "بحث",
+        "RECENT_SEARCHES": "عمليات البحث الأخيرة",
+        "CLEAR_RECENT": "مسح الأخيرة",
+        "CLEAR_SEARCH": "مسح البحث",
+        "SUGGESTIONS": "الاقتراحات",
+        "LOADING": "جارٍ تحميل الاقتراحات",
+        "NO_RESULTS": "لا توجد اقتراحات",
+        "NO_RESULTS_DESCRIPTION": "جرّب قيمة بحث مختلفة.",
+        "ERROR": "تعذر تحميل الاقتراحات",
+        "RETRY": "إعادة المحاولة",
+        "SEPARATOR": "/",
+        "COMBOBOX_LABEL": "بحث الجدول",
+        "FIELD_GROUP_LABEL": "حقول البحث",
+        "SUGGESTIONS_LIST_LABEL": "اقتراحات البحث"
+      },
+      "TOOLBAR": {
+        "LABEL": "عناصر التحكم في الجدول"
+      },
+      "VIEW_OPTIONS": {
+        "TITLE": "خيارات العرض",
+        "TRIGGER": "خيارات العرض",
+        "COLUMNS": "الأعمدة",
+        "RESET": "إعادة تعيين",
+        "SHOW_COLUMN": "إظهار عمود {{column}}",
+        "HIDE_COLUMN": "إخفاء عمود {{column}}",
+        "PANEL_LABEL": "خيارات عرض الجدول",
+        "NON_HIDEABLE": "ظاهر دائمًا",
+        "TABLE_CONTENT": "محتوى الجدول",
+        "SHOW_ALL": "إظهار الكل",
+        "REORDER_COLUMN": "إعادة ترتيب عمود {{column}}",
+        "REORDER_INSTRUCTIONS": "اسحب لإعادة الترتيب، أو فعّل عنصر إعادة الترتيب لنقل العمود لأعلى أو لأسفل.",
+        "MOVE_UP": "نقل عمود {{column}} لأعلى",
+        "MOVE_DOWN": "نقل عمود {{column}} لأسفل"
+      },
+      "FILTERS": {
+        "TITLE": "عوامل التصفية",
+        "TRIGGER": "عوامل التصفية",
+        "RESET": "إعادة تعيين",
+        "APPLY": "تطبيق",
+        "ACTIVE_FILTERS": "{{count}} من عوامل التصفية النشطة",
+        "PANEL_LABEL": "عوامل تصفية الجدول",
+        "SELECT_PLACEHOLDER": "اختر خيارًا",
+        "NO_FILTERS": "لا توجد عوامل تصفية متاحة.",
+        "SERVICES": "الخدمات",
+        "PERIOD": "الفترة",
+        "ALL": "الكل",
+        "LAST_7_DAYS": "آخر 7 أيام",
+        "LAST_30_DAYS": "آخر 30 يومًا",
+        "LAST_90_DAYS": "آخر 90 يومًا",
+        "DETAILS": "المزيد من عوامل التصفية"
+      }
+    },
+    "SHIPMENTS": {
+      "TABLE_CARD": {
+        "TITLE": "أحدث الشحنات",
+        "SUBTITLE": "تتبع جميع الشحنات في حسابك",
+        "SHIPMENT": "شحنة",
+        "EXPORT": "تصدير"
+      },
+      "SUMMARY": {
+        "LABEL": "ملخص الشحنات",
+        "IN_TRANSIT": "قيد النقل",
+        "OUT_FOR_DELIVERY": "خرجت للتسليم",
+        "EXCEPTION": "استثناء",
+        "ON_TIME_RATE": "معدل الالتزام بالوقت",
+        "ON_TIME_TREND": "ارتفع معدل التسليم في الوقت المحدد",
+        "FULLY_DELIVERED": "تم التسليم بالكامل",
+        "TOTAL_SHIPMENTS": "إجمالي الشحنات"
+      },
+      "PAGE_TITLE": "الشحنات",
+      "PAGE_SUPPORTING_TEXT": "لوحة معلومات الشحنات",
+      "TABLE_CAPTION": "جدول الشحنات",
+      "COLUMNS": {
+        "SHIPMENT_NUMBER": "رقم الشحنة",
+        "CUSTOMER_REFERENCE": "مرجع العميل",
+        "SERVICE": "الخدمة",
+        "ROUTE": "المنشأ / الوجهة",
+        "PICKUP_DATE": "تاريخ الاستلام",
+        "EXPECTED_DELIVERY_DATE": "تاريخ التسليم المتوقع",
+        "PROGRESS": "التقدم",
+        "STATUS": "الحالة",
+        "ACTIONS": "الإجراءات"
+      },
+      "SERVICES": {
+        "FREIGHT_FORWARD": "شحن البضائع",
+        "LAST_MILE": "الميل الأخير",
+        "3PL": "الخدمات اللوجستية الخارجية"
+      },
+      "LOCATIONS": {
+        "RIYADH": "الرياض",
+        "MAKKAH": "مكة",
+        "TABUK": "تبوك",
+        "KHOBAR": "الخبر"
+      },
+      "STATUSES": {
+        "PICKED_UP": "تم الاستلام",
+        "DELIVERED": "تم التسليم",
+        "IN_TRANSIT": "قيد النقل",
+        "EXCEPTION": "استثناء",
+        "OUT_FOR_DELIVERY": "خرجت للتسليم"
+      },
+      "ACTIONS": {
+        "PRINT": "طباعة الشحنة",
+        "PRINT_TOOLTIP": "طباعة هذه الشحنة",
+        "CONFIRM": "تأكيد الشحنة",
+        "CONFIRM_TOOLTIP": "تأكيد هذه الشحنة",
+        "CANCEL": "إلغاء الشحنة",
+        "CANCEL_TOOLTIP": "إلغاء هذه الشحنة"
+      },
+      "SEARCH": {
+        "FIELD_GROUP_TITLE": "الشحنات",
+        "SUGGESTED_SHIPMENTS": "الشحنات المقترحة",
+        "FIELDS": {
+          "ORIGIN": "المنشأ",
+          "DESTINATION": "الوجهة"
+        }
+      },
+      "FILTERS": {
+        "SHIPMENT_NUMBER": "رقم الشحنة",
+        "CUSTOMER_REFERENCE": "مرجع العميل",
+        "SERVICE": "الخدمة",
+        "ORIGIN": "المنشأ",
+        "DESTINATION": "الوجهة",
+        "STATUS": "الحالة",
+        "PICKUP_DATE": "تاريخ الاستلام",
+        "EXPECTED_DELIVERY_DATE": "تاريخ التسليم المتوقع",
+        "FILTERED_EMPTY_TITLE": "لا توجد شحنات تطابق عوامل التصفية",
+        "FILTERED_EMPTY_DESCRIPTION": "عدّل عوامل التصفية أو أعد تعيينها لعرض الشحنات."
+      },
+      "DETAILS": {
+        "ACCESSIBLE_TITLE": "تفاصيل الشحنة {{shipmentNumber}}",
+        "HEADER_LABEL": "الشحنة",
+        "EXPORT": "تصدير تفاصيل الشحنة",
+        "SHIPMENT_INFO": "معلومات الشحنة",
+        "SHIPMENT_NUMBER": "رقم الشحنة",
+        "STATUS": "الحالة",
+        "CUSTOMER_REFERENCE": "مرجع العميل",
+        "SERVICE_TYPE": "نوع الخدمة",
+        "PIECES": "القطع",
+        "WEIGHT": "الوزن",
+        "KILOGRAM": "كجم",
+        "ROUTE": "المسار",
+        "ORIGIN": "المنشأ",
+        "DESTINATION": "الوجهة",
+        "WAREHOUSE": "مستودع",
+        "PICKUP_DATE": "تاريخ الاستلام",
+        "EXPECTED_DELIVERY_DATE": "تاريخ التسليم المتوقع",
+        "PROGRESS": "التقدم",
+        "STATUS_HISTORY": "سجل الحالة",
+        "NO_EVENT": "لا يوجد حدث مسجل",
+        "RAISE_TICKETS": "إنشاء تذكرة",
+        "MILESTONES": {
+          "CREATED": "تم الإنشاء",
+          "PICKED_UP": "تم الاستلام",
+          "IN_TRANSIT": "قيد النقل",
+          "OUT_FOR_DELIVERY": "خرجت للتسليم",
+          "DELIVERED": "التسليم"
+        }
+      }
     },
     "NOT_FOUND": {
       "HEADER_TITLE": "غير موجود",

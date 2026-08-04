@@ -28,6 +28,36 @@ describe('AppShellComponent', () => {
                 component: TestPageComponent,
                 data: { headerTitleKey: 'STARLINKS.NOT_FOUND.HEADER_TITLE' },
               },
+              {
+                path: 'shipments',
+                children: [
+                  {
+                    path: '',
+                    component: TestPageComponent,
+                    data: {
+                      headerTitleKey: 'STARLINKS.SHIPMENTS.PAGE_TITLE',
+                      headerMode: 'root',
+                      headerSupportingTextKey: 'STARLINKS.SHIPMENTS.PAGE_SUPPORTING_TEXT',
+                    },
+                  },
+                  {
+                    path: 'create',
+                    component: TestPageComponent,
+                    data: {
+                      headerTitleKey: 'STARLINKS.SHIPMENTS.CREATE_TITLE',
+                      headerMode: 'nested',
+                      backRoute: '/app/shipments',
+                      breadcrumbs: [
+                        {
+                          labelKey: 'STARLINKS.SHIPMENTS.PAGE_TITLE',
+                          route: '/app/shipments',
+                        },
+                        { labelKey: 'STARLINKS.SHIPMENTS.CREATE_TITLE' },
+                      ],
+                    },
+                  },
+                ],
+              },
             ],
           },
         ]),
@@ -92,22 +122,23 @@ describe('AppShellComponent', () => {
       .find((menu) => menu.expanded());
 
     mobileMenu!.itemSelected.emit({
-      id: 'shipments',
-      labelKey: 'STARLINKS.NAV.SHIPMENTS',
-      icon: 'box',
+      id: 'dashboard',
+      labelKey: 'STARLINKS.NAV.DASHBOARD',
+      icon: 'category',
     });
     fixture.detectChanges();
 
     expect(fixture.nativeElement.querySelector('[role="dialog"]')).toBeTruthy();
   });
 
-  it('configures Home as the only routed menu item', () => {
+  it('configures Home and Shipments as routed menu items', () => {
     const fixture = TestBed.createComponent(AppShellComponent);
     fixture.detectChanges();
 
     const routedItems = fixture.nativeElement.querySelectorAll('app-navigation-menu a');
-    expect(routedItems).toHaveLength(1);
+    expect(routedItems).toHaveLength(2);
     expect(routedItems[0].getAttribute('href')).toBe('/app/home');
+    expect(routedItems[1].getAttribute('href')).toBe('/app/shipments');
   });
 
   it('keeps desktop and mobile primary menus scrollable without moving logo or Logout', () => {
@@ -151,7 +182,7 @@ describe('AppShellComponent', () => {
     document.documentElement.dir = 'ltr';
   });
 
-  it('updates the desktop header title from the deepest active route', async () => {
+  it('renders root feature pages with supporting text and no navigation aids', async () => {
     const fixture = TestBed.createComponent(AppShellComponent);
     const router = TestBed.inject(Router);
     fixture.detectChanges();
@@ -167,6 +198,45 @@ describe('AppShellComponent', () => {
     expect(fixture.nativeElement.querySelector('.app-header h1').textContent).toContain(
       'STARLINKS.NOT_FOUND.HEADER_TITLE',
     );
+
+    await router.navigateByUrl('/app/shipments');
+    fixture.detectChanges();
+    expect(fixture.nativeElement.querySelector('.app-header h1').textContent).toContain(
+      'STARLINKS.SHIPMENTS.PAGE_TITLE',
+    );
+    expect(
+      fixture.nativeElement.querySelector('.app-header__supporting-text').textContent,
+    ).toContain('STARLINKS.SHIPMENTS.PAGE_SUPPORTING_TEXT');
+    expect(fixture.nativeElement.querySelector('.app-header__breadcrumbs')).toBeNull();
+    expect(fixture.nativeElement.querySelector('.app-header__back')).toBeNull();
+  });
+
+  it('renders nested feature pages with an optional back control and breadcrumbs below the title', async () => {
+    const fixture = TestBed.createComponent(AppShellComponent);
+    const router = TestBed.inject(Router);
+    fixture.detectChanges();
+
+    await router.navigateByUrl('/app/shipments/create');
+    fixture.detectChanges();
+
+    const titleRow = fixture.nativeElement.querySelector('.app-header__title-row') as HTMLElement;
+    const breadcrumbs = fixture.nativeElement.querySelector(
+      '.app-header__breadcrumbs',
+    ) as HTMLElement;
+    const backControl = fixture.nativeElement.querySelector(
+      '.app-header__back',
+    ) as HTMLAnchorElement;
+
+    expect(titleRow.querySelector('h1')?.textContent).toContain('STARLINKS.SHIPMENTS.CREATE_TITLE');
+    expect(backControl.getAttribute('href')).toBe('/app/shipments');
+    expect(backControl.querySelector('iconsax-icon[name="arrow-left-01"]')).toBeTruthy();
+    expect(breadcrumbs.querySelector('a')?.getAttribute('href')).toBe('/app/shipments');
+    expect(breadcrumbs.querySelector('[aria-current="page"]')?.textContent).toContain(
+      'STARLINKS.SHIPMENTS.CREATE_TITLE',
+    );
+    expect(
+      titleRow.compareDocumentPosition(breadcrumbs) & Node.DOCUMENT_POSITION_FOLLOWING,
+    ).toBeTruthy();
   });
 
   it('renders one unified header with navigation, notification, and identity details', () => {

@@ -22,6 +22,8 @@
       "LOGOUT": "Logout"
     },
     "APP_SHELL": {
+      "BREADCRUMBS": "Breadcrumbs",
+      "BACK": "Go back",
       "MAIN_NAVIGATION": "Main navigation",
       "OPEN_MENU": "Open navigation menu",
       "CLOSE_MENU": "Close navigation menu",
@@ -43,6 +45,194 @@
       "BREADCRUMB_LABEL": "Activity breadcrumb",
       "TITLE": "No activity yet",
       "DESCRIPTION": "Updates from your Starlinks workspace will appear here when they are available."
+    },
+    "DRAWER": {
+      "CLOSE": "Close drawer"
+    },
+    "TABLE": {
+      "MISSING_VALUE": "Not available",
+      "EMPTY_TITLE": "No data yet",
+      "EMPTY_DESCRIPTION": "Data will appear here when it becomes available.",
+      "NO_RESULTS_TITLE": "No matching results",
+      "NO_RESULTS_DESCRIPTION": "Try changing your search or filters.",
+      "NO_COLUMNS_TITLE": "No columns available",
+      "NO_COLUMNS_DESCRIPTION": "Choose at least one column to display.",
+      "ERROR_MESSAGE": "Unable to load the table data.",
+      "RETRY": "Retry",
+      "LOADING": "Loading table data",
+      "REFRESH_LOADING": "Updating table data",
+      "SORT_ASCENDING": "Sort {{column}} ascending",
+      "SORT_DESCENDING": "Sort {{column}} descending",
+      "CLEAR_SORTING": "Clear sorting for {{column}}",
+      "ACTION_LOADING": "{{action}} in progress",
+      "PAGINATION": {
+        "PREVIOUS": "Previous",
+        "NEXT": "Next",
+        "NAVIGATION": "Table pagination",
+        "PAGE": "Go to page {{page}}",
+        "CURRENT_PAGE": "Page {{page}} of {{totalPages}}"
+      },
+      "SEARCH": {
+        "SELECT_FIELD": "Select search field",
+        "SEARCH_PLACEHOLDER": "Search",
+        "RECENT_SEARCHES": "Recent searches",
+        "CLEAR_RECENT": "Clear recent",
+        "CLEAR_SEARCH": "Clear search",
+        "SUGGESTIONS": "Suggestions",
+        "LOADING": "Loading suggestions",
+        "NO_RESULTS": "No suggestions found",
+        "NO_RESULTS_DESCRIPTION": "Try a different search value.",
+        "ERROR": "Unable to load suggestions",
+        "RETRY": "Retry",
+        "SEPARATOR": "/",
+        "COMBOBOX_LABEL": "Table search",
+        "FIELD_GROUP_LABEL": "Search fields",
+        "SUGGESTIONS_LIST_LABEL": "Search suggestions"
+      },
+      "TOOLBAR": {
+        "LABEL": "Table controls"
+      },
+      "VIEW_OPTIONS": {
+        "TITLE": "View options",
+        "TRIGGER": "View options",
+        "COLUMNS": "Columns",
+        "RESET": "Reset",
+        "SHOW_COLUMN": "Show {{column}} column",
+        "HIDE_COLUMN": "Hide {{column}} column",
+        "PANEL_LABEL": "Table view options",
+        "NON_HIDEABLE": "Always shown",
+        "TABLE_CONTENT": "Table content",
+        "SHOW_ALL": "Show all",
+        "REORDER_COLUMN": "Reorder {{column}} column",
+        "REORDER_INSTRUCTIONS": "Drag to reorder, or activate the reorder control to move the column up or down.",
+        "MOVE_UP": "Move {{column}} column up",
+        "MOVE_DOWN": "Move {{column}} column down"
+      },
+      "FILTERS": {
+        "TITLE": "Filters",
+        "TRIGGER": "Filters",
+        "RESET": "Reset",
+        "APPLY": "Apply",
+        "ACTIVE_FILTERS": "{{count}} active filters",
+        "PANEL_LABEL": "Table filters",
+        "SELECT_PLACEHOLDER": "Select an option",
+        "NO_FILTERS": "No filters are available.",
+        "SERVICES": "Services",
+        "PERIOD": "Period",
+        "ALL": "All",
+        "LAST_7_DAYS": "Last 7 Days",
+        "LAST_30_DAYS": "Last 30 Days",
+        "LAST_90_DAYS": "Last 90 Days",
+        "DETAILS": "More filters"
+      }
+    },
+    "SHIPMENTS": {
+      "TABLE_CARD": {
+        "TITLE": "Recent Shipments",
+        "SUBTITLE": "Track all shipments on your account",
+        "SHIPMENT": "Shipment",
+        "EXPORT": "Export"
+      },
+      "SUMMARY": {
+        "LABEL": "Shipment summary",
+        "IN_TRANSIT": "In Transit",
+        "OUT_FOR_DELIVERY": "Out for Delivery",
+        "EXCEPTION": "Exception",
+        "ON_TIME_RATE": "On-Time Rate",
+        "ON_TIME_TREND": "On-time delivery rate increased",
+        "FULLY_DELIVERED": "Fully Delivered",
+        "TOTAL_SHIPMENTS": "Total Shipments"
+      },
+      "PAGE_TITLE": "Shipments",
+      "PAGE_SUPPORTING_TEXT": "Shipments Dashboard",
+      "TABLE_CAPTION": "Shipments table",
+      "COLUMNS": {
+        "SHIPMENT_NUMBER": "Shipment No.",
+        "CUSTOMER_REFERENCE": "Customer Ref.",
+        "SERVICE": "Service",
+        "ROUTE": "Origin / Destination",
+        "PICKUP_DATE": "Pickup Date",
+        "EXPECTED_DELIVERY_DATE": "Expected Delivery Date",
+        "PROGRESS": "Progress",
+        "STATUS": "Status",
+        "ACTIONS": "Actions"
+      },
+      "SERVICES": {
+        "FREIGHT_FORWARD": "Freight forward",
+        "LAST_MILE": "Last mile",
+        "3PL": "3PL"
+      },
+      "LOCATIONS": {
+        "RIYADH": "Riyadh",
+        "MAKKAH": "Makkah",
+        "TABUK": "Tabuk",
+        "KHOBAR": "Khobar"
+      },
+      "STATUSES": {
+        "PICKED_UP": "Picked up",
+        "DELIVERED": "Delivered",
+        "IN_TRANSIT": "In transit",
+        "EXCEPTION": "Exception",
+        "OUT_FOR_DELIVERY": "Out for delivery"
+      },
+      "ACTIONS": {
+        "PRINT": "Print shipment",
+        "PRINT_TOOLTIP": "Print this shipment",
+        "CONFIRM": "Confirm shipment",
+        "CONFIRM_TOOLTIP": "Confirm this shipment",
+        "CANCEL": "Cancel shipment",
+        "CANCEL_TOOLTIP": "Cancel this shipment"
+      },
+      "SEARCH": {
+        "FIELD_GROUP_TITLE": "Shipments",
+        "SUGGESTED_SHIPMENTS": "Suggested shipments",
+        "FIELDS": {
+          "ORIGIN": "Origin",
+          "DESTINATION": "Destination"
+        }
+      },
+      "FILTERS": {
+        "SHIPMENT_NUMBER": "Shipment No.",
+        "CUSTOMER_REFERENCE": "Customer Ref.",
+        "SERVICE": "Service",
+        "ORIGIN": "Origin",
+        "DESTINATION": "Destination",
+        "STATUS": "Status",
+        "PICKUP_DATE": "Pickup Date",
+        "EXPECTED_DELIVERY_DATE": "Expected Delivery Date",
+        "FILTERED_EMPTY_TITLE": "No shipments match these filters",
+        "FILTERED_EMPTY_DESCRIPTION": "Adjust or reset the filters to see shipments."
+      },
+      "DETAILS": {
+        "ACCESSIBLE_TITLE": "Shipment {{shipmentNumber}} details",
+        "HEADER_LABEL": "Shipment",
+        "EXPORT": "Export shipment details",
+        "SHIPMENT_INFO": "Shipment info",
+        "SHIPMENT_NUMBER": "Shipment no.",
+        "STATUS": "Status",
+        "CUSTOMER_REFERENCE": "Customer ref.",
+        "SERVICE_TYPE": "Service type",
+        "PIECES": "Pieces",
+        "WEIGHT": "Weight",
+        "KILOGRAM": "kg",
+        "ROUTE": "Route",
+        "ORIGIN": "Origin",
+        "DESTINATION": "Destination",
+        "WAREHOUSE": "Warehouse",
+        "PICKUP_DATE": "Pickup date",
+        "EXPECTED_DELIVERY_DATE": "Expected Delivery Date",
+        "PROGRESS": "Progress",
+        "STATUS_HISTORY": "Status history",
+        "NO_EVENT": "No event recorded",
+        "RAISE_TICKETS": "Raise Tickets",
+        "MILESTONES": {
+          "CREATED": "Created",
+          "PICKED_UP": "Picked up",
+          "IN_TRANSIT": "In transit",
+          "OUT_FOR_DELIVERY": "Out for delivery",
+          "DELIVERED": "Delivery"
+        }
+      }
     },
     "NOT_FOUND": {
       "HEADER_TITLE": "Not Found",

@@ -1,0 +1,45 @@
+<header
+  class="page-section-header"
+  [class.page-section-header--compact]="compact()"
+  [attr.aria-labelledby]="headingId"
+>
+  @if (leadingContent()) {
+    <div class="page-section-header__leading">
+      <ng-content select="[pageSectionHeaderLeading]" />
+    </div>
+  }
+
+  <div class="page-section-header__main">
+    <div class="page-section-header__copy">
+      @switch (resolvedHeadingLevel()) {
+        @case (1) {
+          <h1 [id]="headingId">{{ title().key | translate: title().params }}</h1>
+        }
+        @case (2) {
+          <h2 [id]="headingId">{{ title().key | translate: title().params }}</h2>
+        }
+        @case (3) {
+          <h3 [id]="headingId">{{ title().key | translate: title().params }}</h3>
+        }
+      }
+
+      @if (subtitle(); as description) {
+        <p class="page-section-header__subtitle">
+          {{ description.key | translate: description.params }}
+        </p>
+      }
+    </div>
+
+    @if (actionContent()) {
+      <div class="page-section-header__actions">
+        <ng-content select="[pageSectionHeaderActions]" />
+      </div>
+    }
+  </div>
+
+  @if (supportingContent()) {
+    <div class="page-section-header__supporting">
+      <ng-content select="[pageSectionHeaderSupporting]" />
+    </div>
+  }
+</header>

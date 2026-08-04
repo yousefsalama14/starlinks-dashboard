@@ -1,0 +1,54 @@
+@if (rendered()) {
+  <div
+    class="side-drawer-layer"
+    [class.side-drawer-layer--opening]="phase() === 'opening'"
+    [class.side-drawer-layer--open]="phase() === 'open'"
+    [class.side-drawer-layer--closing]="phase() === 'closing'"
+    [attr.data-phase]="phase()"
+  >
+    <div class="side-drawer__backdrop" aria-hidden="true" (click)="requestBackdropClose()"></div>
+
+    <section
+      #dialog
+      class="side-drawer side-drawer--inline-end"
+      [class.side-drawer--inset]="inset()"
+      [class.side-drawer--medium]="width() === 'medium'"
+      [class.side-drawer--wide]="width() === 'wide'"
+      [id]="resolvedDrawerId()"
+      role="dialog"
+      aria-modal="true"
+      [attr.aria-labelledby]="titleId()"
+      tabindex="-1"
+    >
+      <header class="side-drawer__header">
+        @if (customHeader()) {
+          <h2 class="side-drawer__accessible-title" [id]="titleId()">
+            {{ title().key | translate: title().params }}
+          </h2>
+          <div class="side-drawer__custom-header">
+            <ng-content select="[sideDrawerHeader]" />
+          </div>
+        } @else {
+          <h2 [id]="titleId()">{{ title().key | translate: title().params }}</h2>
+        }
+        <button
+          type="button"
+          class="side-drawer__close"
+          data-side-drawer-initial-focus
+          [attr.aria-label]="'STARLINKS.DRAWER.CLOSE' | translate"
+          (click)="requestClose()"
+        >
+          <iconsax-icon name="close-circle" type="linear" size="20" aria-hidden="true" />
+        </button>
+      </header>
+
+      <div class="side-drawer__body">
+        <ng-content />
+      </div>
+
+      <footer class="side-drawer__footer">
+        <ng-content select="[sideDrawerFooter]" />
+      </footer>
+    </section>
+  </div>
+}
